@@ -1,1 +1,1 @@
-xero-accounting-reports long description
+Xero Accounting Reports Data Source allows you to retrieve financial and accounting data from Xero’s Reports API. It supports accessing various standard and custom reports, giving you detailed insights into your organization’s performance directly from Xero. By integrating Xero with Keboola, this component enables automated extraction of key financial metrics for analysis, reporting, and downstream processing across your data workflows.

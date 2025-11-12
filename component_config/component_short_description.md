@@ -1,1 +1,1 @@
-xero-accounting-reports short description
+Xero Accounting Reports is a cloud-based connector that allows you to easily extract financial data and insights from Xero’s Reports API. It helps teams automate access to accounting reports, streamline analysis, and integrate financial performance data directly into Keboola.
