@@ -1,0 +1,1 @@
+https://github.com/keboola/component-xero-accounting-reports/blob/master/README.md
