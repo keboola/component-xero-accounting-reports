@@ -1,99 +1,131 @@
-"""
-Template Component main class.
-
-"""
-
 import csv
 import logging
-from datetime import datetime
+from typing import Dict, List, Any
 
 from keboola.component.base import ComponentBase
 from keboola.component.exceptions import UserException
+from keboola.utils import parse_datetime_interval
 
-from configuration import Configuration
+from configuration import Configuration, RowConfiguration
+from xero_client import XeroClient
 
 
 class Component(ComponentBase):
-    """
-    Extends base class for general Python components. Initializes the CommonInterface
-    and performs configuration validation.
-
-    For easier debugging the data folder is picked up by default from `../data` path,
-    relative to working directory.
-
-    If `debug` parameter is present in the `config.json`, the default logger is set to verbose DEBUG mode.
-    """
 
     def __init__(self):
         super().__init__()
 
     def run(self):
-        """
-        Main execution code
-        """
+        Configuration(**self.configuration.parameters)
+        row_config = RowConfiguration(**self.configuration.config_data)
 
-        # ####### EXAMPLE TO REMOVE
-        # check for missing configuration parameters
-        params = Configuration(**self.configuration.parameters)
+        access_token = self._get_access_token()
+        client = XeroClient(access_token)
 
-        # Access parameters in configuration
-        if params.print_hello:
-            logging.info("Hello World")
+        parsed_params = self._parse_date_parameters(row_config.get_all_parameters())
+        report_data = client.get_report(row_config.get_report_name(), parsed_params)
 
-        # get input table definitions
-        input_tables = self.get_input_tables_definitions()
-        for table in input_tables:
-            logging.info(f"Received input table: {table.name} with path: {table.full_path}")
+        self._write_report_to_csv(report_data, row_config.report_type)
 
-        if len(input_tables) == 0:
-            raise UserException("No input tables found")
+    def _get_access_token(self) -> str:
+        try:
+            oauth_data = self.configuration.oauth_credentials
+            credentials = oauth_data.get("credentials", {})
+            data_str = credentials.get("#data", "{}")
 
-        # get last state data/in/state.json from previous run
-        previous_state = self.get_state_file()
-        logging.info(previous_state.get("some_parameter"))
+            import json
+            data = json.loads(data_str)
+            access_token = data.get("access_token")
 
-        # Create output table (Table definition - just metadata)
-        table = self.create_out_table_definition("output.csv", incremental=True, primary_key=["timestamp"])
+            if not access_token:
+                raise UserException("OAuth access token not found")
 
-        # get file path of the table (data/out/tables/Features.csv)
-        out_table_path = table.full_path
-        logging.info(out_table_path)
+            return access_token
+        except Exception as e:
+            raise UserException(f"Failed to retrieve OAuth credentials: {str(e)}")
 
-        # Add timestamp column and save into out_table_path
-        input_table = input_tables[0]
-        with (
-            open(input_table.full_path, "r") as inp_file,
-            open(table.full_path, mode="wt", encoding="utf-8", newline="") as out_file,
-        ):
-            reader = csv.DictReader(inp_file)
+    def _parse_date_parameters(self, params: Dict[str, str]) -> Dict[str, str]:
+        parsed = {}
+        date_fields = ["fromDate", "toDate", "date"]
 
-            columns = list(reader.fieldnames)
-            # append timestamp
-            columns.append("timestamp")
+        for key, value in params.items():
+            if key in date_fields:
+                try:
+                    parsed_date = parse_datetime_interval(value)
+                    parsed[key] = parsed_date.strftime("%Y-%m-%d")
+                except Exception:
+                    parsed[key] = value
+            else:
+                parsed[key] = value
 
-            # write result with column added
-            writer = csv.DictWriter(out_file, fieldnames=columns)
-            writer.writeheader()
-            for in_row in reader:
-                in_row["timestamp"] = datetime.now().isoformat()
-                writer.writerow(in_row)
+        return parsed
 
-        # Save table manifest (output.csv.manifest) from the Table definition
+    def _write_report_to_csv(self, report_data: Dict[str, Any], report_type: str):
+        reports = report_data.get("Reports", [])
+        if not reports:
+            logging.warning("No report data returned from Xero API")
+            return
+
+        report = reports[0]
+        rows = report.get("Rows", [])
+
+        flattened_data = self._flatten_report_rows(rows)
+
+        if not flattened_data:
+            logging.warning("No data rows found in report")
+            return
+
+        output_file = f"{report_type}.csv"
+        table = self.create_out_table_definition(output_file, incremental=False)
+
+        with open(table.full_path, mode="w", encoding="utf-8", newline="") as f:
+            if flattened_data:
+                writer = csv.DictWriter(f, fieldnames=flattened_data[0].keys())
+                writer.writeheader()
+                writer.writerows(flattened_data)
+
         self.write_manifest(table)
+        logging.info(f"Written {len(flattened_data)} rows to {output_file}")
 
-        # Write new state - will be available next run
-        self.write_state_file({"some_state_parameter": "value"})
+    def _flatten_report_rows(self, rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        flattened = []
 
-        # ####### EXAMPLE TO REMOVE END
+        for row in rows:
+            row_type = row.get("RowType")
+
+            if row_type == "Header":
+                continue
+
+            if row_type == "Section":
+                section_rows = row.get("Rows", [])
+                flattened.extend(self._flatten_report_rows(section_rows))
+
+            elif row_type in ["Row", "SummaryRow"]:
+                cells = row.get("Cells", [])
+                row_data = {"RowType": row_type}
+
+                if "Title" in row:
+                    row_data["Title"] = row["Title"]
+
+                for idx, cell in enumerate(cells):
+                    value = cell.get("Value", "")
+                    row_data[f"Column_{idx}"] = value
+
+                    attributes = cell.get("Attributes", [])
+                    for attr in attributes:
+                        attr_id = attr.get("Id", "")
+                        attr_value = attr.get("Value", "")
+                        if attr_id:
+                            row_data[f"Column_{idx}_{attr_id}"] = attr_value
+
+                flattened.append(row_data)
+
+        return flattened
 
 
-"""
-        Main entrypoint
-"""
 if __name__ == "__main__":
     try:
         comp = Component()
-        # this triggers the run method by default and is controlled by the configuration.action parameter
         comp.execute_action()
     except UserException as exc:
         logging.exception(exc)

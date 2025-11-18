@@ -1,1 +1,99 @@
-{}
+{
+  "type": "object",
+  "title": "Xero Report Configuration",
+  "required": ["report_type"],
+  "properties": {
+    "report_type": {
+      "type": "string",
+      "title": "Report Type",
+      "enum": [
+        "TenNinetyNine",
+        "AgedPayablesByContact",
+        "AgedReceivablesByContact",
+        "BalanceSheet",
+        "BankSummary",
+        "BASReport",
+        "BudgetSummary",
+        "ExecutiveSummary",
+        "GSTReport",
+        "ProfitAndLoss",
+        "TrialBalance",
+        "Custom"
+      ],
+      "enumNames": [
+        "1099 Report (US)",
+        "Aged Payables By Contact",
+        "Aged Receivables By Contact",
+        "Balance Sheet",
+        "Bank Summary",
+        "BAS Report (Australia)",
+        "Budget Summary",
+        "Executive Summary",
+        "GST Report (New Zealand)",
+        "Profit and Loss",
+        "Trial Balance",
+        "Custom Report"
+      ],
+      "description": "Select the type of report to extract",
+      "propertyOrder": 1
+    },
+    "custom_report_name": {
+      "type": "string",
+      "title": "Custom Report Name/ID",
+      "description": "For custom reports, specify the report name or endpoint (e.g., 'MyCustomReport')",
+      "propertyOrder": 2
+    },
+    "parameters": {
+      "type": "array",
+      "title": "Report Parameters",
+      "description": "Common parameters for the selected report. Use dynamic dates like 'yesterday', '3 days ago', 'start of month'",
+      "format": "table",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Parameter Name",
+            "enum": [
+              "fromDate",
+              "toDate",
+              "date",
+              "periods",
+              "timeframe",
+              "standardLayout",
+              "paymentsOnly",
+              "contactID",
+              "reportYear",
+              "ReportID"
+            ]
+          },
+          "value": {
+            "type": "string",
+            "title": "Parameter Value"
+          }
+        }
+      },
+      "propertyOrder": 3
+    },
+    "custom_parameters": {
+      "type": "array",
+      "title": "Custom Parameters",
+      "description": "Additional parameters not listed above (e.g., trackingCategoryID, trackingOptionID)",
+      "format": "table",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Parameter Name"
+          },
+          "value": {
+            "type": "string",
+            "title": "Parameter Value"
+          }
+        }
+      },
+      "propertyOrder": 4
+    }
+  }
+}
