@@ -1,1 +1,111 @@
-{}
+{
+  "type": "object",
+  "title": "Report Configuration",
+  "required": ["report_type"],
+  "properties": {
+    "report_type": {
+      "type": "string",
+      "title": "Report Type",
+      "propertyOrder": 10,
+      "enum": [
+        "BalanceSheet",
+        "ProfitAndLoss",
+        "TrialBalance",
+        "BankStatement",
+        "BankSummary",
+        "AgedReceivablesByContact",
+        "AgedPayablesByContact",
+        "ExecutiveSummary",
+        "BudgetSummary",
+        "TenNinetyNine",
+        "GST",
+        "Custom"
+      ],
+      "description": "Select the Xero report to extract. Choose 'Custom' for user-defined reports."
+    },
+    "custom_report_id": {
+      "type": "string",
+      "title": "Custom Report ID",
+      "propertyOrder": 20,
+      "description": "Required if report_type is 'Custom'. The Xero report ID or name from your custom reports."
+    },
+    "predefined_parameters": {
+      "type": "object",
+      "title": "Common Report Parameters",
+      "description": "Standard parameters that work across most reports. Supports dynamic dates like '3 days ago', 'yesterday', 'last month'.",
+      "propertyOrder": 30,
+      "properties": {
+        "fromDate": {
+          "type": "string",
+          "title": "From Date",
+          "description": "Start date. Supports: '3 days ago', 'yesterday', 'YYYY-MM-DD', 'first day of last month', etc.",
+          "format": "date"
+        },
+        "toDate": {
+          "type": "string",
+          "title": "To Date",
+          "description": "End date. Supports: 'today', 'yesterday', 'YYYY-MM-DD', 'last day of last month', etc.",
+          "format": "date"
+        },
+        "date": {
+          "type": "string",
+          "title": "Date",
+          "description": "Single date parameter for reports that use one date (e.g., Balance Sheet as of date)",
+          "format": "date"
+        },
+        "periods": {
+          "type": "integer",
+          "title": "Number of Periods",
+          "description": "Number of periods to include in the report (typically 1-12)"
+        },
+        "timeframe": {
+          "type": "string",
+          "title": "Timeframe",
+          "description": "Standard timeframe for the report",
+          "enum": ["MONTH", "QUARTER", "YEAR"]
+        },
+        "trackingOptionID1": {
+          "type": "string",
+          "title": "Tracking Category Option ID 1",
+          "description": "Filter by tracking category option (first tracking category)"
+        },
+        "trackingOptionID2": {
+          "type": "string",
+          "title": "Tracking Category Option ID 2",
+          "description": "Filter by tracking category option (second tracking category)"
+        },
+        "standardLayout": {
+          "type": "boolean",
+          "title": "Standard Layout",
+          "description": "Use standard report layout (true) or custom layout (false)"
+        },
+        "paymentsOnly": {
+          "type": "boolean",
+          "title": "Payments Only",
+          "description": "Show only payment transactions (for bank reports)"
+        }
+      }
+    },
+    "custom_parameters": {
+      "type": "array",
+      "title": "Additional Custom Parameters",
+      "description": "Add any report-specific parameters as key-value pairs. These will be passed directly to the Xero API.",
+      "propertyOrder": 40,
+      "format": "table",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Parameter Name"
+          },
+          "value": {
+            "type": "string",
+            "title": "Parameter Value"
+          }
+        },
+        "required": ["key", "value"]
+      }
+    }
+  }
+}
