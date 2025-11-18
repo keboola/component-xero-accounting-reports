@@ -37,11 +37,23 @@
       "description": "Select the type of report to extract",
       "propertyOrder": 1
     },
+    "xero_tenant_id": {
+      "type": "string",
+      "title": "Xero Tenant/Organization",
+      "description": "Select a specific Xero organization. Leave empty to fetch reports for ALL connected organizations.",
+      "propertyOrder": 2,
+      "options": {
+        "async": {
+          "action": "get_tenants",
+          "label": "LOAD TENANTS"
+        }
+      }
+    },
     "custom_report_name": {
       "type": "string",
       "title": "Custom Report Name/ID",
       "description": "For custom reports, specify the report name or endpoint (e.g., 'MyCustomReport')",
-      "propertyOrder": 2
+      "propertyOrder": 3
     },
     "parameters": {
       "type": "array",
@@ -68,12 +80,25 @@
             ]
           },
           "value": {
-            "type": "string",
-            "title": "Parameter Value"
+            "title": "Parameter Value",
+            "oneOf": [
+              {
+                "type": "string",
+                "title": "Text/Date Value"
+              },
+              {
+                "type": "boolean",
+                "title": "Boolean Value"
+              },
+              {
+                "type": "integer",
+                "title": "Number Value"
+              }
+            ]
           }
         }
       },
-      "propertyOrder": 3
+      "propertyOrder": 4
     },
     "custom_parameters": {
       "type": "array",
@@ -93,7 +118,7 @@
           }
         }
       },
-      "propertyOrder": 4
+      "propertyOrder": 5
     }
   }
 }
