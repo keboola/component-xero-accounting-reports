@@ -37,11 +37,22 @@
       "description": "Select the type of report to extract",
       "propertyOrder": 1
     },
+    "custom_report_name": {
+      "type": "string",
+      "title": "Custom Report Name/ID",
+      "description": "For custom reports, specify the report name as in URL (e.g., 'MyCustomReport')",
+      "propertyOrder": 2,
+      "options": {
+        "dependencies": {
+          "report_type": "Custom"
+        }
+      }
+    },
     "xero_tenant_id": {
       "type": "string",
       "title": "Xero Tenant/Organization",
       "description": "Select a specific Xero organization. Leave empty to fetch reports for ALL connected organizations.",
-      "propertyOrder": 2,
+      "propertyOrder": 3,
       "options": {
         "async": {
           "action": "get_tenants",
@@ -49,16 +60,10 @@
         }
       }
     },
-    "custom_report_name": {
-      "type": "string",
-      "title": "Custom Report Name/ID",
-      "description": "For custom reports, specify the report name or endpoint (e.g., 'MyCustomReport')",
-      "propertyOrder": 3
-    },
-    "parameters": {
+    "report_parameters": {
       "type": "array",
       "title": "Report Parameters",
-      "description": "Common parameters for the selected report. Use dynamic dates like 'yesterday', '3 days ago', 'start of month'",
+      "description": "Common parameters for the selected report. You can use dynamic dates like 'yesterday', '3 days ago', 'start of month'.",
       "format": "table",
       "items": {
         "type": "object",
@@ -80,21 +85,8 @@
             ]
           },
           "value": {
-            "title": "Parameter Value",
-            "oneOf": [
-              {
-                "type": "string",
-                "title": "Text/Date Value"
-              },
-              {
-                "type": "boolean",
-                "title": "Boolean Value"
-              },
-              {
-                "type": "integer",
-                "title": "Number Value"
-              }
-            ]
+            "type": "string",
+            "title": "Parameter Value"
           }
         }
       },
