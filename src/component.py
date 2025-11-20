@@ -15,33 +15,34 @@ class Component(ComponentBase):
 
     def __init__(self):
         super().__init__()
+        self.config = Configuration(**self.configuration.parameters)
+
+        access_token = self._get_access_token()
+        self.client = XeroClient(access_token)
 
     def run(self):
         # Initialize configuration with all parameters
-        config = Configuration(**self.configuration.parameters)
 
-        access_token = self._get_access_token()
-        client = XeroClient(access_token)
-
-        parsed_params = self._parse_date_parameters(config.get_all_parameters())
+        parsed_params = self._parse_date_parameters(self.config.get_all_parameters())
 
         # Determine which tenants to process
-        if config.xero_tenant_id:
+        if self.config.xero_tenant_id:
             # Single tenant specified
-            tenant_ids = [config.xero_tenant_id]
-            logging.info(f"Processing single tenant: {config.xero_tenant_id}")
+            tenant_ids = [self.config.xero_tenant_id]
+            logging.info(f"Processing single tenant: {self.config.xero_tenant_id}")
         else:
             # Fetch all available tenants
             logging.info("No tenant ID specified, fetching all available tenants")
-            tenants = self._fetch_available_tenants()
+            tenants = self.client.get_tenants()
             tenant_ids = [tenant["tenantId"] for tenant in tenants]
             logging.info(f"Found {len(tenant_ids)} tenants to process")
 
         # Process report for each tenant
         for tenant_id in tenant_ids:
             logging.info(f"Fetching report for tenant: {tenant_id}")
-            report_data = client.get_report(config.get_report_name(), tenant_id, parsed_params)
-            self._write_report_to_csv(report_data, config.report_type, tenant_id)
+            report_name = self.config.get_report_name()
+            report_data = self.client.get_report(report_name, tenant_id, parsed_params)
+            self._write_report_to_csv(report_data, self.config.report_type, tenant_id)
 
     def _get_access_token(self) -> str:
         try:
@@ -90,31 +91,54 @@ class Component(ComponentBase):
         report = reports[0]
         rows = report.get("Rows", [])
 
-        flattened_data = self._flatten_report_rows(rows)
+        # Convert to long format (unpivoted)
+        long_format_data = self._flatten_report_rows_long_format(rows, report_type, tenant_id)
 
-        if not flattened_data:
+        if not long_format_data:
             logging.warning("No data rows found in report")
             return
 
-        # Include tenant_id in filename
+        # Use single output file for all periods (long format)
         output_file = f"{report_type}_{tenant_id}.csv"
         table = self.create_out_table_definition(output_file, incremental=False)
 
-        with open(table.full_path, mode="w", encoding="utf-8", newline="") as f:
-            if flattened_data:
-                # Add tenant_id to each row
-                for row in flattened_data:
-                    row["xero_tenant_id"] = tenant_id
+        # Define consistent column order for long format
+        fieldnames = [
+            "xero_tenant_id",
+            "report_type",
+            "row_type",
+            "row_title",
+            "period_index",
+            "period_label",
+            "value",
+            "account_id",
+        ]
 
-                writer = csv.DictWriter(f, fieldnames=flattened_data[0].keys())
-                writer.writeheader()
-                writer.writerows(flattened_data)
+        with open(table.full_path, mode="w", encoding="utf-8", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")
+            writer.writeheader()
+            writer.writerows(long_format_data)
 
         self.write_manifest(table)
-        logging.info(f"Written {len(flattened_data)} rows to {output_file}")
+        logging.info(f"Written {len(long_format_data)} rows to {output_file}")
 
-    def _flatten_report_rows(self, rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        flattened = []
+    def _flatten_report_rows_long_format(
+        self, rows: List[Dict[str, Any]], report_type: str, tenant_id: str, header_values: List[str] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        Converts Xero report rows into long format (unpivoted).
+        Each cell value becomes a separate row with metadata.
+        """
+        long_format = []
+
+        # Extract header values if not provided
+        if header_values is None:
+            header_values = []
+            for row in rows:
+                if row.get("RowType") == "Header":
+                    cells = row.get("Cells", [])
+                    header_values = [cell.get("Value", "") for cell in cells]
+                    break
 
         for row in rows:
             row_type = row.get("RowType")
@@ -124,29 +148,55 @@ class Component(ComponentBase):
 
             if row_type == "Section":
                 section_rows = row.get("Rows", [])
-                flattened.extend(self._flatten_report_rows(section_rows))
+                long_format.extend(
+                    self._flatten_report_rows_long_format(section_rows, report_type, tenant_id, header_values)
+                )
 
             elif row_type in ["Row", "SummaryRow"]:
                 cells = row.get("Cells", [])
-                row_data = {"RowType": row_type}
+                row_title = row.get("Title", "")
 
-                if "Title" in row:
-                    row_data["Title"] = row["Title"]
+                # First cell often contains the row label/title, not data
+                # Check if first cell has account attribute to determine structure
+                first_cell = cells[0] if cells else {}
+                first_cell_attrs = first_cell.get("Attributes", [])
+                has_account_in_first = any(attr.get("Id") == "account" for attr in first_cell_attrs)
 
-                for idx, cell in enumerate(cells):
+                # If first cell has account attribute, it's the row title
+                if has_account_in_first and cells:
+                    row_title = first_cell.get("Value", row_title)
+                    data_cells = cells[1:]  # Skip first cell, start from index 1
+                    period_offset = 1
+                else:
+                    data_cells = cells
+                    period_offset = 0
+
+                for idx, cell in enumerate(data_cells):
                     value = cell.get("Value", "")
-                    row_data[f"Column_{idx}"] = value
+                    cell_idx = idx + period_offset
 
-                    attributes = cell.get("Attributes", [])
-                    for attr in attributes:
-                        attr_id = attr.get("Id", "")
-                        attr_value = attr.get("Value", "")
-                        if attr_id:
-                            row_data[f"Column_{idx}_{attr_id}"] = attr_value
+                    # Create a row for each cell value
+                    long_row = {
+                        "xero_tenant_id": tenant_id,
+                        "report_type": report_type,
+                        "row_type": row_type,
+                        "row_title": row_title,
+                        "period_index": idx,
+                        "period_label": header_values[cell_idx] if cell_idx < len(header_values) else "",
+                        "value": value,
+                        "account_id": "",
+                    }
 
-                flattened.append(row_data)
+                    # Extract account ID from first cell if it was the title
+                    if has_account_in_first and cells:
+                        for attr in first_cell_attrs:
+                            if attr.get("Id") == "account":
+                                long_row["account_id"] = attr.get("Value", "")
+                                break
 
-        return flattened
+                    long_format.append(long_row)
+
+        return long_format
 
     def _fetch_available_tenants(self):
         """
@@ -160,7 +210,7 @@ class Component(ComponentBase):
     @sync_action("get_tenants")
     def get_tenants(self):
         """Sync action to fetch available Xero tenants for UI dropdown."""
-        tenants = self._fetch_available_tenants()
+        tenants = self.client.get_tenants()
         logging.info(f"Found {len(tenants)} Xero tenants")
         return [SelectElement(t["tenantId"], f"{t['tenantName']} ({t['tenantType']})") for t in tenants]
 
