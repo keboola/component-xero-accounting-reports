@@ -1,0 +1,42 @@
+{
+  "storage": {
+    "input": {
+      "files": [],
+      "tables": []
+    },
+    "output": {
+      "tables": [],
+      "files": []
+    }
+  },
+  "parameters": {
+    "debug": true,
+    "report_type": "ProfitAndLoss",
+    "predefined_parameters": {
+      "fromDate": "1 month ago",
+      "toDate": "today",
+      "timeframe": "MONTH",
+      "periods": "3"
+    },
+    "custom_parameters": []
+  },
+  "action": "run",
+  "authorization": {
+    "oauth_api": {
+      "credentials": {
+        "id": "test123",
+        "authorizedFor": "test@example.com",
+        "creator": {
+          "description": "test@example.com",
+          "id": "123"
+        },
+        "created": "2023-01-01T00:00:00.000Z",
+        "#data": "{\"access_token\": \"test_access_token_123\", \"refresh_token\": \"test_refresh_token_123\"}",
+        "oauthVersion": "2.0",
+        "appKey": "TEST_APP_KEY",
+        "#appSecret": "TEST_APP_SECRET",
+        "isCustom": false
+      }
+    }
+  }
+}

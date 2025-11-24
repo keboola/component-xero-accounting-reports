@@ -1,7 +1,7 @@
 import csv
 import json
 import logging
-from typing import Dict, List, Any
+from typing import Any, Dict, List
 
 from keboola.component.base import ComponentBase, sync_action
 from keboola.component.exceptions import UserException

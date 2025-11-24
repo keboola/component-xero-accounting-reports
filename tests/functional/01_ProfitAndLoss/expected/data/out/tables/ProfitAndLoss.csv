@@ -1,0 +1,29 @@
+xero_tenant_id,row_id,row_type,column_index,column_name,value,others
+test-tenant-abc-123,0,Row,0,,Sales Revenue,"{""account"": ""200""}"
+test-tenant-abc-123,0,Row,1,January 2023,10000.00,"{""account"": ""200""}"
+test-tenant-abc-123,0,Row,2,February 2023,12000.00,"{""account"": ""200""}"
+test-tenant-abc-123,0,Row,3,March 2023,15000.00,"{""account"": ""200""}"
+test-tenant-abc-123,1,Row,0,,Other Income,"{""account"": ""260""}"
+test-tenant-abc-123,1,Row,1,January 2023,500.00,"{""account"": ""260""}"
+test-tenant-abc-123,1,Row,2,February 2023,750.00,"{""account"": ""260""}"
+test-tenant-abc-123,1,Row,3,March 2023,600.00,"{""account"": ""260""}"
+test-tenant-abc-123,2,SummaryRow,0,,Total Income,
+test-tenant-abc-123,2,SummaryRow,1,January 2023,10500.00,
+test-tenant-abc-123,2,SummaryRow,2,February 2023,12750.00,
+test-tenant-abc-123,2,SummaryRow,3,March 2023,15600.00,
+test-tenant-abc-123,3,Row,0,,Advertising,"{""account"": ""400""}"
+test-tenant-abc-123,3,Row,1,January 2023,1000.00,"{""account"": ""400""}"
+test-tenant-abc-123,3,Row,2,February 2023,1200.00,"{""account"": ""400""}"
+test-tenant-abc-123,3,Row,3,March 2023,1100.00,"{""account"": ""400""}"
+test-tenant-abc-123,4,Row,0,,Office Supplies,"{""account"": ""420""}"
+test-tenant-abc-123,4,Row,1,January 2023,200.00,"{""account"": ""420""}"
+test-tenant-abc-123,4,Row,2,February 2023,250.00,"{""account"": ""420""}"
+test-tenant-abc-123,4,Row,3,March 2023,300.00,"{""account"": ""420""}"
+test-tenant-abc-123,5,SummaryRow,0,,Total Operating Expenses,
+test-tenant-abc-123,5,SummaryRow,1,January 2023,1200.00,
+test-tenant-abc-123,5,SummaryRow,2,February 2023,1450.00,
+test-tenant-abc-123,5,SummaryRow,3,March 2023,1400.00,
+test-tenant-abc-123,6,SummaryRow,0,,Net Profit,
+test-tenant-abc-123,6,SummaryRow,1,January 2023,9300.00,
+test-tenant-abc-123,6,SummaryRow,2,February 2023,11300.00,
+test-tenant-abc-123,6,SummaryRow,3,March 2023,14200.00,

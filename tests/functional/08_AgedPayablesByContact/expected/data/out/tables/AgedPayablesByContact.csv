@@ -1,0 +1,25 @@
+xero_tenant_id,row_id,row_type,column_index,column_name,value,others
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,0,Date,2025-09-27T00:00:00,"{""invoiceID"": ""84f7c2d0-8383-46ed-bf45-17e00665ceab""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,1,Reference,SM0195,"{""invoiceID"": ""84f7c2d0-8383-46ed-bf45-17e00665ceab""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,2,Due Date,2025-10-08T00:00:00,"{""invoiceID"": ""84f7c2d0-8383-46ed-bf45-17e00665ceab""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,3,,47 days overdue,"{""invoiceID"": ""84f7c2d0-8383-46ed-bf45-17e00665ceab""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,4,Total,2000.00,"{""invoiceID"": ""84f7c2d0-8383-46ed-bf45-17e00665ceab""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,5,Paid,0.00,"{""invoiceID"": ""84f7c2d0-8383-46ed-bf45-17e00665ceab""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,6,Credited,0.00,"{""invoiceID"": ""84f7c2d0-8383-46ed-bf45-17e00665ceab""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,7,Due,2000.00,"{""invoiceID"": ""84f7c2d0-8383-46ed-bf45-17e00665ceab""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,0,Date,2025-11-07T00:00:00,"{""invoiceID"": ""628fc0b0-e65c-47ef-a3e2-99632a1136e7""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,1,Reference,SM0210,"{""invoiceID"": ""628fc0b0-e65c-47ef-a3e2-99632a1136e7""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,2,Due Date,2025-11-17T00:00:00,"{""invoiceID"": ""628fc0b0-e65c-47ef-a3e2-99632a1136e7""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,3,,7 days overdue,"{""invoiceID"": ""628fc0b0-e65c-47ef-a3e2-99632a1136e7""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,4,Total,2500.00,"{""invoiceID"": ""628fc0b0-e65c-47ef-a3e2-99632a1136e7""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,5,Paid,0.00,"{""invoiceID"": ""628fc0b0-e65c-47ef-a3e2-99632a1136e7""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,6,Credited,0.00,"{""invoiceID"": ""628fc0b0-e65c-47ef-a3e2-99632a1136e7""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,7,Due,2500.00,"{""invoiceID"": ""628fc0b0-e65c-47ef-a3e2-99632a1136e7""}"
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,0,Date,Total,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,1,Reference,,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,2,Due Date,,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,3,,,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,4,Total,4500.00,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,5,Paid,0.00,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,6,Credited,0.00,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,7,Due,4500.00,

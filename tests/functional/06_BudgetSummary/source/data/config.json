@@ -1,0 +1,41 @@
+{
+  "storage": {
+    "input": {
+      "files": [],
+      "tables": []
+    },
+    "output": {
+      "tables": [],
+      "files": []
+    }
+  },
+  "parameters": {
+    "debug": true,
+    "report_type": "BudgetSummary",
+    "predefined_parameters": {
+      "date": "3 months ago",
+      "periods": 3,
+      "timeframe": "MONTH"
+    },
+    "custom_parameters": []
+  },
+  "action": "run",
+  "authorization": {
+    "oauth_api": {
+      "credentials": {
+        "id": "1189628188",
+        "authorizedFor": "data_ca@keboolads.onmicrosoft.com",
+        "creator": {
+          "description": "zdenek.srotyr@keboola.com",
+          "id": "1125710"
+        },
+        "created": "2024-10-11T20:18:36.243Z",
+        "#data": "{\n  \"access_token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFDQUY4RTY2NzcyRDZEQzAyOEQ2NzI2RkQwMjYxNTgxNTcwRUZDMTkiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJISy1PWm5jdGJjQW8xbkp2MENZVmdWY09fQmsifQ.eyJuYmYiOjE3NjM2NDU4MDUsImV4cCI6MTc2MzY0NzYwNSwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS54ZXJvLmNvbSIsImF1ZCI6Imh0dHBzOi8vaWRlbnRpdHkueGVyby5jb20vcmVzb3VyY2VzIiwiY2xpZW50X2lkIjoiNjc5QjYyQkJFOUFCNEVBMThEN0FDMDE0MjBDODUxRjUiLCJzdWIiOiJkZTJkZjI0Y2IwNmU1ZDk0YTBhNmE5OGI3N2VlOWI1NiIsImF1dGhfdGltZSI6MTc2MzQ3MTk4MCwieGVyb191c2VyaWQiOiIxODQ5MzhjZS0yYTJjLTRmYzctYjgwOS0xNDA0ZDQ5NDM1ZDQiLCJnbG9iYWxfc2Vzc2lvbl9pZCI6IjFjYTk3NDAzZWE5YzQxYzZiNmVhNGM4OWVlNzNhZDAxIiwic2lkIjoiMWNhOTc0MDNlYTljNDFjNmI2ZWE0Yzg5ZWU3M2FkMDEiLCJhdXRoZW50aWNhdGlvbl9ldmVudF9pZCI6ImFjM2I1OThmLWFhODktNDMyNS1hZmNkLWZjOTcwZGE3ZmM1YiIsImp0aSI6IjQwMzc2NzE2ODM4OTNENjFGNzEyMTRFQUFDNjE3RDgwIiwic2NvcGUiOlsiZW1haWwiLCJwcm9maWxlIiwib3BlbmlkIiwiYWNjb3VudGluZy5jb250YWN0cy5yZWFkIiwiYWNjb3VudGluZy5zZXR0aW5ncy5yZWFkIiwiYWNjb3VudGluZy5yZXBvcnRzLnJlYWQiLCJhY2NvdW50aW5nLmF0dGFjaG1lbnRzLnJlYWQiLCJwYXlyb2xsLnNldHRpbmdzLnJlYWQiLCJwYXlyb2xsLmVtcGxveWVlcy5yZWFkIiwicGF5cm9sbC5wYXlydW5zLnJlYWQiLCJwYXlyb2xsLnBheXNsaXAucmVhZCIsInBheXJvbGwudGltZXNoZWV0cy5yZWFkIiwicHJvamVjdHMucmVhZCIsImZpbGVzLnJlYWQiLCJhY2NvdW50aW5nLmpvdXJuYWxzLnJlYWQiLCJhc3NldHMucmVhZCIsImFjY291bnRpbmcudHJhbnNhY3Rpb25zLnJlYWQiLCJhY2NvdW50aW5nLmJ1ZGdldHMucmVhZCIsImFjY291bnRpbmcucmVwb3J0cy50ZW5uaW5ldHluaW5lLnJlYWQiLCJvZmZsaW5lX2FjY2VzcyJdLCJhbXIiOlsibGVnYWN5Il19.tP7rAIHHZlp-fPS1MlbJGpKF3uP3THwucSTKR3-rRyvxb6Mhr_HGQFq0nljRjB2yH_jQgG6UNOoWIvPoJ8weckeJzs2PwU0UDOBaB41ZiVoFWbLKO7fPa1Zok6fW5OpPWhVp_ly1LD7PjHb5hNdP29b5J1aGQhyYfMM3okXBMB51lopMNNNt5XCFPMT0JsgUYR0hT-yof0xSj1yKsWXEm-_N_FbIhnqEb7Val8Rg1e5W0F_ejeuPc--0ZBGnnvZkDx-Z_8OUG2we63PSihSwgCWFiWKurlaEbqpItZ5a4enY-VXYg4HNUSD73t0Z4M6grc7PrzsZiHHdv8nEa-um4w\"\n, \"refresh_token\": \"test_refresh_token_123\"\n}",
+        "oauthVersion": "2.0",
+        "appKey": "TEST_APP_KEY",
+        "#appSecret": "TEST_APP_SECRET",
+        "isCustom": false
+      }
+    }
+  }
+}

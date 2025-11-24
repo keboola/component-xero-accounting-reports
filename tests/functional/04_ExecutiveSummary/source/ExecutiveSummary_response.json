@@ -1,0 +1,467 @@
+{
+  "Id": "da122e06-2ff0-426d-9ef2-9ffec5f8d1be",
+  "Status": "OK",
+  "ProviderName": "KDS - ex-reports",
+  "DateTimeUTC": "/Date(1763989297838)/",
+  "Reports": [
+    {
+      "ReportID": "ExecutiveSummary",
+      "ReportName": "Executive Summary",
+      "ReportType": "ExecutiveSummary",
+      "ReportTitles": [
+        "Executive Summary",
+        "Demo Company (Global)",
+        "For the month of November 2025"
+      ],
+      "ReportDate": "24 November 2025",
+      "UpdatedDateUTC": "/Date(1763989297838)/",
+      "Fields": [],
+      "Rows": [
+        {
+          "RowType": "Header",
+          "Cells": [
+            {
+              "Value": ""
+            },
+            {
+              "Value": "Nov 2025"
+            },
+            {
+              "Value": "Oct 2025"
+            },
+            {
+              "Value": "Variance"
+            }
+          ]
+        },
+        {
+          "RowType": "Section",
+          "Title": "Cash",
+          "Rows": [
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Cash received"
+                },
+                {
+                  "Value": "0.00"
+                },
+                {
+                  "Value": "12220.29"
+                },
+                {
+                  "Value": "-100.0%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Cash spent"
+                },
+                {
+                  "Value": "1592.60"
+                },
+                {
+                  "Value": "13068.95"
+                },
+                {
+                  "Value": "-87.8%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Cash surplus (deficit)"
+                },
+                {
+                  "Value": "-1592.60"
+                },
+                {
+                  "Value": "-848.66"
+                },
+                {
+                  "Value": "-87.7%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Closing bank balance"
+                },
+                {
+                  "Value": "1760.54"
+                },
+                {
+                  "Value": "3353.14"
+                },
+                {
+                  "Value": "-47.5%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "RowType": "Section",
+          "Title": "Profitability",
+          "Rows": [
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Income"
+                },
+                {
+                  "Value": "2067.60"
+                },
+                {
+                  "Value": "10210.89"
+                },
+                {
+                  "Value": "-79.8%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Direct costs"
+                },
+                {
+                  "Value": "775.98"
+                },
+                {
+                  "Value": "0.00"
+                },
+                {
+                  "Value": "0.0%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Gross profit (loss)"
+                },
+                {
+                  "Value": "1291.62"
+                },
+                {
+                  "Value": "10210.89"
+                },
+                {
+                  "Value": "-87.4%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Other Income"
+                },
+                {
+                  "Value": "0.00"
+                },
+                {
+                  "Value": "0.00"
+                },
+                {
+                  "Value": "0.0%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Expenses"
+                },
+                {
+                  "Value": "4516.27"
+                },
+                {
+                  "Value": "8690.30"
+                },
+                {
+                  "Value": "-48.0%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Profit (loss)"
+                },
+                {
+                  "Value": "-3224.65"
+                },
+                {
+                  "Value": "1520.59"
+                },
+                {
+                  "Value": "-312.1%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "RowType": "Section",
+          "Title": "Balance Sheet",
+          "Rows": [
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Debtors"
+                },
+                {
+                  "Value": "9194.51"
+                },
+                {
+                  "Value": "6946.33"
+                },
+                {
+                  "Value": "32.4%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Creditors"
+                },
+                {
+                  "Value": "8405.66"
+                },
+                {
+                  "Value": "2242.00"
+                },
+                {
+                  "Value": "274.9%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Net assets"
+                },
+                {
+                  "Value": "3010.78"
+                },
+                {
+                  "Value": "6235.43"
+                },
+                {
+                  "Value": "-51.7%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "RowType": "Section",
+          "Title": "Income",
+          "Rows": [
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Number of invoices issued"
+                },
+                {
+                  "Value": "4"
+                },
+                {
+                  "Value": "11"
+                },
+                {
+                  "Value": "-63.6%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Average value of invoices"
+                },
+                {
+                  "Value": "519.40"
+                },
+                {
+                  "Value": "928.26"
+                },
+                {
+                  "Value": "-44.0%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "RowType": "Section",
+          "Title": "Performance",
+          "Rows": [
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Gross profit margin"
+                },
+                {
+                  "Value": "62.5%"
+                },
+                {
+                  "Value": "100.0%"
+                },
+                {
+                  "Value": "-37.5%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Net profit margin"
+                },
+                {
+                  "Value": "-156.0%"
+                },
+                {
+                  "Value": "14.9%"
+                },
+                {
+                  "Value": "-1147.3%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Return on investment (p.a.)"
+                },
+                {
+                  "Value": "-1285.2%"
+                },
+                {
+                  "Value": "292.6%"
+                },
+                {
+                  "Value": "-539.2%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "RowType": "Section",
+          "Title": "Position",
+          "Rows": [
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Average debtors days"
+                },
+                {
+                  "Value": "133.40844457341845618107951248"
+                },
+                {
+                  "Value": "21.088879617741450549364453050"
+                },
+                {
+                  "Value": "532.6%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Average creditors days"
+                },
+                {
+                  "Value": "47.648882800321224431952383202"
+                },
+                {
+                  "Value": "7.997652555147693405290956583"
+                },
+                {
+                  "Value": "495.8%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Short term cash forecast"
+                },
+                {
+                  "Value": "788.85"
+                },
+                {
+                  "Value": "4704.33"
+                },
+                {
+                  "Value": "-83.2%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Current assets to liabilities"
+                },
+                {
+                  "Value": "0.8665221810473361782235387639"
+                },
+                {
+                  "Value": "1.5163382815617026852346691047"
+                },
+                {
+                  "Value": "-42.9%"
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Term assets to liabilities"
+                },
+                {
+                  "Value": ""
+                },
+                {
+                  "Value": ""
+                },
+                {
+                  "Value": "0.0%"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,5 @@
-from typing import List, Dict, Optional, Union, Literal
+from typing import Dict, List, Literal, Optional, Union
+
 from keboola.component.exceptions import UserException
 from pydantic import BaseModel, Field, ValidationError, model_validator
 

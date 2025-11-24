@@ -1,0 +1,13 @@
+xero_tenant_id,row_id,row_type,column_index,column_name,value,others
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,SummaryRow,0,Account,Gross Profit,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,SummaryRow,1,Aug-25,0.00,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,SummaryRow,2,Sep-25,0.00,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,SummaryRow,3,Oct-25,0.00,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,0,Account,Total Expenses,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,1,Aug-25,0.00,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,2,Sep-25,0.00,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,3,Oct-25,0.00,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,0,Account,Net Profit,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,1,Aug-25,0.00,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,2,Sep-25,0.00,
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,SummaryRow,3,Oct-25,0.00,

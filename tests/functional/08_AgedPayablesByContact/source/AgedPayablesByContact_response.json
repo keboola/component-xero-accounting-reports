@@ -1,0 +1,242 @@
+{
+  "Id": "e90a7c0b-ed9a-478e-bbf1-827441896eef",
+  "Status": "OK",
+  "ProviderName": "KDS - ex-reports",
+  "DateTimeUTC": "/Date(1763989223584)/",
+  "Reports": [
+    {
+      "ReportID": "AgedPayablesByContact",
+      "ReportName": "Aged Payables By Contact",
+      "ReportType": "AgedPayablesByContact",
+      "ReportTitles": [
+        "Invoices",
+        "SMART Agency",
+        "To 30 November 2025",
+        "Showing payments to 24 November 2025"
+      ],
+      "ReportDate": "24 November 2025",
+      "UpdatedDateUTC": "/Date(1763989223584)/",
+      "Fields": [],
+      "Rows": [
+        {
+          "RowType": "Header",
+          "Cells": [
+            {
+              "Value": "Date"
+            },
+            {
+              "Value": "Reference"
+            },
+            {
+              "Value": "Due Date"
+            },
+            {
+              "Value": ""
+            },
+            {
+              "Value": "Total"
+            },
+            {
+              "Value": "Paid"
+            },
+            {
+              "Value": "Credited"
+            },
+            {
+              "Value": "Due"
+            }
+          ]
+        },
+        {
+          "RowType": "Section",
+          "Title": "",
+          "Rows": [
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "2025-09-27T00:00:00",
+                  "Attributes": [
+                    {
+                      "Value": "84f7c2d0-8383-46ed-bf45-17e00665ceab",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "SM0195",
+                  "Attributes": [
+                    {
+                      "Value": "84f7c2d0-8383-46ed-bf45-17e00665ceab",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "2025-10-08T00:00:00",
+                  "Attributes": [
+                    {
+                      "Value": "84f7c2d0-8383-46ed-bf45-17e00665ceab",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "47 days overdue",
+                  "Attributes": [
+                    {
+                      "Value": "84f7c2d0-8383-46ed-bf45-17e00665ceab",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "2000.00",
+                  "Attributes": [
+                    {
+                      "Value": "84f7c2d0-8383-46ed-bf45-17e00665ceab",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "0.00",
+                  "Attributes": [
+                    {
+                      "Value": "84f7c2d0-8383-46ed-bf45-17e00665ceab",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "0.00",
+                  "Attributes": [
+                    {
+                      "Value": "84f7c2d0-8383-46ed-bf45-17e00665ceab",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "2000.00",
+                  "Attributes": [
+                    {
+                      "Value": "84f7c2d0-8383-46ed-bf45-17e00665ceab",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "2025-11-07T00:00:00",
+                  "Attributes": [
+                    {
+                      "Value": "628fc0b0-e65c-47ef-a3e2-99632a1136e7",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "SM0210",
+                  "Attributes": [
+                    {
+                      "Value": "628fc0b0-e65c-47ef-a3e2-99632a1136e7",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "2025-11-17T00:00:00",
+                  "Attributes": [
+                    {
+                      "Value": "628fc0b0-e65c-47ef-a3e2-99632a1136e7",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "7 days overdue",
+                  "Attributes": [
+                    {
+                      "Value": "628fc0b0-e65c-47ef-a3e2-99632a1136e7",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "2500.00",
+                  "Attributes": [
+                    {
+                      "Value": "628fc0b0-e65c-47ef-a3e2-99632a1136e7",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "0.00",
+                  "Attributes": [
+                    {
+                      "Value": "628fc0b0-e65c-47ef-a3e2-99632a1136e7",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "0.00",
+                  "Attributes": [
+                    {
+                      "Value": "628fc0b0-e65c-47ef-a3e2-99632a1136e7",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "2500.00",
+                  "Attributes": [
+                    {
+                      "Value": "628fc0b0-e65c-47ef-a3e2-99632a1136e7",
+                      "Id": "invoiceID"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "RowType": "SummaryRow",
+              "Cells": [
+                {
+                  "Value": "Total"
+                },
+                {
+                  "Value": ""
+                },
+                {
+                  "Value": ""
+                },
+                {
+                  "Value": ""
+                },
+                {
+                  "Value": "4500.00"
+                },
+                {
+                  "Value": "0.00"
+                },
+                {
+                  "Value": "0.00"
+                },
+                {
+                  "Value": "4500.00"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
