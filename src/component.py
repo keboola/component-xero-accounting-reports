@@ -1,4 +1,5 @@
 import csv
+import json
 import logging
 from typing import Dict, List, Any
 
@@ -37,12 +38,18 @@ class Component(ComponentBase):
             tenant_ids = [tenant["tenantId"] for tenant in tenants]
             logging.info(f"Found {len(tenant_ids)} tenants to process")
 
-        # Process report for each tenant
+        # Collect all data from all tenants
+        all_data = []
         for tenant_id in tenant_ids:
             logging.info(f"Fetching report for tenant: {tenant_id}")
             report_name = self.config.get_report_name()
             report_data = self.client.get_report(report_name, tenant_id, parsed_params)
-            self._write_report_to_csv(report_data, self.config.report_type, tenant_id)
+            tenant_data = self._process_report_data(report_data, self.config.report_type, tenant_id)
+            all_data.extend(tenant_data)
+
+        # Write all data to a single CSV
+        if all_data:
+            self._write_data_to_csv(all_data, self.config.report_type)
 
     def _get_access_token(self) -> str:
         try:
@@ -77,16 +84,27 @@ class Component(ComponentBase):
                 except Exception as e:
                     logging.warning(f"Failed to parse date parameter {key}='{value}': {e}. Using as-is.")
                     parsed[key] = value
+            elif key == "timeframe" and self.config.report_type == "BudgetSummary":
+                # BudgetSummary requires timeframe as integer: MONTH=1, QUARTER=3, YEAR=12
+                timeframe_map = {"MONTH": 1, "QUARTER": 3, "YEAR": 12}
+                if value in timeframe_map:
+                    parsed[key] = timeframe_map[value]
+                    logging.info(f"Converted timeframe for BudgetSummary: '{value}' -> {parsed[key]}")
+                else:
+                    parsed[key] = value
             else:
                 parsed[key] = value
 
         return parsed
 
-    def _write_report_to_csv(self, report_data: Dict[str, Any], report_type: str, tenant_id: str):
+    def _process_report_data(
+        self, report_data: Dict[str, Any], report_type: str, tenant_id: str
+    ) -> List[Dict[str, Any]]:
+        """Process report data and return flattened rows without writing to file."""
         reports = report_data.get("Reports", [])
         if not reports:
-            logging.warning("No report data returned from Xero API")
-            return
+            logging.warning(f"No report data returned from Xero API for tenant {tenant_id}")
+            return []
 
         report = reports[0]
         rows = report.get("Rows", [])
@@ -95,41 +113,62 @@ class Component(ComponentBase):
         long_format_data = self._flatten_report_rows_long_format(rows, report_type, tenant_id)
 
         if not long_format_data:
-            logging.warning("No data rows found in report")
-            return
+            logging.warning(f"No data rows found in report for tenant {tenant_id}")
+            return []
 
-        # Use single output file for all periods (long format)
-        output_file = f"{report_type}_{tenant_id}.csv"
+        logging.info(f"Processed {len(long_format_data)} rows for tenant {tenant_id}")
+        return long_format_data
+
+    def _write_data_to_csv(self, data: List[Dict[str, Any]], report_type: str):
+        """Write all collected data to a single CSV file."""
+        # Use single output file for all tenants
+        output_file = f"{report_type}.csv"
         table = self.create_out_table_definition(output_file, incremental=False)
 
         # Define consistent column order for long format
         fieldnames = [
             "xero_tenant_id",
-            "report_type",
+            "row_id",
             "row_type",
-            "row_title",
-            "period_index",
-            "period_label",
+            "column_index",
+            "column_name",
             "value",
-            "account_id",
+            "others",
         ]
+
+        # Convert others dict to JSON string for consistent schema
+        output_data = []
+        for row in data:
+            output_row = {k: v for k, v in row.items() if k != "others"}
+            # Serialize others as JSON string
+            output_row["others"] = json.dumps(row.get("others", {})) if row.get("others") else ""
+            output_data.append(output_row)
 
         with open(table.full_path, mode="w", encoding="utf-8", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")
             writer.writeheader()
-            writer.writerows(long_format_data)
+            writer.writerows(output_data)
 
         self.write_manifest(table)
-        logging.info(f"Written {len(long_format_data)} rows to {output_file}")
+        logging.info(f"Written {len(data)} total rows to {output_file}")
 
     def _flatten_report_rows_long_format(
-        self, rows: List[Dict[str, Any]], report_type: str, tenant_id: str, header_values: List[str] = None
+        self,
+        rows: List[Dict[str, Any]],
+        report_type: str,
+        tenant_id: str,
+        header_values: List[str] = None,
+        row_id_counter: List[int] = None,
     ) -> List[Dict[str, Any]]:
         """
         Converts Xero report rows into long format (unpivoted).
         Each cell value becomes a separate row with metadata.
         """
         long_format = []
+
+        # Initialize row counter if not provided (using list to maintain reference across recursion)
+        if row_id_counter is None:
+            row_id_counter = [0]
 
         # Extract header values if not provided
         if header_values is None:
@@ -149,50 +188,44 @@ class Component(ComponentBase):
             if row_type == "Section":
                 section_rows = row.get("Rows", [])
                 long_format.extend(
-                    self._flatten_report_rows_long_format(section_rows, report_type, tenant_id, header_values)
+                    self._flatten_report_rows_long_format(
+                        section_rows, report_type, tenant_id, header_values, row_id_counter
+                    )
                 )
 
             elif row_type in ["Row", "SummaryRow"]:
+                # Increment row counter for this data row
+                current_row_id = row_id_counter[0]
+                row_id_counter[0] += 1
+
                 cells = row.get("Cells", [])
-                row_title = row.get("Title", "")
 
-                # First cell often contains the row label/title, not data
-                # Check if first cell has account attribute to determine structure
-                first_cell = cells[0] if cells else {}
-                first_cell_attrs = first_cell.get("Attributes", [])
-                has_account_in_first = any(attr.get("Id") == "account" for attr in first_cell_attrs)
+                # Collect all other info from the row (excluding RowType and Cells)
+                others = {k: v for k, v in row.items() if k not in ["RowType", "Cells"]}
 
-                # If first cell has account attribute, it's the row title
-                if has_account_in_first and cells:
-                    row_title = first_cell.get("Value", row_title)
-                    data_cells = cells[1:]  # Skip first cell, start from index 1
-                    period_offset = 1
-                else:
-                    data_cells = cells
-                    period_offset = 0
-
-                for idx, cell in enumerate(data_cells):
+                # Process all cells equally - no special treatment
+                for idx, cell in enumerate(cells):
                     value = cell.get("Value", "")
-                    cell_idx = idx + period_offset
+
+                    # Extract any attributes from the cell
+                    cell_attrs = cell.get("Attributes", [])
+                    cell_attributes = {}
+                    for attr in cell_attrs:
+                        attr_id = attr.get("Id", "")
+                        attr_value = attr.get("Value", "")
+                        if attr_id and attr_value:
+                            cell_attributes[attr_id] = attr_value
 
                     # Create a row for each cell value
                     long_row = {
                         "xero_tenant_id": tenant_id,
-                        "report_type": report_type,
+                        "row_id": current_row_id,
                         "row_type": row_type,
-                        "row_title": row_title,
-                        "period_index": idx,
-                        "period_label": header_values[cell_idx] if cell_idx < len(header_values) else "",
+                        "column_index": idx,
+                        "column_name": header_values[idx] if idx < len(header_values) else "",
                         "value": value,
-                        "account_id": "",
+                        "others": {**others, **cell_attributes},
                     }
-
-                    # Extract account ID from first cell if it was the title
-                    if has_account_in_first and cells:
-                        for attr in first_cell_attrs:
-                            if attr.get("Id") == "account":
-                                long_row["account_id"] = attr.get("Value", "")
-                                break
 
                     long_format.append(long_row)
 
