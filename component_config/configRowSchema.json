@@ -17,8 +17,7 @@
         "ExecutiveSummary",
         "GSTReport",
         "ProfitAndLoss",
-        "TrialBalance",
-        "Custom"
+        "TrialBalance"
       ],
       "enumNames": [
         "1099 Report (US)",
@@ -31,22 +30,10 @@
         "Executive Summary",
         "GST Report (New Zealand)",
         "Profit and Loss",
-        "Trial Balance",
-        "Custom Report"
+        "Trial Balance"
       ],
       "description": "Select the type of report to extract",
       "propertyOrder": 1
-    },
-    "custom_report_name": {
-      "type": "string",
-      "title": "Custom Report Name/ID",
-      "description": "For custom reports, specify the report name as in URL (e.g., 'MyCustomReport')",
-      "propertyOrder": 2,
-      "options": {
-        "dependencies": {
-          "report_type": "Custom"
-        }
-      }
     },
     "xero_tenant_id": {
       "type": "string",
@@ -63,7 +50,7 @@
     "report_parameters": {
       "type": "array",
       "title": "Report Parameters",
-      "description": "Common parameters for the selected report. You can use dynamic dates like 'yesterday', '3 days ago', 'start of month'.",
+      "description": "Common parameters for the selected report. You can use static and dynamic dates like 'yesterday', '3 months ago'.",
       "format": "table",
       "items": {
         "type": "object",
