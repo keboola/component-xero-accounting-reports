@@ -31,12 +31,30 @@ class Component(ComponentBase):
         super().__init__()
         self.config = Configuration(**self.configuration.parameters)
 
-        access_token = self._get_access_token()
+        # Get OAuth access token
+        try:
+            oauth_creds = self.configuration.oauth_credentials
+            access_token = oauth_creds.data.get("access_token")
+            if not access_token:
+                raise UserException("OAuth access token not found in credentials")
+        except Exception as e:
+            raise UserException(f"Failed to retrieve OAuth credentials: {str(e)}")
+
         self.client = XeroClient(access_token)
 
     def run(self):
         """Main execution method - fetch and process Xero reports."""
-        parsed_params = self._parse_date_parameters(self.config.get_all_parameters())
+        # Convert parameters to dict for API calls
+        params = {}
+        for param in self.config.parameters:
+            if isinstance(param.value, bool):
+                params[param.key] = "true" if param.value else "false"
+            elif isinstance(param.value, int):
+                params[param.key] = str(param.value)
+            else:
+                params[param.key] = param.value
+
+        parsed_params = self._parse_date_parameters(params)
 
         tenant_ids = (
             [self.config.xero_tenant_id]
@@ -45,7 +63,9 @@ class Component(ComponentBase):
         )
         logging.info(f"Processing {len(tenant_ids)} tenant(s)")
 
-        report_name = self.config.get_report_name()
+        # Get report name
+        report_name = self.config.custom_report_id if self.config.report_type == "Custom" else self.config.report_type
+
         all_data = []
         for tenant_id in tenant_ids:
             logging.debug(f"Fetching report for tenant: {tenant_id}")
@@ -228,26 +248,6 @@ class Component(ComponentBase):
                 parsed[key] = value
 
         return parsed
-
-    def _get_access_token(self) -> str:
-        """Extract OAuth access token from component configuration.
-
-        Returns:
-            OAuth access token for Xero API authentication
-
-        Raises:
-            UserException: If access token is missing or invalid
-        """
-        try:
-            oauth_creds = self.configuration.oauth_credentials
-            access_token = oauth_creds.data.get("access_token")
-
-            if not access_token:
-                raise UserException("OAuth access token not found in credentials")
-
-            return access_token
-        except Exception as e:
-            raise UserException(f"Failed to retrieve OAuth credentials: {str(e)}")
 
     @sync_action("get_tenants")
     def get_tenants(self):
