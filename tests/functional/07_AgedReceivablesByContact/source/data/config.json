@@ -12,10 +12,10 @@
   "parameters": {
     "debug": true,
     "report_type": "AgedReceivablesByContact",
-    "predefined_parameters": {
-      "contactID": "7c913d33-39d5-4a1c-b8b1-e23f5fc999e0",
-      "date": "today"
-    },
+    "report_parameters": [
+      {"key": "contactID", "value": "7c913d33-39d5-4a1c-b8b1-e23f5fc999e0"},
+      {"key": "date", "value": "today"}
+    ],
     "custom_parameters": []
   },
   "action": "run",

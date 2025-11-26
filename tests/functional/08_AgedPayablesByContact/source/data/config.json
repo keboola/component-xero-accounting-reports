@@ -12,10 +12,10 @@
   "parameters": {
     "debug": true,
     "report_type": "AgedPayablesByContact",
-    "predefined_parameters": {
-      "contactID": "3f58af86-b4d9-4ac9-950c-2e4cdd94d5be",
-      "date": "today"
-    },
+    "report_parameters": [
+      {"key": "contactID", "value": "3f58af86-b4d9-4ac9-950c-2e4cdd94d5be"},
+      {"key": "date", "value": "today"}
+    ],
     "custom_parameters": []
   },
   "action": "run",
