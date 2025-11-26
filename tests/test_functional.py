@@ -29,6 +29,16 @@ class TestComponent(unittest.TestCase):
         with open(response_file, "r") as f:
             return json.load(f)
 
+    def _mock_token_refresh_endpoint(self):
+        """Mock the OAuth token refresh endpoint"""
+        token_response = {
+            "access_token": "mock_refreshed_access_token_123456",
+            "refresh_token": "mock_refreshed_refresh_token_654321",
+            "expires_in": 1800,
+            "token_type": "Bearer",
+        }
+        responses.add(responses.POST, "https://identity.xero.com/connect/token", json=token_response, status=200)
+
     def _mock_tenants_endpoint(self, tenant_id: str = "ba45b4b5-ee66-4a7f-83ec-4b463794dcce"):
         """Mock the Xero tenants endpoint"""
         tenants_response = [
@@ -46,6 +56,7 @@ class TestComponent(unittest.TestCase):
 
     def _mock_xero_report_api(self, test_dir_name: str, report_name: str, tenant_id: str):
         """Generic method to mock Xero API endpoints for any report"""
+        self._mock_token_refresh_endpoint()
         self._mock_tenants_endpoint(tenant_id)
         api_response = self._load_api_response(test_dir_name, report_name)
         responses.add(
