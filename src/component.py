@@ -16,6 +16,8 @@ from xero_client import XeroClient
 # Constants
 DATE_FIELDS = ["fromDate", "toDate", "date"]
 TIMEFRAME_MAP = {"MONTH": 1, "QUARTER": 3, "YEAR": 12}
+PRIMARY_KEY_COLUMNS = ["xero_tenant_id", "row_id", "column_index"]
+NOT_NULLABLE_COLUMNS = ["xero_tenant_id", "row_id", "row_type", "column_index"]
 CSV_FIELDNAMES = [
     "xero_tenant_id",
     "row_id",
@@ -141,14 +143,13 @@ class Component(ComponentBase):
         for column in fieldnames:
             dtype = column_type_map.get(column, SupportedDataTypes.STRING)
             description = column_descriptions.get(column)
-
-            # Determine if column should be nullable
-            # tenant_id and row_id are required, others can be null
-            nullable = column not in ["xero_tenant_id", "row_id", "row_type", "column_index"]
+            is_primary_key = column in PRIMARY_KEY_COLUMNS
+            nullable = column not in NOT_NULLABLE_COLUMNS
 
             schema[column] = ColumnDefinition(
                 data_types=BaseType(dtype=dtype),
                 nullable=nullable,
+                primary_key=is_primary_key,
                 description=description,
             )
 
@@ -163,7 +164,9 @@ class Component(ComponentBase):
         """
         output_file = f"{report_type}.csv"
         schema = self._build_schema(CSV_FIELDNAMES)
-        table = self.create_out_table_definition(output_file, incremental=False, schema=schema)
+        table = self.create_out_table_definition(
+            output_file, incremental=self.config.incremental, schema=schema, has_header=True
+        )
 
         # Serialize 'others' dict to JSON string for consistent CSV schema
         output_data = []

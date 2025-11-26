@@ -112,6 +112,13 @@
         }
       },
       "propertyOrder": 5
+    },
+    "incremental": {
+      "type": "boolean",
+      "title": "Incremental Load",
+      "description": "Enable incremental loading to append data to existing table instead of replacing it.",
+      "default": false,
+      "propertyOrder": 6
     }
   }
 }

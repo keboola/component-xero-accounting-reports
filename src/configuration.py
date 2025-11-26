@@ -13,6 +13,7 @@ class Configuration(BaseModel):
     report_type: str
     xero_tenant_id: Optional[str] = Field(default=None)
     custom_report_id: Optional[str] = Field(default=None)
+    incremental: bool = Field(default=False)
     report_parameters: list[Parameter] = Field(default_factory=list)
     custom_parameters: list[Parameter] = Field(default_factory=list)
     parameters: list[Parameter] = Field(default_factory=list)  # Internal merged list
