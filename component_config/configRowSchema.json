@@ -54,6 +54,8 @@
       "format": "table",
       "items": {
         "type": "object",
+        "title": "Parameter",
+        "required": ["key", "value"],
         "properties": {
           "key": {
             "type": "string",
@@ -69,11 +71,22 @@
               "contactID",
               "reportYear",
               "ReportID"
+            ],
+            "enumNames": [
+              "From Date",
+              "To Date",
+              "Date",
+              "Periods",
+              "Timeframe",
+              "Standard Layout",
+              "Payments Only",
+              "Contact ID",
+              "Report Year",
+              "Report ID"
             ]
           },
           "value": {
-            "type": "string",
-            "title": "Parameter Value"
+            "title": "Value"
           }
         }
       },
@@ -86,14 +99,15 @@
       "format": "table",
       "items": {
         "type": "object",
+        "title": "Parameter",
+        "required": ["key", "value"],
         "properties": {
           "key": {
             "type": "string",
             "title": "Parameter Name"
           },
           "value": {
-            "type": "string",
-            "title": "Parameter Value"
+            "title": "Value"
           }
         }
       },
