@@ -14,6 +14,7 @@ from configuration import Configuration
 from xero_client import XeroClient
 
 # Constants
+KEY_STATE_OAUTH_TOKEN_DICT = "#oauth_token_dict"
 DATE_FIELDS = ["fromDate", "toDate", "date"]
 TIMEFRAME_MAP = {"MONTH": 1, "QUARTER": 3, "YEAR": 12}
 PRIMARY_KEY_COLUMNS = ["xero_tenant_id", "row_id", "column_index"]
@@ -34,20 +35,106 @@ class Component(ComponentBase):
     def __init__(self):
         super().__init__()
         self.config = Configuration(**self.configuration.parameters)
+        self.new_state = {}
+        self._init_client()
 
-        # Get OAuth access token
+    def _init_client(self) -> None:
+        """Initialize Xero client from state or OAuth credentials."""
+        logging.info("Initializing Xero client")
+        state = self.get_state_file()
+        state_authorization_params = state.get(KEY_STATE_OAUTH_TOKEN_DICT)
+
+        if self._state_contains_authorization_parameters(state_authorization_params):
+            logging.info("Initializing client from state")
+            self._init_client_from_state(state_authorization_params)
+        else:
+            logging.info("Initializing client from OAuth credentials")
+            self._init_client_from_config()
+
+    def _state_contains_authorization_parameters(self, state_authorization_params: Any) -> bool:
+        """Check if state contains valid OAuth authorization parameters."""
+        if not state_authorization_params:
+            return False
+
+        oauth_data = self._load_state_oauth(state_authorization_params)
+        required_fields = ["access_token", "refresh_token"]
+        return all(oauth_data.get(field) for field in required_fields)
+
+    @staticmethod
+    def _load_state_oauth(state_authorization_params: Any) -> dict:
+        """Load OAuth data from state, handling both string and dict formats."""
+        if isinstance(state_authorization_params, str):
+            return json.loads(state_authorization_params)
+        elif isinstance(state_authorization_params, dict):
+            return state_authorization_params
+        else:
+            raise UserException("Invalid state format, please contact support")
+
+    def _init_client_from_state(self, state_authorization_params: Any) -> None:
+        """Initialize client using OAuth credentials from state."""
+        oauth_data = self._load_state_oauth(state_authorization_params)
+
+        # Get client credentials from config for token refresh
+        # In Keboola, appKey is client_id and appSecret is client_secret
+        try:
+            oauth_creds = self.configuration.oauth_credentials
+            client_id = oauth_creds.appKey
+            client_secret = oauth_creds.appSecret
+        except Exception:
+            client_id = None
+            client_secret = None
+            logging.warning("Could not retrieve client_id/client_secret for token refresh")
+
+        self.client = XeroClient(
+            access_token=oauth_data["access_token"],
+            refresh_token=oauth_data.get("refresh_token"),
+            client_id=client_id,
+            client_secret=client_secret,
+            oauth_token_dict=oauth_data,
+        )
+
+    def _init_client_from_config(self) -> None:
+        """Initialize client using OAuth credentials from configuration."""
         try:
             oauth_creds = self.configuration.oauth_credentials
             access_token = oauth_creds.data.get("access_token")
+            refresh_token = oauth_creds.data.get("refresh_token")
+            # In Keboola, appKey is client_id and appSecret is client_secret
+            client_id = oauth_creds.appKey
+            client_secret = oauth_creds.appSecret
+
             if not access_token:
                 raise UserException("OAuth access token not found in credentials")
+
+            # Build full oauth token dict
+            oauth_token_dict = {
+                "access_token": access_token,
+                "refresh_token": refresh_token,
+                "token_type": oauth_creds.data.get("token_type", "Bearer"),
+            }
+
+            self.client = XeroClient(
+                access_token=access_token,
+                refresh_token=refresh_token,
+                client_id=client_id,
+                client_secret=client_secret,
+                oauth_token_dict=oauth_token_dict,
+            )
         except Exception as e:
             raise UserException(f"Failed to retrieve OAuth credentials: {str(e)}")
 
-        self.client = XeroClient(access_token)
+    def refresh_token_and_save_state(self) -> None:
+        """Refresh the OAuth token and save it to state."""
+        logging.info("Refreshing OAuth token and saving to state")
+        self.client.refresh_access_token()
+        self.new_state[KEY_STATE_OAUTH_TOKEN_DICT] = json.dumps(self.client.get_oauth_token_dict())
+        self.write_state_file(self.new_state)
+        logging.info("Token refreshed and saved to state")
 
     def run(self):
         """Main execution method - fetch and process Xero reports."""
+        # Refresh token and save to state at the start
+        self.refresh_token_and_save_state()
         # Convert parameters to dict for API calls
         params = {}
         for param in self.config.parameters:
