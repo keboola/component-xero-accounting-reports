@@ -3,12 +3,17 @@
   "title": "Xero Reports Extractor Configuration",
   "required": [],
   "properties": {
-    "debug": {
-      "type": "boolean",
-      "title": "Debug Mode",
-      "description": "Enable verbose logging for troubleshooting",
-      "default": false,
-      "propertyOrder": 1
+    "xero_tenant_id": {
+      "type": "string",
+      "title": "Xero Tenant/Organization",
+      "description": "Select a specific Xero organization. Leave empty to fetch reports for ALL connected organizations.",
+      "propertyOrder": 1,
+      "options": {
+        "async": {
+          "action": "get_tenants",
+          "label": "LOAD TENANTS"
+        }
+      }
     }
   }
 }

@@ -137,7 +137,7 @@ class Component(ComponentBase):
         self.refresh_token_and_save_state()
         # Convert parameters to dict for API calls
         params = {}
-        for param in self.config.parameters:
+        for param in self.config.report_parameters:
             if isinstance(param.value, bool):
                 params[param.key] = "true" if param.value else "false"
             elif isinstance(param.value, int):
@@ -155,7 +155,7 @@ class Component(ComponentBase):
         logging.info(f"Processing {len(tenant_ids)} tenant(s)")
 
         # Get report name
-        report_name = self.config.custom_report_id if self.config.report_type == "Custom" else self.config.report_type
+        report_name = self.config.report_type
 
         all_data = []
         for tenant_id in tenant_ids:

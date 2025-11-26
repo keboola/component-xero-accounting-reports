@@ -1,124 +1,558 @@
 {
   "type": "object",
   "title": "Xero Report Configuration",
+  "description": "Select a report type and configure its parameters",
   "required": ["report_type"],
-  "properties": {
-    "report_type": {
-      "type": "string",
-      "title": "Report Type",
-      "enum": [
-        "TenNinetyNine",
-        "AgedPayablesByContact",
-        "AgedReceivablesByContact",
-        "BalanceSheet",
-        "BankSummary",
-        "BASReport",
-        "BudgetSummary",
-        "ExecutiveSummary",
-        "GSTReport",
-        "ProfitAndLoss",
-        "TrialBalance"
-      ],
-      "enumNames": [
-        "1099 Report (US)",
-        "Aged Payables By Contact",
-        "Aged Receivables By Contact",
-        "Balance Sheet",
-        "Bank Summary",
-        "BAS Report (Australia)",
-        "Budget Summary",
-        "Executive Summary",
-        "GST Report (New Zealand)",
-        "Profit and Loss",
-        "Trial Balance"
-      ],
-      "description": "Select the type of report to extract",
-      "propertyOrder": 1
+  "format": "select",
+  "options": {
+    "collapsed": false
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "title": "1099 Report (US)",
+      "properties": {
+        "report_type": {
+          "type": "string",
+          "enum": ["TenNinetyNine"],
+          "default": "TenNinetyNine",
+          "options": {
+            "hidden": true
+          }
+        },
+        "report_parameters": {
+          "type": "array",
+          "title": "Report Parameters",
+          "description": "Parameters for 1099 Report",
+          "format": "table",
+          "minItems": 1,
+          "maxItems": 1,
+          "default": [
+            {"key": "reportYear", "value": ""}
+          ],
+          "items": {
+            "type": "object",
+            "title": "Parameter",
+            "properties": {
+              "key": {
+                "type": "string",
+                "title": "Parameter Name",
+                "enum": ["reportYear"],
+                "default": "reportYear"
+              },
+              "value": {
+                "type": "string",
+                "title": "Value"
+              }
+            },
+            "required": ["key", "value"]
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "title": "Incremental Load",
+          "description": "Enable incremental loading",
+          "default": false
+        }
+      },
+      "required": ["report_type"]
     },
-    "xero_tenant_id": {
-      "type": "string",
-      "title": "Xero Tenant/Organization",
-      "description": "Select a specific Xero organization. Leave empty to fetch reports for ALL connected organizations.",
-      "propertyOrder": 3,
-      "options": {
-        "async": {
-          "action": "get_tenants",
-          "label": "LOAD TENANTS"
+    {
+      "type": "object",
+      "title": "Aged Payables By Contact",
+      "properties": {
+        "report_type": {
+          "type": "string",
+          "enum": ["AgedPayablesByContact"],
+          "default": "AgedPayablesByContact",
+          "options": {
+            "hidden": true
+          }
+        },
+        "report_parameters": {
+          "type": "array",
+          "title": "Report Parameters",
+          "description": "Parameters for Aged Payables. Use dynamic dates like 'yesterday', '3 months ago'. Remove rows for unused parameters.",
+          "format": "table",
+          "minItems": 0,
+          "default": [
+            {"key": "date", "value": ""},
+            {"key": "fromDate", "value": ""},
+            {"key": "toDate", "value": ""},
+            {"key": "contactID", "value": ""}
+          ],
+          "items": {
+            "type": "object",
+            "title": "Parameter",
+            "properties": {
+              "key": {
+                "type": "string",
+                "title": "Parameter Name",
+                "enum": ["date", "fromDate", "toDate", "contactID"]
+              },
+              "value": {
+                "type": "string",
+                "title": "Value"
+              }
+            },
+            "required": ["key", "value"]
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "title": "Incremental Load",
+          "description": "Enable incremental loading",
+          "default": false
         }
       }
     },
-    "report_parameters": {
-      "type": "array",
-      "title": "Report Parameters",
-      "description": "Common parameters for the selected report. You can use static and dynamic dates like 'yesterday', '3 months ago'.",
-      "format": "table",
-      "items": {
-        "type": "object",
-        "title": "Parameter",
-        "required": ["key", "value"],
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "Parameter Name",
-            "enum": [
-              "fromDate",
-              "toDate",
-              "date",
-              "periods",
-              "timeframe",
-              "standardLayout",
-              "paymentsOnly",
-              "contactID",
-              "reportYear",
-              "ReportID"
-            ],
-            "enumNames": [
-              "From Date",
-              "To Date",
-              "Date",
-              "Periods",
-              "Timeframe",
-              "Standard Layout",
-              "Payments Only",
-              "Contact ID",
-              "Report Year",
-              "Report ID"
-            ]
-          },
-          "value": {
-            "title": "Value"
+    {
+      "type": "object",
+      "title": "Aged Receivables By Contact",
+      "properties": {
+        "report_type": {
+          "type": "string",
+          "enum": ["AgedReceivablesByContact"],
+          "default": "AgedReceivablesByContact",
+          "options": {
+            "hidden": true
           }
+        },
+        "report_parameters": {
+          "type": "array",
+          "title": "Report Parameters",
+          "description": "Parameters for Aged Receivables. Use dynamic dates like 'yesterday', '3 months ago'. Remove rows for unused parameters.",
+          "format": "table",
+          "minItems": 0,
+          "default": [
+            {"key": "date", "value": ""},
+            {"key": "fromDate", "value": ""},
+            {"key": "toDate", "value": ""},
+            {"key": "contactID", "value": ""}
+          ],
+          "items": {
+            "type": "object",
+            "title": "Parameter",
+            "properties": {
+              "key": {
+                "type": "string",
+                "title": "Parameter Name",
+                "enum": ["date", "fromDate", "toDate", "contactID"]
+              },
+              "value": {
+                "type": "string",
+                "title": "Value"
+              }
+            },
+            "required": ["key", "value"]
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "title": "Incremental Load",
+          "description": "Enable incremental loading",
+          "default": false
+        }
+      }
+    },
+    {
+      "type": "object",
+      "title": "Balance Sheet",
+      "properties": {
+        "report_type": {
+          "type": "string",
+          "enum": ["BalanceSheet"],
+          "default": "BalanceSheet",
+          "options": {
+            "hidden": true
+          }
+        },
+        "report_parameters": {
+          "type": "array",
+          "title": "Report Parameters",
+          "description": "Parameters for Balance Sheet. Use dynamic dates like 'yesterday', '3 months ago'. Remove rows for unused parameters.",
+          "format": "table",
+          "minItems": 0,
+          "default": [
+            {"key": "date", "value": ""},
+            {"key": "periods", "value": ""},
+            {"key": "timeframe", "value": ""},
+            {"key": "trackingOptionID", "value": ""},
+            {"key": "standardLayout", "value": ""},
+            {"key": "paymentsOnly", "value": ""}
+          ],
+          "items": {
+            "type": "object",
+            "title": "Parameter",
+            "properties": {
+              "key": {
+                "type": "string",
+                "title": "Parameter Name",
+                "enum": ["date", "periods", "timeframe", "trackingOptionID", "standardLayout", "paymentsOnly"]
+              },
+              "value": {
+                "title": "Value"
+              }
+            },
+            "required": ["key", "value"]
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "title": "Incremental Load",
+          "description": "Enable incremental loading",
+          "default": false
+        }
+      }
+    },
+    {
+      "type": "object",
+      "title": "Bank Summary",
+      "properties": {
+        "report_type": {
+          "type": "string",
+          "enum": ["BankSummary"],
+          "default": "BankSummary",
+          "options": {
+            "hidden": true
+          }
+        },
+        "report_parameters": {
+          "type": "array",
+          "title": "Report Parameters",
+          "description": "Parameters for Bank Summary. Use dynamic dates like 'yesterday', '3 months ago'. Remove rows for unused parameters.",
+          "format": "table",
+          "minItems": 0,
+          "default": [
+            {"key": "fromDate", "value": ""},
+            {"key": "toDate", "value": ""}
+          ],
+          "items": {
+            "type": "object",
+            "title": "Parameter",
+            "properties": {
+              "key": {
+                "type": "string",
+                "title": "Parameter Name",
+                "enum": ["fromDate", "toDate"]
+              },
+              "value": {
+                "type": "string",
+                "title": "Value"
+              }
+            },
+            "required": ["key", "value"]
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "title": "Incremental Load",
+          "description": "Enable incremental loading",
+          "default": false
+        }
+      }
+    },
+    {
+      "type": "object",
+      "title": "BAS Report (Australia)",
+      "properties": {
+        "report_type": {
+          "type": "string",
+          "enum": ["BASReport"],
+          "default": "BASReport",
+          "options": {
+            "hidden": true
+          }
+        },
+        "report_parameters": {
+          "type": "array",
+          "title": "Report Parameters",
+          "description": "Parameters for BAS Report",
+          "format": "table",
+          "minItems": 1,
+          "maxItems": 1,
+          "default": [
+            {"key": "reportID", "value": ""}
+          ],
+          "items": {
+            "type": "object",
+            "title": "Parameter",
+            "properties": {
+              "key": {
+                "type": "string",
+                "title": "Parameter Name",
+                "enum": ["reportID"],
+                "default": "reportID"
+              },
+              "value": {
+                "type": "string",
+                "title": "Value"
+              }
+            },
+            "required": ["key", "value"]
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "title": "Incremental Load",
+          "description": "Enable incremental loading",
+          "default": false
         }
       },
-      "propertyOrder": 4
+      "required": ["report_type"]
     },
-    "custom_parameters": {
-      "type": "array",
-      "title": "Custom Parameters",
-      "description": "Additional parameters not listed above (e.g., trackingCategoryID, trackingOptionID)",
-      "format": "table",
-      "items": {
-        "type": "object",
-        "title": "Parameter",
-        "required": ["key", "value"],
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "Parameter Name"
-          },
-          "value": {
-            "title": "Value"
+    {
+      "type": "object",
+      "title": "Budget Summary",
+      "properties": {
+        "report_type": {
+          "type": "string",
+          "enum": ["BudgetSummary"],
+          "default": "BudgetSummary",
+          "options": {
+            "hidden": true
           }
+        },
+        "report_parameters": {
+          "type": "array",
+          "title": "Report Parameters",
+          "description": "Parameters for Budget Summary. Use dynamic dates like 'yesterday', '3 months ago'. Remove rows for unused parameters.",
+          "format": "table",
+          "minItems": 0,
+          "default": [
+            {"key": "date", "value": ""},
+            {"key": "periods", "value": ""},
+            {"key": "timeframe", "value": ""}
+          ],
+          "items": {
+            "type": "object",
+            "title": "Parameter",
+            "properties": {
+              "key": {
+                "type": "string",
+                "title": "Parameter Name",
+                "enum": ["date", "periods", "timeframe"]
+              },
+              "value": {
+                "title": "Value"
+              }
+            },
+            "required": ["key", "value"]
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "title": "Incremental Load",
+          "description": "Enable incremental loading",
+          "default": false
+        }
+      }
+    },
+    {
+      "type": "object",
+      "title": "Executive Summary",
+      "properties": {
+        "report_type": {
+          "type": "string",
+          "enum": ["ExecutiveSummary"],
+          "default": "ExecutiveSummary",
+          "options": {
+            "hidden": true
+          }
+        },
+        "report_parameters": {
+          "type": "array",
+          "title": "Report Parameters",
+          "description": "Parameters for Executive Summary. Use dynamic dates like 'yesterday', '3 months ago'. Remove rows for unused parameters.",
+          "format": "table",
+          "minItems": 0,
+          "default": [
+            {"key": "date", "value": ""}
+          ],
+          "items": {
+            "type": "object",
+            "title": "Parameter",
+            "properties": {
+              "key": {
+                "type": "string",
+                "title": "Parameter Name",
+                "enum": ["date"]
+              },
+              "value": {
+                "type": "string",
+                "title": "Value"
+              }
+            },
+            "required": ["key", "value"]
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "title": "Incremental Load",
+          "description": "Enable incremental loading",
+          "default": false
+        }
+      }
+    },
+    {
+      "type": "object",
+      "title": "GST Report (New Zealand)",
+      "properties": {
+        "report_type": {
+          "type": "string",
+          "enum": ["GSTReport"],
+          "default": "GSTReport",
+          "options": {
+            "hidden": true
+          }
+        },
+        "report_parameters": {
+          "type": "array",
+          "title": "Report Parameters",
+          "description": "Parameters for GST Report",
+          "format": "table",
+          "minItems": 1,
+          "maxItems": 1,
+          "default": [
+            {"key": "reportID", "value": ""}
+          ],
+          "items": {
+            "type": "object",
+            "title": "Parameter",
+            "properties": {
+              "key": {
+                "type": "string",
+                "title": "Parameter Name",
+                "enum": ["reportID"],
+                "default": "reportID"
+              },
+              "value": {
+                "type": "string",
+                "title": "Value"
+              }
+            },
+            "required": ["key", "value"]
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "title": "Incremental Load",
+          "description": "Enable incremental loading",
+          "default": false
         }
       },
-      "propertyOrder": 5
+      "required": ["report_type"]
     },
-    "incremental": {
-      "type": "boolean",
-      "title": "Incremental Load",
-      "description": "Enable incremental loading to append data to existing table instead of replacing it.",
-      "default": false,
-      "propertyOrder": 6
+    {
+      "type": "object",
+      "title": "Profit and Loss",
+      "properties": {
+        "report_type": {
+          "type": "string",
+          "enum": ["ProfitAndLoss"],
+          "default": "ProfitAndLoss",
+          "options": {
+            "hidden": true
+          }
+        },
+        "report_parameters": {
+          "type": "array",
+          "title": "Report Parameters",
+          "description": "Parameters for Profit and Loss. Use dynamic dates like 'yesterday', '3 months ago'. Remove rows for unused parameters.",
+          "format": "table",
+          "minItems": 0,
+          "default": [
+            {"key": "fromDate", "value": ""},
+            {"key": "toDate", "value": ""},
+            {"key": "periods", "value": ""},
+            {"key": "timeframe", "value": ""},
+            {"key": "trackingCategoryID", "value": ""},
+            {"key": "trackingOptionID", "value": ""},
+            {"key": "trackingCategoryID2", "value": ""},
+            {"key": "trackingOptionID2", "value": ""},
+            {"key": "standardLayout", "value": ""},
+            {"key": "paymentsOnly", "value": ""}
+          ],
+          "items": {
+            "type": "object",
+            "title": "Parameter",
+            "properties": {
+              "key": {
+                "type": "string",
+                "title": "Parameter Name",
+                "enum": [
+                  "fromDate",
+                  "toDate",
+                  "periods",
+                  "timeframe",
+                  "trackingCategoryID",
+                  "trackingOptionID",
+                  "trackingCategoryID2",
+                  "trackingOptionID2",
+                  "standardLayout",
+                  "paymentsOnly"
+                ]
+              },
+              "value": {
+                "title": "Value"
+              }
+            },
+            "required": ["key", "value"]
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "title": "Incremental Load",
+          "description": "Enable incremental loading",
+          "default": false
+        }
+      }
+    },
+    {
+      "type": "object",
+      "title": "Trial Balance",
+      "properties": {
+        "report_type": {
+          "type": "string",
+          "enum": ["TrialBalance"],
+          "default": "TrialBalance",
+          "options": {
+            "hidden": true
+          }
+        },
+        "report_parameters": {
+          "type": "array",
+          "title": "Report Parameters",
+          "description": "Parameters for Trial Balance. Use dynamic dates like 'yesterday', '3 months ago'. Remove rows for unused parameters.",
+          "format": "table",
+          "minItems": 0,
+          "default": [
+            {"key": "date", "value": ""},
+            {"key": "paymentsOnly", "value": ""}
+          ],
+          "items": {
+            "type": "object",
+            "title": "Parameter",
+            "properties": {
+              "key": {
+                "type": "string",
+                "title": "Parameter Name",
+                "enum": ["date", "paymentsOnly"]
+              },
+              "value": {
+                "title": "Value"
+              }
+            },
+            "required": ["key", "value"]
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "title": "Incremental Load",
+          "description": "Enable incremental loading",
+          "default": false
+        }
+      }
     }
-  }
+  ]
 }
