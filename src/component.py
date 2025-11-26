@@ -1,9 +1,11 @@
 import csv
 import json
 import logging
+from collections import OrderedDict
 from typing import Any, Optional
 
 from keboola.component.base import ComponentBase, sync_action
+from keboola.component.dao import BaseType, ColumnDefinition, SupportedDataTypes
 from keboola.component.exceptions import UserException
 from keboola.component.sync_actions import SelectElement
 from keboola.utils.date import get_past_date
@@ -107,6 +109,51 @@ class Component(ComponentBase):
         logging.debug(f"Processed {len(long_format_data)} rows for tenant {tenant_id}")
         return long_format_data
 
+    def _build_schema(self, fieldnames: list[str]) -> OrderedDict:
+        """Build dynamic schema for output table with appropriate data types.
+
+        Args:
+            fieldnames: List of column names from the CSV
+
+        Returns:
+            OrderedDict mapping column names to ColumnDefinition objects
+        """
+        schema = OrderedDict()
+
+        # Define data type mappings based on column characteristics
+        column_type_map = {
+            "row_id": SupportedDataTypes.INTEGER,
+            "column_index": SupportedDataTypes.INTEGER,
+        }
+
+        # Column descriptions
+        column_descriptions = {
+            "xero_tenant_id": "Xero tenant identifier",
+            "row_id": "Unique row identifier within the report",
+            "row_type": "Type of row (Row, SummaryRow, etc.)",
+            "column_index": "Zero-based column index",
+            "column_name": "Name of the column from report header",
+            "value": "Cell value from the report",
+            "others": "JSON string containing additional row and cell attributes",
+        }
+
+        # Build schema dynamically from fieldnames
+        for column in fieldnames:
+            dtype = column_type_map.get(column, SupportedDataTypes.STRING)
+            description = column_descriptions.get(column)
+
+            # Determine if column should be nullable
+            # tenant_id and row_id are required, others can be null
+            nullable = column not in ["xero_tenant_id", "row_id", "row_type", "column_index"]
+
+            schema[column] = ColumnDefinition(
+                data_types=BaseType(dtype=dtype),
+                nullable=nullable,
+                description=description,
+            )
+
+        return schema
+
     def _write_data_to_csv(self, data: list[dict[str, Any]], report_type: str):
         """Write collected data to CSV output file.
 
@@ -115,7 +162,8 @@ class Component(ComponentBase):
             report_type: Report type used for filename
         """
         output_file = f"{report_type}.csv"
-        table = self.create_out_table_definition(output_file, incremental=False)
+        schema = self._build_schema(CSV_FIELDNAMES)
+        table = self.create_out_table_definition(output_file, incremental=False, schema=schema)
 
         # Serialize 'others' dict to JSON string for consistent CSV schema
         output_data = []
