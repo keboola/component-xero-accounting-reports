@@ -1,18 +1,16 @@
-from typing import Optional, Union
-
 from keboola.component.exceptions import UserException
 from pydantic import BaseModel, Field, ValidationError, model_validator
 
 
 class Parameter(BaseModel):
     key: str
-    value: Union[str, bool, int]
+    value: str | bool | int
 
 
 class Configuration(BaseModel):
     report_type: str
-    xero_tenant_id: Optional[str] = Field(default=None)
-    custom_report_id: Optional[str] = Field(default=None)
+    xero_tenant_id: str | None = Field(default=None)
+    custom_report_id: str | None = Field(default=None)
     incremental: bool = Field(default=False)
     report_parameters: list[Parameter] = Field(default_factory=list)
     custom_parameters: list[Parameter] = Field(default_factory=list)

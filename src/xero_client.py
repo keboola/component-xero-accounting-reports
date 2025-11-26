@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import requests
 from keboola.component.exceptions import UserException
@@ -12,10 +12,10 @@ class XeroClient:
     def __init__(
         self,
         access_token: str,
-        refresh_token: Optional[str] = None,
-        client_id: Optional[str] = None,
-        client_secret: Optional[str] = None,
-        oauth_token_dict: Optional[Dict[str, Any]] = None,
+        refresh_token: str | None = None,
+        client_id: str | None = None,
+        client_secret: str | None = None,
+        oauth_token_dict: dict[str, Any] | None = None,
     ):
         """Initialize XeroClient with OAuth credentials.
 
@@ -37,7 +37,7 @@ class XeroClient:
             "Content-Type": "application/json",
         }
 
-    def get_tenants(self) -> List[Dict[str, Any]]:
+    def get_tenants(self) -> list[dict[str, Any]]:
         """Fetch all available Xero tenants/organizations"""
         response = requests.get(self.CONNECTIONS_URL, headers=self.base_headers)
 
@@ -48,7 +48,7 @@ class XeroClient:
 
         return response.json()
 
-    def get_report(self, report_type: str, tenant_id: str, parameters: Dict[str, str]) -> Dict[str, Any]:
+    def get_report(self, report_type: str, tenant_id: str, parameters: dict[str, str]) -> dict[str, Any]:
         """
         Fetch a report for a specific tenant.
 
@@ -115,11 +115,11 @@ class XeroClient:
         except requests.exceptions.RequestException as e:
             raise UserException(f"Failed to refresh access token: {str(e)}")
 
-    def get_oauth_token_dict(self) -> Dict[str, Any]:
+    def get_oauth_token_dict(self) -> dict[str, Any]:
         """Get the current OAuth token dictionary."""
         return self._oauth_token_dict.copy()
 
-    def set_oauth_token_dict(self, token_dict: Dict[str, Any]) -> None:
+    def set_oauth_token_dict(self, token_dict: dict[str, Any]) -> None:
         """Set the OAuth token dictionary and update client credentials."""
         self._oauth_token_dict = token_dict
         if "access_token" in token_dict:

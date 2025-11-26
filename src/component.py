@@ -2,7 +2,7 @@ import csv
 import json
 import logging
 from collections import OrderedDict
-from typing import Any, Optional
+from typing import Any
 
 from keboola.component.base import ComponentBase, sync_action
 from keboola.component.dao import BaseType, ColumnDefinition, SupportedDataTypes
@@ -131,7 +131,7 @@ class Component(ComponentBase):
         self.write_state_file(self.new_state)
         logging.info("Token refreshed and saved to state")
 
-    def run(self):
+    def run(self) -> None:
         """Main execution method - fetch and process Xero reports."""
         # Refresh token and save to state at the start
         self.refresh_token_and_save_state()
@@ -242,7 +242,7 @@ class Component(ComponentBase):
 
         return schema
 
-    def _write_data_to_csv(self, data: list[dict[str, Any]], report_type: str):
+    def _write_data_to_csv(self, data: list[dict[str, Any]], report_type: str) -> None:
         """Write collected data to CSV output file.
 
         Args:
@@ -275,8 +275,8 @@ class Component(ComponentBase):
         rows: list[dict[str, Any]],
         report_type: str,
         tenant_id: str,
-        header_values: Optional[list[str]] = None,
-        row_id_counter: Optional[list[int]] = None,
+        header_values: list[str] | None = None,
+        row_id_counter: list[int] | None = None,
     ) -> list[dict[str, Any]]:
         """Convert Xero report rows into long format (unpivoted).
 
@@ -388,7 +388,7 @@ class Component(ComponentBase):
         return parsed
 
     @sync_action("get_tenants")
-    def get_tenants(self):
+    def get_tenants(self) -> list[SelectElement]:
         """Sync action to fetch available Xero tenants for UI dropdown.
 
         Returns:
