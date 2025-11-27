@@ -79,6 +79,10 @@
           "options": {
             "dependencies": {
               "load_type": "incremental_load"
+            },
+            "sync": {
+              "action": "get_output_columns",
+              "label": "GET COLUMNS"
             }
           },
           "propertyOrder": 30

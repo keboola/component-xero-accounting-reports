@@ -9,7 +9,7 @@
       "description": "Select a specific Xero organization. Leave empty to fetch reports for ALL connected organizations.",
       "propertyOrder": 1,
       "options": {
-        "async": {
+        "sync": {
           "action": "get_tenants",
           "label": "LOAD TENANTS"
         }
