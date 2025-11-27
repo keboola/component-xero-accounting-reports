@@ -103,15 +103,15 @@ class Component(ComponentBase):
 
     def _init_client(self) -> None:
         """Initialize Xero client from state or OAuth credentials."""
-        logging.info("Initializing Xero client")
+        logging.debug("Initializing Xero client")
         state = self.get_state_file()
         state_authorization_params = state.get(KEY_STATE_OAUTH_TOKEN_DICT)
 
         if self._state_contains_authorization_parameters(state_authorization_params):
-            logging.info("Initializing client from state")
+            logging.debug("Initializing client from state")
             self._init_client_from_state(state_authorization_params)
         else:
-            logging.info("Initializing client from OAuth credentials")
+            logging.debug("Initializing client from OAuth credentials")
             self._init_client_from_config()
 
     def _state_contains_authorization_parameters(self, state_authorization_params: Any) -> bool:
@@ -138,11 +138,12 @@ class Component(ComponentBase):
         oauth_data = self._load_state_oauth(state_authorization_params)
 
         # Get client credentials from config for token refresh
-        # In Keboola, appKey is client_id and appSecret is client_secret
+        # In Keboola, encrypted fields have # prefix: #appKey and #appSecret
         try:
             oauth_creds = self.configuration.oauth_credentials
-            client_id = oauth_creds.appKey
-            client_secret = oauth_creds.appSecret
+            # Try with # prefix first (encrypted fields), fall back to without prefix
+            client_id = getattr(oauth_creds, "#appKey", None) or getattr(oauth_creds, "appKey", None)
+            client_secret = getattr(oauth_creds, "#appSecret", None) or getattr(oauth_creds, "appSecret", None)
         except Exception:
             client_id = None
             client_secret = None
@@ -162,9 +163,10 @@ class Component(ComponentBase):
             oauth_creds = self.configuration.oauth_credentials
             access_token = oauth_creds.data.get("access_token")
             refresh_token = oauth_creds.data.get("refresh_token")
-            # In Keboola, appKey is client_id and appSecret is client_secret
-            client_id = oauth_creds.appKey
-            client_secret = oauth_creds.appSecret
+            # In Keboola, encrypted fields have # prefix: #appKey and #appSecret
+            # Try with # prefix first (encrypted fields), fall back to without prefix
+            client_id = getattr(oauth_creds, "#appKey", None) or getattr(oauth_creds, "appKey", None)
+            client_secret = getattr(oauth_creds, "#appSecret", None) or getattr(oauth_creds, "appSecret", None)
 
             if not access_token:
                 raise UserException("OAuth access token not found in credentials")
@@ -238,6 +240,7 @@ class Component(ComponentBase):
         column_type_map = {
             "row_id": SupportedDataTypes.INTEGER,
             "column_index": SupportedDataTypes.INTEGER,
+            "extracted_at": SupportedDataTypes.TIMESTAMP,
         }
 
         # Column descriptions
@@ -438,9 +441,16 @@ class Component(ComponentBase):
         Returns:
             list of SelectElement objects for tenant selection in UI
         """
-        tenants = self.client.get_tenants()
-        logging.debug(f"Found {len(tenants)} Xero tenants")
-        return [SelectElement(t["tenantId"], f"{t['tenantName']} ({t['tenantType']})") for t in tenants]
+        try:
+            logging.info("get_tenants sync action started")
+            logging.info(f"Client initialized: {self.client is not None}")
+
+            tenants = self.client.get_tenants()
+            logging.info(f"Found {len(tenants)} Xero tenants")
+            return [SelectElement(t["tenantId"], t["tenantName"]) for t in tenants]
+        except Exception as e:
+            logging.error(f"Error in get_tenants sync action: {str(e)}", exc_info=True)
+            raise UserException(f"Failed to load tenants: {str(e)}")
 
     @sync_action("get_output_columns")
     def get_output_columns(self) -> list[SelectElement]:
@@ -480,9 +490,8 @@ class Component(ComponentBase):
                 for col in columns
             ]
         except Exception as e:
-            logging.error(f"Failed to retrieve columns from table {table_name}: {e}")
             raise UserException(
-                f"Could not retrieve columns from output table '{table_name}'. "
+                f"Could not retrieve columns from output table '{table_id}'. "
                 "Please ensure you have run the component at least once with full load. "
                 f"Error: {str(e)}"
             )
