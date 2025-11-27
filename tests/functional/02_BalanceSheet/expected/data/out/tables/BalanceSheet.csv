@@ -1,55 +1,55 @@
-xero_tenant_id,row_id,row_type,column_index,column_name,value,others
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,0,,Business Bank Account,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,1,30 Nov 2025,1760.54,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,2,30 Nov 2024,0.00,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,0,,Total Bank,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,1,30 Nov 2025,1760.54,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,2,30 Nov 2024,0.00,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,0,,Accounts Receivable,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,1,30 Nov 2025,9194.51,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,2,30 Nov 2024,0.00,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,SummaryRow,0,,Total Current Assets,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,SummaryRow,1,30 Nov 2025,9194.51,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,SummaryRow,2,30 Nov 2024,0.00,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,0,,Computer Equipment,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,1,30 Nov 2025,3774.49,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,2,30 Nov 2024,0.00,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,0,,Office Equipment,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,1,30 Nov 2025,923.79,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,2,30 Nov 2024,0.00,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,SummaryRow,0,,Total Fixed Assets,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,SummaryRow,1,30 Nov 2025,4698.28,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,SummaryRow,2,30 Nov 2024,0.00,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,SummaryRow,0,,Total Assets,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,SummaryRow,1,30 Nov 2025,15653.33,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,SummaryRow,2,30 Nov 2024,0.00,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,0,,Accounts Payable,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,1,30 Nov 2025,8405.66,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,2,30 Nov 2024,18.90,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,0,,Historical Adjustment,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,1,30 Nov 2025,4130.98,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,2,30 Nov 2024,0.00,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,0,,Sales Tax,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,1,30 Nov 2025,-10.04,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,2,30 Nov 2024,0.00,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,0,,Unpaid Expense Claims,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,1,30 Nov 2025,115.95,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,2,30 Nov 2024,0.00,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,SummaryRow,0,,Total Current Liabilities,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,SummaryRow,1,30 Nov 2025,12642.55,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,SummaryRow,2,30 Nov 2024,18.90,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,SummaryRow,0,,Total Liabilities,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,SummaryRow,1,30 Nov 2025,12642.55,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,SummaryRow,2,30 Nov 2024,18.90,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,0,,Net Assets,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,1,30 Nov 2025,3010.78,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,2,30 Nov 2024,-18.90,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,0,,Current Year Earnings,"{""account"": ""abababab-abab-abab-abab-abababababab""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,1,30 Nov 2025,3029.68,"{""account"": ""abababab-abab-abab-abab-abababababab"", ""fromDate"": ""1/1/2025"", ""toDate"": ""11/30/2025""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,2,30 Nov 2024,0.00,"{""account"": ""abababab-abab-abab-abab-abababababab"", ""fromDate"": ""1/1/2024"", ""toDate"": ""11/30/2024""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,0,,Retained Earnings,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,1,30 Nov 2025,-18.90,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""11/30/2025""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,2,30 Nov 2024,-18.90,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""11/30/2024""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,SummaryRow,0,,Total Equity,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,SummaryRow,1,30 Nov 2025,3010.78,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,SummaryRow,2,30 Nov 2024,-18.90,
+xero_tenant_id,row_id,row_type,column_index,column_name,value,others,extracted_at
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,0,,Business Bank Account,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,1,30 Nov 2025,1760.54,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,2,30 Nov 2024,0.00,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,0,,Total Bank,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,1,30 Nov 2025,1760.54,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,2,30 Nov 2024,0.00,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,0,,Accounts Receivable,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,1,30 Nov 2025,9194.51,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,2,30 Nov 2024,0.00,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,SummaryRow,0,,Total Current Assets,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,SummaryRow,1,30 Nov 2025,9194.51,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,SummaryRow,2,30 Nov 2024,0.00,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,0,,Computer Equipment,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,1,30 Nov 2025,3774.49,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,2,30 Nov 2024,0.00,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,0,,Office Equipment,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,1,30 Nov 2025,923.79,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,2,30 Nov 2024,0.00,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,SummaryRow,0,,Total Fixed Assets,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,SummaryRow,1,30 Nov 2025,4698.28,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,SummaryRow,2,30 Nov 2024,0.00,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,SummaryRow,0,,Total Assets,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,SummaryRow,1,30 Nov 2025,15653.33,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,SummaryRow,2,30 Nov 2024,0.00,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,0,,Accounts Payable,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,1,30 Nov 2025,8405.66,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,2,30 Nov 2024,18.90,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,0,,Historical Adjustment,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,1,30 Nov 2025,4130.98,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,2,30 Nov 2024,0.00,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,0,,Sales Tax,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,1,30 Nov 2025,-10.04,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,2,30 Nov 2024,0.00,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,0,,Unpaid Expense Claims,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,1,30 Nov 2025,115.95,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,2,30 Nov 2024,0.00,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,SummaryRow,0,,Total Current Liabilities,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,SummaryRow,1,30 Nov 2025,12642.55,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,SummaryRow,2,30 Nov 2024,18.90,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,SummaryRow,0,,Total Liabilities,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,SummaryRow,1,30 Nov 2025,12642.55,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,SummaryRow,2,30 Nov 2024,18.90,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,0,,Net Assets,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,1,30 Nov 2025,3010.78,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,2,30 Nov 2024,-18.90,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,0,,Current Year Earnings,"{""account"": ""abababab-abab-abab-abab-abababababab""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,1,30 Nov 2025,3029.68,"{""account"": ""abababab-abab-abab-abab-abababababab"", ""fromDate"": ""1/1/2025"", ""toDate"": ""11/30/2025""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,2,30 Nov 2024,0.00,"{""account"": ""abababab-abab-abab-abab-abababababab"", ""fromDate"": ""1/1/2024"", ""toDate"": ""11/30/2024""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,0,,Retained Earnings,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,1,30 Nov 2025,-18.90,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""11/30/2025""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,2,30 Nov 2024,-18.90,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""11/30/2024""}",2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,SummaryRow,0,,Total Equity,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,SummaryRow,1,30 Nov 2025,3010.78,,2023-04-02T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,SummaryRow,2,30 Nov 2024,-18.90,,2023-04-02T00:00:00+00:00

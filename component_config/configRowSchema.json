@@ -68,9 +68,19 @@
           "propertyOrder": 20
         },
         "primary_keys": {
-          "type": "string",
+          "type": "array",
           "title": "Primary Keys",
-          "description": "List of primary keys separated by commas e.g. id, other_id. If a primary key is set, updates can be done on the table by selecting incremental loads. The primary key can consist of multiple columns. The primary key of an existing table cannot be changed.",
+          "description": "Select primary key columns for incremental loads. Run the component once with full load, then use the 'Get Output Columns' sync action to see available columns. Required for incremental loads.",
+          "items": {
+            "type": "string",
+            "title": "Column Name"
+          },
+          "uniqueItems": true,
+          "options": {
+            "dependencies": {
+              "load_type": "incremental_load"
+            }
+          },
           "propertyOrder": 30
         }
       },

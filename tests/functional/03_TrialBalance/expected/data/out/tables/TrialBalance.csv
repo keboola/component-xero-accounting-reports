@@ -1,136 +1,136 @@
-xero_tenant_id,row_id,row_type,column_index,column_name,value,others
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,0,Account,Sales (200),"{""account"": ""d1ebb97b-d207-4ccb-9ab6-8a466a8b4d39""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,1,Debit,,"{""account"": ""d1ebb97b-d207-4ccb-9ab6-8a466a8b4d39""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,2,Credit,2067.60,"{""account"": ""d1ebb97b-d207-4ccb-9ab6-8a466a8b4d39""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,3,YTD Debit,,"{""account"": ""d1ebb97b-d207-4ccb-9ab6-8a466a8b4d39""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,4,YTD Credit,22973.18,"{""account"": ""d1ebb97b-d207-4ccb-9ab6-8a466a8b4d39""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,0,Account,Advertising (400),"{""account"": ""eb01b8c7-f9b0-49ef-86f4-ed89b4ac33d5""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,1,Debit,2309.47,"{""account"": ""eb01b8c7-f9b0-49ef-86f4-ed89b4ac33d5""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,2,Credit,,"{""account"": ""eb01b8c7-f9b0-49ef-86f4-ed89b4ac33d5""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,3,YTD Debit,9657.05,"{""account"": ""eb01b8c7-f9b0-49ef-86f4-ed89b4ac33d5""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,4,YTD Credit,,"{""account"": ""eb01b8c7-f9b0-49ef-86f4-ed89b4ac33d5""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,0,Account,Bank Fees (404),"{""account"": ""269479fb-cc8e-4e5f-b0b6-cc4eccf045e0""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,1,Debit,0.00,"{""account"": ""269479fb-cc8e-4e5f-b0b6-cc4eccf045e0""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,2,Credit,,"{""account"": ""269479fb-cc8e-4e5f-b0b6-cc4eccf045e0""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,3,YTD Debit,30.00,"{""account"": ""269479fb-cc8e-4e5f-b0b6-cc4eccf045e0""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,4,YTD Credit,,"{""account"": ""269479fb-cc8e-4e5f-b0b6-cc4eccf045e0""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,Row,0,Account,Cleaning (408),"{""account"": ""30ad3fd7-43b8-4eeb-96bc-ed2b7c945f3c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,Row,1,Debit,0.00,"{""account"": ""30ad3fd7-43b8-4eeb-96bc-ed2b7c945f3c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,Row,2,Credit,,"{""account"": ""30ad3fd7-43b8-4eeb-96bc-ed2b7c945f3c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,Row,3,YTD Debit,110.00,"{""account"": ""30ad3fd7-43b8-4eeb-96bc-ed2b7c945f3c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,Row,4,YTD Credit,,"{""account"": ""30ad3fd7-43b8-4eeb-96bc-ed2b7c945f3c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,0,Account,Consulting & Accounting (412),"{""account"": ""d2429b4f-ad8b-45e5-815a-13f5ecb0d5c1""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,1,Debit,29.00,"{""account"": ""d2429b4f-ad8b-45e5-815a-13f5ecb0d5c1""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,2,Credit,,"{""account"": ""d2429b4f-ad8b-45e5-815a-13f5ecb0d5c1""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,3,YTD Debit,87.00,"{""account"": ""d2429b4f-ad8b-45e5-815a-13f5ecb0d5c1""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,4,YTD Credit,,"{""account"": ""d2429b4f-ad8b-45e5-815a-13f5ecb0d5c1""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,0,Account,Entertainment (420),"{""account"": ""6a7d9c59-1d5a-4474-8c61-3da1f980db13""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,1,Debit,0.00,"{""account"": ""6a7d9c59-1d5a-4474-8c61-3da1f980db13""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,2,Credit,,"{""account"": ""6a7d9c59-1d5a-4474-8c61-3da1f980db13""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,3,YTD Debit,1553.60,"{""account"": ""6a7d9c59-1d5a-4474-8c61-3da1f980db13""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,4,YTD Credit,,"{""account"": ""6a7d9c59-1d5a-4474-8c61-3da1f980db13""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,Row,0,Account,Freight & Courier (425),"{""account"": ""c4b1c463-9913-4672-a8b8-01a3b546126f""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,Row,1,Debit,105.50,"{""account"": ""c4b1c463-9913-4672-a8b8-01a3b546126f""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,Row,2,Credit,,"{""account"": ""c4b1c463-9913-4672-a8b8-01a3b546126f""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,Row,3,YTD Debit,105.50,"{""account"": ""c4b1c463-9913-4672-a8b8-01a3b546126f""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,Row,4,YTD Credit,,"{""account"": ""c4b1c463-9913-4672-a8b8-01a3b546126f""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,Row,0,Account,General Expenses (429),"{""account"": ""4281c446-efb4-445d-b32d-c441a4ef5678""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,Row,1,Debit,120.09,"{""account"": ""4281c446-efb4-445d-b32d-c441a4ef5678""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,Row,2,Credit,,"{""account"": ""4281c446-efb4-445d-b32d-c441a4ef5678""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,Row,3,YTD Debit,166.28,"{""account"": ""4281c446-efb4-445d-b32d-c441a4ef5678""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,Row,4,YTD Credit,,"{""account"": ""4281c446-efb4-445d-b32d-c441a4ef5678""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,0,Account,"Light, Power, Heating (445)","{""account"": ""c61d3100-d95f-4ce4-ba75-c03cc767b825""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,1,Debit,100.32,"{""account"": ""c61d3100-d95f-4ce4-ba75-c03cc767b825""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,2,Credit,,"{""account"": ""c61d3100-d95f-4ce4-ba75-c03cc767b825""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,3,YTD Debit,335.82,"{""account"": ""c61d3100-d95f-4ce4-ba75-c03cc767b825""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,4,YTD Credit,,"{""account"": ""c61d3100-d95f-4ce4-ba75-c03cc767b825""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,0,Account,Motor Vehicle Expenses (449),"{""account"": ""470f3b54-9cbe-420a-8d13-22cb17fd9d40""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,1,Debit,380.00,"{""account"": ""470f3b54-9cbe-420a-8d13-22cb17fd9d40""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,2,Credit,,"{""account"": ""470f3b54-9cbe-420a-8d13-22cb17fd9d40""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,3,YTD Debit,654.36,"{""account"": ""470f3b54-9cbe-420a-8d13-22cb17fd9d40""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,4,YTD Credit,,"{""account"": ""470f3b54-9cbe-420a-8d13-22cb17fd9d40""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,0,Account,Office Expenses (453),"{""account"": ""79fc6227-e183-409a-ba39-77028e0ceeff""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,1,Debit,107.11,"{""account"": ""79fc6227-e183-409a-ba39-77028e0ceeff""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,2,Credit,,"{""account"": ""79fc6227-e183-409a-ba39-77028e0ceeff""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,3,YTD Debit,812.59,"{""account"": ""79fc6227-e183-409a-ba39-77028e0ceeff""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,4,YTD Credit,,"{""account"": ""79fc6227-e183-409a-ba39-77028e0ceeff""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,0,Account,Printing & Stationery (461),"{""account"": ""a8c9ca73-91ef-4163-a4f6-7d892201c087""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,1,Debit,0.00,"{""account"": ""a8c9ca73-91ef-4163-a4f6-7d892201c087""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,2,Credit,,"{""account"": ""a8c9ca73-91ef-4163-a4f6-7d892201c087""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,3,YTD Debit,94.41,"{""account"": ""a8c9ca73-91ef-4163-a4f6-7d892201c087""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,4,YTD Credit,,"{""account"": ""a8c9ca73-91ef-4163-a4f6-7d892201c087""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,Row,0,Account,Purchases (300),"{""account"": ""ae8074e0-1ac1-4b37-8546-afa9fa6ace9e""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,Row,1,Debit,775.98,"{""account"": ""ae8074e0-1ac1-4b37-8546-afa9fa6ace9e""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,Row,2,Credit,,"{""account"": ""ae8074e0-1ac1-4b37-8546-afa9fa6ace9e""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,Row,3,YTD Debit,775.98,"{""account"": ""ae8074e0-1ac1-4b37-8546-afa9fa6ace9e""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,Row,4,YTD Credit,,"{""account"": ""ae8074e0-1ac1-4b37-8546-afa9fa6ace9e""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,Row,0,Account,Rent (469),"{""account"": ""d76027eb-0256-4b69-9f72-4751312e2749""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,Row,1,Debit,1091.22,"{""account"": ""d76027eb-0256-4b69-9f72-4751312e2749""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,Row,2,Credit,,"{""account"": ""d76027eb-0256-4b69-9f72-4751312e2749""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,Row,3,YTD Debit,3273.66,"{""account"": ""d76027eb-0256-4b69-9f72-4751312e2749""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,Row,4,YTD Credit,,"{""account"": ""d76027eb-0256-4b69-9f72-4751312e2749""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,0,Account,Repairs and Maintenance (473),"{""account"": ""5098e313-2775-40c3-9bb4-6b1f86d89a47""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,1,Debit,0.00,"{""account"": ""5098e313-2775-40c3-9bb4-6b1f86d89a47""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,2,Credit,,"{""account"": ""5098e313-2775-40c3-9bb4-6b1f86d89a47""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,3,YTD Debit,1896.70,"{""account"": ""5098e313-2775-40c3-9bb4-6b1f86d89a47""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,4,YTD Credit,,"{""account"": ""5098e313-2775-40c3-9bb4-6b1f86d89a47""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,0,Account,Telephone & Internet (489),"{""account"": ""3b4fee92-7ed1-4d63-b00e-8fdf13927e05""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,1,Debit,50.00,"{""account"": ""3b4fee92-7ed1-4d63-b00e-8fdf13927e05""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,2,Credit,,"{""account"": ""3b4fee92-7ed1-4d63-b00e-8fdf13927e05""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,3,YTD Debit,134.75,"{""account"": ""3b4fee92-7ed1-4d63-b00e-8fdf13927e05""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,4,YTD Credit,,"{""account"": ""3b4fee92-7ed1-4d63-b00e-8fdf13927e05""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,0,Account,Travel - National (493),"{""account"": ""f5211403-43fb-49aa-82de-9fc1f6bc3e8c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,1,Debit,223.56,"{""account"": ""f5211403-43fb-49aa-82de-9fc1f6bc3e8c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,2,Credit,,"{""account"": ""f5211403-43fb-49aa-82de-9fc1f6bc3e8c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,3,YTD Debit,255.80,"{""account"": ""f5211403-43fb-49aa-82de-9fc1f6bc3e8c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,4,YTD Credit,,"{""account"": ""f5211403-43fb-49aa-82de-9fc1f6bc3e8c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,Row,0,Account,Accounts Receivable (610),"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,Row,1,Debit,2248.18,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,Row,2,Credit,,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,Row,3,YTD Debit,9194.51,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,Row,4,YTD Credit,,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,18,Row,0,Account,Business Bank Account (090),"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,18,Row,1,Debit,,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,18,Row,2,Credit,1592.60,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,18,Row,3,YTD Debit,1760.54,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,18,Row,4,YTD Credit,,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,19,Row,0,Account,Computer Equipment (720),"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,19,Row,1,Debit,1969.99,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,19,Row,2,Credit,,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,19,Row,3,YTD Debit,3774.49,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,19,Row,4,YTD Credit,,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,20,Row,0,Account,Office Equipment (710),"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,20,Row,1,Debit,0.00,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,20,Row,2,Credit,,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,20,Row,3,YTD Debit,923.79,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,20,Row,4,YTD Credit,,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,21,Row,0,Account,Accounts Payable (800),"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,21,Row,1,Debit,,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,21,Row,2,Credit,6163.66,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,21,Row,3,YTD Debit,,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,21,Row,4,YTD Credit,8405.66,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,22,Row,0,Account,Historical Adjustment (840),"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,22,Row,1,Debit,,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,22,Row,2,Credit,0.00,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,22,Row,3,YTD Debit,,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,22,Row,4,YTD Credit,4130.98,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,23,Row,0,Account,Sales Tax (820),"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,23,Row,1,Debit,429.39,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,23,Row,2,Credit,,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,23,Row,3,YTD Debit,10.04,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,23,Row,4,YTD Credit,,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,24,Row,0,Account,Unpaid Expense Claims (801),"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,24,Row,1,Debit,,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,24,Row,2,Credit,115.95,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,24,Row,3,YTD Debit,,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,24,Row,4,YTD Credit,115.95,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,25,Row,0,Account,Retained Earnings (960),"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,25,Row,1,Debit,,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""12/31/2024""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,25,Row,2,Credit,0.00,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""12/31/2024""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,25,Row,3,YTD Debit,18.90,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""12/31/2024""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,25,Row,4,YTD Credit,,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""12/31/2024""}"
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,26,SummaryRow,0,Account,Total,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,26,SummaryRow,1,Debit,9939.81,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,26,SummaryRow,2,Credit,9939.81,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,26,SummaryRow,3,YTD Debit,35625.77,
-ba45b4b5-ee66-4a7f-83ec-4b463794dcce,26,SummaryRow,4,YTD Credit,35625.77,
+xero_tenant_id,row_id,row_type,column_index,column_name,value,others,extracted_at
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,0,Account,Sales (200),"{""account"": ""d1ebb97b-d207-4ccb-9ab6-8a466a8b4d39""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,1,Debit,,"{""account"": ""d1ebb97b-d207-4ccb-9ab6-8a466a8b4d39""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,2,Credit,2067.60,"{""account"": ""d1ebb97b-d207-4ccb-9ab6-8a466a8b4d39""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,3,YTD Debit,,"{""account"": ""d1ebb97b-d207-4ccb-9ab6-8a466a8b4d39""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,4,YTD Credit,22973.18,"{""account"": ""d1ebb97b-d207-4ccb-9ab6-8a466a8b4d39""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,0,Account,Advertising (400),"{""account"": ""eb01b8c7-f9b0-49ef-86f4-ed89b4ac33d5""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,1,Debit,2309.47,"{""account"": ""eb01b8c7-f9b0-49ef-86f4-ed89b4ac33d5""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,2,Credit,,"{""account"": ""eb01b8c7-f9b0-49ef-86f4-ed89b4ac33d5""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,3,YTD Debit,9657.05,"{""account"": ""eb01b8c7-f9b0-49ef-86f4-ed89b4ac33d5""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,Row,4,YTD Credit,,"{""account"": ""eb01b8c7-f9b0-49ef-86f4-ed89b4ac33d5""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,0,Account,Bank Fees (404),"{""account"": ""269479fb-cc8e-4e5f-b0b6-cc4eccf045e0""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,1,Debit,0.00,"{""account"": ""269479fb-cc8e-4e5f-b0b6-cc4eccf045e0""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,2,Credit,,"{""account"": ""269479fb-cc8e-4e5f-b0b6-cc4eccf045e0""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,3,YTD Debit,30.00,"{""account"": ""269479fb-cc8e-4e5f-b0b6-cc4eccf045e0""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,2,Row,4,YTD Credit,,"{""account"": ""269479fb-cc8e-4e5f-b0b6-cc4eccf045e0""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,Row,0,Account,Cleaning (408),"{""account"": ""30ad3fd7-43b8-4eeb-96bc-ed2b7c945f3c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,Row,1,Debit,0.00,"{""account"": ""30ad3fd7-43b8-4eeb-96bc-ed2b7c945f3c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,Row,2,Credit,,"{""account"": ""30ad3fd7-43b8-4eeb-96bc-ed2b7c945f3c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,Row,3,YTD Debit,110.00,"{""account"": ""30ad3fd7-43b8-4eeb-96bc-ed2b7c945f3c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,3,Row,4,YTD Credit,,"{""account"": ""30ad3fd7-43b8-4eeb-96bc-ed2b7c945f3c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,0,Account,Consulting & Accounting (412),"{""account"": ""d2429b4f-ad8b-45e5-815a-13f5ecb0d5c1""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,1,Debit,29.00,"{""account"": ""d2429b4f-ad8b-45e5-815a-13f5ecb0d5c1""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,2,Credit,,"{""account"": ""d2429b4f-ad8b-45e5-815a-13f5ecb0d5c1""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,3,YTD Debit,87.00,"{""account"": ""d2429b4f-ad8b-45e5-815a-13f5ecb0d5c1""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,4,Row,4,YTD Credit,,"{""account"": ""d2429b4f-ad8b-45e5-815a-13f5ecb0d5c1""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,0,Account,Entertainment (420),"{""account"": ""6a7d9c59-1d5a-4474-8c61-3da1f980db13""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,1,Debit,0.00,"{""account"": ""6a7d9c59-1d5a-4474-8c61-3da1f980db13""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,2,Credit,,"{""account"": ""6a7d9c59-1d5a-4474-8c61-3da1f980db13""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,3,YTD Debit,1553.60,"{""account"": ""6a7d9c59-1d5a-4474-8c61-3da1f980db13""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,5,Row,4,YTD Credit,,"{""account"": ""6a7d9c59-1d5a-4474-8c61-3da1f980db13""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,Row,0,Account,Freight & Courier (425),"{""account"": ""c4b1c463-9913-4672-a8b8-01a3b546126f""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,Row,1,Debit,105.50,"{""account"": ""c4b1c463-9913-4672-a8b8-01a3b546126f""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,Row,2,Credit,,"{""account"": ""c4b1c463-9913-4672-a8b8-01a3b546126f""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,Row,3,YTD Debit,105.50,"{""account"": ""c4b1c463-9913-4672-a8b8-01a3b546126f""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,6,Row,4,YTD Credit,,"{""account"": ""c4b1c463-9913-4672-a8b8-01a3b546126f""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,Row,0,Account,General Expenses (429),"{""account"": ""4281c446-efb4-445d-b32d-c441a4ef5678""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,Row,1,Debit,120.09,"{""account"": ""4281c446-efb4-445d-b32d-c441a4ef5678""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,Row,2,Credit,,"{""account"": ""4281c446-efb4-445d-b32d-c441a4ef5678""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,Row,3,YTD Debit,166.28,"{""account"": ""4281c446-efb4-445d-b32d-c441a4ef5678""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,7,Row,4,YTD Credit,,"{""account"": ""4281c446-efb4-445d-b32d-c441a4ef5678""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,0,Account,"Light, Power, Heating (445)","{""account"": ""c61d3100-d95f-4ce4-ba75-c03cc767b825""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,1,Debit,100.32,"{""account"": ""c61d3100-d95f-4ce4-ba75-c03cc767b825""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,2,Credit,,"{""account"": ""c61d3100-d95f-4ce4-ba75-c03cc767b825""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,3,YTD Debit,335.82,"{""account"": ""c61d3100-d95f-4ce4-ba75-c03cc767b825""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,8,Row,4,YTD Credit,,"{""account"": ""c61d3100-d95f-4ce4-ba75-c03cc767b825""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,0,Account,Motor Vehicle Expenses (449),"{""account"": ""470f3b54-9cbe-420a-8d13-22cb17fd9d40""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,1,Debit,380.00,"{""account"": ""470f3b54-9cbe-420a-8d13-22cb17fd9d40""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,2,Credit,,"{""account"": ""470f3b54-9cbe-420a-8d13-22cb17fd9d40""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,3,YTD Debit,654.36,"{""account"": ""470f3b54-9cbe-420a-8d13-22cb17fd9d40""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,9,Row,4,YTD Credit,,"{""account"": ""470f3b54-9cbe-420a-8d13-22cb17fd9d40""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,0,Account,Office Expenses (453),"{""account"": ""79fc6227-e183-409a-ba39-77028e0ceeff""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,1,Debit,107.11,"{""account"": ""79fc6227-e183-409a-ba39-77028e0ceeff""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,2,Credit,,"{""account"": ""79fc6227-e183-409a-ba39-77028e0ceeff""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,3,YTD Debit,812.59,"{""account"": ""79fc6227-e183-409a-ba39-77028e0ceeff""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,10,Row,4,YTD Credit,,"{""account"": ""79fc6227-e183-409a-ba39-77028e0ceeff""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,0,Account,Printing & Stationery (461),"{""account"": ""a8c9ca73-91ef-4163-a4f6-7d892201c087""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,1,Debit,0.00,"{""account"": ""a8c9ca73-91ef-4163-a4f6-7d892201c087""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,2,Credit,,"{""account"": ""a8c9ca73-91ef-4163-a4f6-7d892201c087""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,3,YTD Debit,94.41,"{""account"": ""a8c9ca73-91ef-4163-a4f6-7d892201c087""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,11,Row,4,YTD Credit,,"{""account"": ""a8c9ca73-91ef-4163-a4f6-7d892201c087""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,Row,0,Account,Purchases (300),"{""account"": ""ae8074e0-1ac1-4b37-8546-afa9fa6ace9e""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,Row,1,Debit,775.98,"{""account"": ""ae8074e0-1ac1-4b37-8546-afa9fa6ace9e""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,Row,2,Credit,,"{""account"": ""ae8074e0-1ac1-4b37-8546-afa9fa6ace9e""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,Row,3,YTD Debit,775.98,"{""account"": ""ae8074e0-1ac1-4b37-8546-afa9fa6ace9e""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,12,Row,4,YTD Credit,,"{""account"": ""ae8074e0-1ac1-4b37-8546-afa9fa6ace9e""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,Row,0,Account,Rent (469),"{""account"": ""d76027eb-0256-4b69-9f72-4751312e2749""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,Row,1,Debit,1091.22,"{""account"": ""d76027eb-0256-4b69-9f72-4751312e2749""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,Row,2,Credit,,"{""account"": ""d76027eb-0256-4b69-9f72-4751312e2749""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,Row,3,YTD Debit,3273.66,"{""account"": ""d76027eb-0256-4b69-9f72-4751312e2749""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,13,Row,4,YTD Credit,,"{""account"": ""d76027eb-0256-4b69-9f72-4751312e2749""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,0,Account,Repairs and Maintenance (473),"{""account"": ""5098e313-2775-40c3-9bb4-6b1f86d89a47""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,1,Debit,0.00,"{""account"": ""5098e313-2775-40c3-9bb4-6b1f86d89a47""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,2,Credit,,"{""account"": ""5098e313-2775-40c3-9bb4-6b1f86d89a47""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,3,YTD Debit,1896.70,"{""account"": ""5098e313-2775-40c3-9bb4-6b1f86d89a47""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,14,Row,4,YTD Credit,,"{""account"": ""5098e313-2775-40c3-9bb4-6b1f86d89a47""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,0,Account,Telephone & Internet (489),"{""account"": ""3b4fee92-7ed1-4d63-b00e-8fdf13927e05""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,1,Debit,50.00,"{""account"": ""3b4fee92-7ed1-4d63-b00e-8fdf13927e05""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,2,Credit,,"{""account"": ""3b4fee92-7ed1-4d63-b00e-8fdf13927e05""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,3,YTD Debit,134.75,"{""account"": ""3b4fee92-7ed1-4d63-b00e-8fdf13927e05""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,15,Row,4,YTD Credit,,"{""account"": ""3b4fee92-7ed1-4d63-b00e-8fdf13927e05""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,0,Account,Travel - National (493),"{""account"": ""f5211403-43fb-49aa-82de-9fc1f6bc3e8c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,1,Debit,223.56,"{""account"": ""f5211403-43fb-49aa-82de-9fc1f6bc3e8c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,2,Credit,,"{""account"": ""f5211403-43fb-49aa-82de-9fc1f6bc3e8c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,3,YTD Debit,255.80,"{""account"": ""f5211403-43fb-49aa-82de-9fc1f6bc3e8c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,16,Row,4,YTD Credit,,"{""account"": ""f5211403-43fb-49aa-82de-9fc1f6bc3e8c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,Row,0,Account,Accounts Receivable (610),"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,Row,1,Debit,2248.18,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,Row,2,Credit,,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,Row,3,YTD Debit,9194.51,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,17,Row,4,YTD Credit,,"{""account"": ""9af45928-6ad1-462d-b4c6-46d8f58255be""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,18,Row,0,Account,Business Bank Account (090),"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,18,Row,1,Debit,,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,18,Row,2,Credit,1592.60,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,18,Row,3,YTD Debit,1760.54,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,18,Row,4,YTD Credit,,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,19,Row,0,Account,Computer Equipment (720),"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,19,Row,1,Debit,1969.99,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,19,Row,2,Credit,,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,19,Row,3,YTD Debit,3774.49,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,19,Row,4,YTD Credit,,"{""account"": ""37e5d4fc-fd6e-489c-83da-fdb8cb058d48""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,20,Row,0,Account,Office Equipment (710),"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,20,Row,1,Debit,0.00,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,20,Row,2,Credit,,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,20,Row,3,YTD Debit,923.79,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,20,Row,4,YTD Credit,,"{""account"": ""0289f44f-bdad-48e8-ab5a-502e9d949bd7""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,21,Row,0,Account,Accounts Payable (800),"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,21,Row,1,Debit,,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,21,Row,2,Credit,6163.66,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,21,Row,3,YTD Debit,,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,21,Row,4,YTD Credit,8405.66,"{""account"": ""c0f7668c-1c46-47bf-8d65-62f8ba2da059""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,22,Row,0,Account,Historical Adjustment (840),"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,22,Row,1,Debit,,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,22,Row,2,Credit,0.00,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,22,Row,3,YTD Debit,,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,22,Row,4,YTD Credit,4130.98,"{""account"": ""44ee8a46-0b5f-46ca-b2e3-fbdae39fd13c""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,23,Row,0,Account,Sales Tax (820),"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,23,Row,1,Debit,429.39,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,23,Row,2,Credit,,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,23,Row,3,YTD Debit,10.04,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,23,Row,4,YTD Credit,,"{""account"": ""f0bb2f96-7530-416e-b8f0-bcec05e5ff04""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,24,Row,0,Account,Unpaid Expense Claims (801),"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,24,Row,1,Debit,,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,24,Row,2,Credit,115.95,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,24,Row,3,YTD Debit,,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,24,Row,4,YTD Credit,115.95,"{""account"": ""bab792be-f547-43b3-b81b-289bd52f1dcf""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,25,Row,0,Account,Retained Earnings (960),"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,25,Row,1,Debit,,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""12/31/2024""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,25,Row,2,Credit,0.00,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""12/31/2024""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,25,Row,3,YTD Debit,18.90,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""12/31/2024""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,25,Row,4,YTD Credit,,"{""account"": ""d2e8fca5-83cc-475d-9efb-03fe0dc57fd4"", ""toDate"": ""12/31/2024""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,26,SummaryRow,0,Account,Total,,2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,26,SummaryRow,1,Debit,9939.81,,2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,26,SummaryRow,2,Credit,9939.81,,2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,26,SummaryRow,3,YTD Debit,35625.77,,2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,26,SummaryRow,4,YTD Credit,35625.77,,2025-11-24T00:00:00+00:00

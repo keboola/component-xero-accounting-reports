@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field, ValidationError
 class Destination(BaseModel):
     output_table_name: str = ""
     load_type: str = "full_load"
-    primary_keys: str = ""
+    primary_keys: list[str] = Field(default_factory=list)
 
 
 class Configuration(BaseModel):

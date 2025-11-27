@@ -538,6 +538,7 @@ class TestComponent(unittest.TestCase):
             "column_name",
             "value",
             "others",
+            "extracted_at",
         ]
         self.assertEqual(CSV_FIELDNAMES, expected_fields)
 

@@ -9,16 +9,18 @@ from keboola.component.dao import BaseType, ColumnDefinition, SupportedDataTypes
 from keboola.component.exceptions import UserException
 from keboola.component.sync_actions import SelectElement
 from keboola.utils.date import get_past_date
+from datetime import datetime, timezone
 
 from configuration import Configuration
+from sapi_client import get_table_columns
 from xero_client import XeroClient
 
 # Constants
 KEY_STATE_OAUTH_TOKEN_DICT = "#oauth_token_dict"
 DATE_FIELDS = ["fromDate", "toDate", "date"]
 TIMEFRAME_MAP = {"MONTH": 1, "QUARTER": 3, "YEAR": 12}
-PRIMARY_KEY_COLUMNS = ["xero_tenant_id", "row_id", "column_index"]
-NOT_NULLABLE_COLUMNS = ["xero_tenant_id", "row_id", "row_type", "column_index"]
+PRIMARY_KEY_COLUMNS = ["xero_tenant_id", "row_id", "column_name"]
+NOT_NULLABLE_COLUMNS = ["xero_tenant_id", "row_id", "row_type", "column_name"]
 CSV_FIELDNAMES = [
     "xero_tenant_id",
     "row_id",
@@ -27,6 +29,7 @@ CSV_FIELDNAMES = [
     "column_name",
     "value",
     "others",
+    "extracted_at",
 ]
 REPORT_PARAM_FIELDS = [
     "reportYear",
@@ -246,13 +249,18 @@ class Component(ComponentBase):
             "column_name": "Name of the column from report header",
             "value": "Cell value from the report",
             "others": "JSON string containing additional row and cell attributes",
+            "extracted_at": "Timestamp when the data was extracted (UTC)",
         }
+
+        # Get user-configured primary keys or use default
+        user_primary_keys = self.config.destination.primary_keys if self.config.destination.primary_keys else []
 
         # Build schema dynamically from fieldnames
         for column in fieldnames:
             dtype = column_type_map.get(column, SupportedDataTypes.STRING)
             description = column_descriptions.get(column)
-            is_primary_key = column in PRIMARY_KEY_COLUMNS
+            # Use user-configured PKs if provided, otherwise no PKs for full load
+            is_primary_key = column in user_primary_keys
             nullable = column not in NOT_NULLABLE_COLUMNS
 
             schema[column] = ColumnDefinition(
@@ -286,11 +294,12 @@ class Component(ComponentBase):
             has_header=True,
         )
 
-        # Serialize 'others' dict to JSON string for consistent CSV schema
+        extracted_at = datetime.now(timezone.utc).isoformat()
         output_data = []
         for row in data:
             output_row = {k: v for k, v in row.items() if k != "others"}
             output_row["others"] = json.dumps(row.get("others", {})) if row.get("others") else ""
+            output_row["extracted_at"] = extracted_at
             output_data.append(output_row)
 
         with open(table.full_path, mode="w", encoding="utf-8", newline="") as f:
@@ -432,6 +441,51 @@ class Component(ComponentBase):
         tenants = self.client.get_tenants()
         logging.debug(f"Found {len(tenants)} Xero tenants")
         return [SelectElement(t["tenantId"], f"{t['tenantName']} ({t['tenantType']})") for t in tenants]
+
+    @sync_action("get_output_columns")
+    def get_output_columns(self) -> list[SelectElement]:
+        """Load columns from output table and return as select elements for UI.
+
+        This sync action retrieves column information from the last generated output table.
+        Users should run the component once with full load before calling this action.
+
+        Returns:
+            list of SelectElement objects for column selection in UI
+
+        Raises:
+            UserException: If output table cannot be found or read
+        """
+        # Determine output table name
+        table_name = self.config.destination.output_table_name or self.config.report_type
+
+        # Get Storage API credentials
+        storage_url = self.environment_variables.url
+        storage_token = self.environment_variables.token
+
+        # Build table ID - output tables are in out.c-<config-id>.<table-name> format
+        # The config ID is available from the environment
+        config_id = self.environment_variables.config_id
+        table_id = f"out.c-{config_id}.{table_name}"
+
+        try:
+            columns = get_table_columns(table_id, storage_url, storage_token)
+            logging.info(f"Found {len(columns)} columns in table {table_id}")
+
+            # Convert to SelectElement with column name as both value and label
+            # Optionally show data type in label
+            return [
+                SelectElement(
+                    value=col["name"], label=f"{col['name']} ({col['dtype']})" if col["dtype"] else col["name"]
+                )
+                for col in columns
+            ]
+        except Exception as e:
+            logging.error(f"Failed to retrieve columns from table {table_name}: {e}")
+            raise UserException(
+                f"Could not retrieve columns from output table '{table_name}'. "
+                "Please ensure you have run the component at least once with full load. "
+                f"Error: {str(e)}"
+            )
 
 
 if __name__ == "__main__":
