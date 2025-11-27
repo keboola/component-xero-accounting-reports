@@ -11,6 +11,10 @@
   },
   "parameters": {
     "report_type": "ProfitAndLoss",
+    "destination": {
+      "output_table_name": "ProfitAndLoss",
+      "load_type": "full_load"
+    },
     "fromDate": "1 month ago",
     "toDate": "today",
     "timeframe": "MONTH",

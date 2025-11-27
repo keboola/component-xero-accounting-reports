@@ -269,13 +269,19 @@ class Component(ComponentBase):
 
         Args:
             data: list of flattened data rows
-            report_type: Report type used for filename
+            report_type: Report type used for filename (fallback if no output_table_name)
         """
-        output_file = f"{report_type}.csv"
+        # Use configured output table name, or fall back to report type
+        table_name = self.config.destination.output_table_name or report_type
+        output_file = f"{table_name}.csv"
+
+        # Determine if incremental based on load_type
+        is_incremental = self.config.destination.load_type == "incremental_load"
+
         schema = self._build_schema(CSV_FIELDNAMES)
         table = self.create_out_table_definition(
             output_file,
-            incremental=self.config.incremental,
+            incremental=is_incremental,
             schema=schema,
             has_header=True,
         )

@@ -25,10 +25,12 @@ class TestComponent(unittest.TestCase):
         self.mock_config_data = {
             "parameters": {
                 "report_type": "ProfitAndLoss",
-                "report_parameters": [
-                    {"key": "fromDate", "value": "2024-01-01"},
-                    {"key": "toDate", "value": "2024-01-31"},
-                ],
+                "destination": {
+                    "output_table_name": "ProfitAndLoss",
+                    "load_type": "full_load",
+                },
+                "fromDate": "2024-01-01",
+                "toDate": "2024-01-31",
             },
             "authorization": {
                 "oauth_api": {
@@ -67,6 +69,18 @@ class TestComponent(unittest.TestCase):
         else:
             mock_oauth.data = {"access_token": "test_token"}
         return mock_oauth
+
+    def _create_mock_params(self, report_type, **kwargs):
+        """Helper to create mock parameters with destination"""
+        params = {
+            "report_type": report_type,
+            "destination": {
+                "output_table_name": report_type,
+                "load_type": "full_load",
+            },
+        }
+        params.update(kwargs)
+        return params
 
     @patch("component.XeroClient")
     @patch("component.ComponentBase.__init__")
@@ -111,7 +125,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "ProfitAndLoss"}
+                    mock_configuration.parameters = self._create_mock_params("ProfitAndLoss")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
@@ -134,7 +148,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "BalanceSheet"}
+                    mock_configuration.parameters = self._create_mock_params("BalanceSheet")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
@@ -151,11 +165,14 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "BudgetSummary"}
+                    mock_configuration.parameters = self._create_mock_params("BudgetSummary")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
-                    component.config = Configuration(report_type="BudgetSummary")
+                    component.config = Configuration(
+                        report_type="BudgetSummary",
+                        destination={"output_table_name": "BudgetSummary", "load_type": "full_load"},
+                    )
 
                     params = {"timeframe": "MONTH"}
                     parsed = component._parse_date_parameters(params)
@@ -174,11 +191,14 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "ProfitAndLoss"}
+                    mock_configuration.parameters = self._create_mock_params("ProfitAndLoss")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
-                    component.config = Configuration(report_type="ProfitAndLoss")
+                    component.config = Configuration(
+                        report_type="ProfitAndLoss",
+                        destination={"output_table_name": "ProfitAndLoss", "load_type": "full_load"},
+                    )
 
                     params = {"timeframe": "MONTH"}
                     parsed = component._parse_date_parameters(params)
@@ -189,7 +209,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "ProfitAndLoss"}
+                    mock_configuration.parameters = self._create_mock_params("ProfitAndLoss")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
@@ -224,7 +244,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "BalanceSheet"}
+                    mock_configuration.parameters = self._create_mock_params("BalanceSheet")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
@@ -257,7 +277,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "ProfitAndLoss"}
+                    mock_configuration.parameters = self._create_mock_params("ProfitAndLoss")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
@@ -284,7 +304,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "TrialBalance"}
+                    mock_configuration.parameters = self._create_mock_params("TrialBalance")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
@@ -318,7 +338,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "ProfitAndLoss"}
+                    mock_configuration.parameters = self._create_mock_params("ProfitAndLoss")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
@@ -357,7 +377,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "BalanceSheet"}
+                    mock_configuration.parameters = self._create_mock_params("BalanceSheet")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
@@ -373,7 +393,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "ExecutiveSummary"}
+                    mock_configuration.parameters = self._create_mock_params("ExecutiveSummary")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
@@ -389,7 +409,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "ProfitAndLoss"}
+                    mock_configuration.parameters = self._create_mock_params("ProfitAndLoss")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
@@ -440,7 +460,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "TrialBalance"}
+                    mock_configuration.parameters = self._create_mock_params("TrialBalance")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
@@ -480,7 +500,7 @@ class TestComponent(unittest.TestCase):
         with patch("component.ComponentBase.__init__"):
             with patch.object(Component, "configuration") as mock_configuration:
                 with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = {"report_type": "ProfitAndLoss"}
+                    mock_configuration.parameters = self._create_mock_params("ProfitAndLoss")
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     # Mock XeroClient instance

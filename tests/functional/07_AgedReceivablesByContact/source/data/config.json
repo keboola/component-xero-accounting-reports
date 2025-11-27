@@ -11,6 +11,10 @@
   },
   "parameters": {
     "report_type": "AgedReceivablesByContact",
+    "destination": {
+      "output_table_name": "AgedReceivablesByContact",
+      "load_type": "full_load"
+    },
     "contactID": "7c913d33-39d5-4a1c-b8b1-e23f5fc999e0",
     "date": "today"
   },

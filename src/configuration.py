@@ -2,10 +2,16 @@ from keboola.component.exceptions import UserException
 from pydantic import BaseModel, Field, ValidationError
 
 
+class Destination(BaseModel):
+    output_table_name: str = ""
+    load_type: str = "full_load"
+    primary_keys: str = ""
+
+
 class Configuration(BaseModel):
     # Core configuration
     report_type: str
-    incremental: bool = Field(default=False)
+    destination: Destination
     xero_tenant_id: str | None = Field(default=None)
 
     # Report parameters - all optional with empty defaults

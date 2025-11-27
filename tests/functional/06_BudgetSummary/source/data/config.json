@@ -11,6 +11,10 @@
   },
   "parameters": {
     "report_type": "BudgetSummary",
+    "destination": {
+      "output_table_name": "BudgetSummary",
+      "load_type": "full_load"
+    },
     "date": "3 months ago",
     "periods": 3,
     "timeframe": "MONTH"

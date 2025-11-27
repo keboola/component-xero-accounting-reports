@@ -11,6 +11,10 @@
   },
   "parameters": {
     "report_type": "AgedPayablesByContact",
+    "destination": {
+      "output_table_name": "AgedPayablesByContact",
+      "load_type": "full_load"
+    },
     "contactID": "3f58af86-b4d9-4ac9-950c-2e4cdd94d5be",
     "date": "today"
   },

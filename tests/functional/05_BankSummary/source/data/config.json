@@ -11,6 +11,10 @@
   },
   "parameters": {
     "report_type": "BankSummary",
+    "destination": {
+      "output_table_name": "BankSummary",
+      "load_type": "full_load"
+    },
     "fromDate": "2025-01-01",
     "toDate": "2025-12-31"
   },
