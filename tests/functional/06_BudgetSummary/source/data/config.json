@@ -10,14 +10,10 @@
     }
   },
   "parameters": {
-    "debug": true,
     "report_type": "BudgetSummary",
-    "report_parameters": [
-      {"key": "date", "value": "3 months ago"},
-      {"key": "periods", "value": 3},
-      {"key": "timeframe", "value": "MONTH"}
-    ],
-    "custom_parameters": []
+    "date": "3 months ago",
+    "periods": 3,
+    "timeframe": "MONTH"
   },
   "action": "run",
   "authorization": {

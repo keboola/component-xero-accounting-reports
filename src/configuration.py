@@ -2,16 +2,27 @@ from keboola.component.exceptions import UserException
 from pydantic import BaseModel, Field, ValidationError
 
 
-class Parameter(BaseModel):
-    key: str
-    value: str | bool | int
-
-
 class Configuration(BaseModel):
+    # Core configuration
     report_type: str
     incremental: bool = Field(default=False)
-    report_parameters: list[Parameter] = Field(default_factory=list)
     xero_tenant_id: str | None = Field(default=None)
+
+    # Report parameters - all optional with empty defaults
+    reportYear: str = ""
+    date: str = ""
+    fromDate: str = ""
+    toDate: str = ""
+    contactID: str = ""
+    periods: int | None = None
+    timeframe: str = ""
+    trackingOptionID: str = ""
+    trackingCategoryID: str = ""
+    trackingOptionID2: str = ""
+    trackingCategoryID2: str = ""
+    standardLayout: bool | None = None
+    paymentsOnly: bool | None = None
+    reportID: str = ""
 
     def __init__(self, **data):
         try:

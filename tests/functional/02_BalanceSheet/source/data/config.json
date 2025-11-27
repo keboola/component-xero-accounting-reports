@@ -10,12 +10,8 @@
     }
   },
   "parameters": {
-    "debug": true,
     "report_type": "BalanceSheet",
-    "report_parameters": [
-      {"key": "date", "value": "today"}
-    ],
-    "custom_parameters": []
+    "date": "today"
   },
   "action": "run",
   "authorization": {

@@ -36,8 +36,16 @@ class TestXeroClient(unittest.TestCase):
     def test_get_tenants_success(self):
         """Test successful retrieval of tenants"""
         mock_response = [
-            {"tenantId": "tenant-1", "tenantName": "Company A", "tenantType": "ORGANISATION"},
-            {"tenantId": "tenant-2", "tenantName": "Company B", "tenantType": "ORGANISATION"},
+            {
+                "tenantId": "tenant-1",
+                "tenantName": "Company A",
+                "tenantType": "ORGANISATION",
+            },
+            {
+                "tenantId": "tenant-2",
+                "tenantName": "Company B",
+                "tenantType": "ORGANISATION",
+            },
         ]
 
         responses.add(responses.GET, XeroClient.CONNECTIONS_URL, json=mock_response, status=200)
@@ -61,7 +69,12 @@ class TestXeroClient(unittest.TestCase):
     @responses.activate
     def test_get_tenants_authentication_error(self):
         """Test get_tenants with 401 authentication error"""
-        responses.add(responses.GET, XeroClient.CONNECTIONS_URL, json={"error": "Unauthorized"}, status=401)
+        responses.add(
+            responses.GET,
+            XeroClient.CONNECTIONS_URL,
+            json={"error": "Unauthorized"},
+            status=401,
+        )
 
         with self.assertRaises(UserException) as context:
             self.client.get_tenants()
@@ -72,7 +85,12 @@ class TestXeroClient(unittest.TestCase):
     @responses.activate
     def test_get_tenants_other_error(self):
         """Test get_tenants with non-401 error"""
-        responses.add(responses.GET, XeroClient.CONNECTIONS_URL, json={"error": "Internal Server Error"}, status=500)
+        responses.add(
+            responses.GET,
+            XeroClient.CONNECTIONS_URL,
+            json={"error": "Internal Server Error"},
+            status=500,
+        )
 
         with self.assertRaises(UserException) as context:
             self.client.get_tenants()
@@ -99,7 +117,12 @@ class TestXeroClient(unittest.TestCase):
             ]
         }
 
-        responses.add(responses.GET, f"{XeroClient.BASE_URL}/Reports/{report_type}", json=mock_response, status=200)
+        responses.add(
+            responses.GET,
+            f"{XeroClient.BASE_URL}/Reports/{report_type}",
+            json=mock_response,
+            status=200,
+        )
 
         result = self.client.get_report(report_type, self.tenant_id, parameters)
 
@@ -117,11 +140,20 @@ class TestXeroClient(unittest.TestCase):
     def test_get_report_with_parameters(self):
         """Test get_report includes query parameters"""
         report_type = "BalanceSheet"
-        parameters = {"date": "2024-12-31", "trackingOptionID": "123", "standardLayout": "true"}
+        parameters = {
+            "date": "2024-12-31",
+            "trackingOptionID": "123",
+            "standardLayout": "true",
+        }
 
         mock_response = {"Reports": [{"ReportID": "BalanceSheet", "Rows": []}]}
 
-        responses.add(responses.GET, f"{XeroClient.BASE_URL}/Reports/{report_type}", json=mock_response, status=200)
+        responses.add(
+            responses.GET,
+            f"{XeroClient.BASE_URL}/Reports/{report_type}",
+            json=mock_response,
+            status=200,
+        )
 
         self.client.get_report(report_type, self.tenant_id, parameters)
 
@@ -140,7 +172,10 @@ class TestXeroClient(unittest.TestCase):
         mock_response = {"Reports": [{"ReportID": custom_report_id, "Rows": []}]}
 
         responses.add(
-            responses.GET, f"{XeroClient.BASE_URL}/Reports/{custom_report_id}", json=mock_response, status=200
+            responses.GET,
+            f"{XeroClient.BASE_URL}/Reports/{custom_report_id}",
+            json=mock_response,
+            status=200,
         )
 
         result = self.client.get_report(custom_report_id, self.tenant_id, parameters)
@@ -151,7 +186,10 @@ class TestXeroClient(unittest.TestCase):
     def test_get_report_authentication_error(self):
         """Test get_report with 401 authentication error"""
         responses.add(
-            responses.GET, f"{XeroClient.BASE_URL}/Reports/ProfitAndLoss", json={"error": "Unauthorized"}, status=401
+            responses.GET,
+            f"{XeroClient.BASE_URL}/Reports/ProfitAndLoss",
+            json={"error": "Unauthorized"},
+            status=401,
         )
 
         with self.assertRaises(UserException) as context:
@@ -164,7 +202,10 @@ class TestXeroClient(unittest.TestCase):
     def test_get_report_forbidden_error(self):
         """Test get_report with 403 forbidden error"""
         responses.add(
-            responses.GET, f"{XeroClient.BASE_URL}/Reports/ProfitAndLoss", json={"error": "Forbidden"}, status=403
+            responses.GET,
+            f"{XeroClient.BASE_URL}/Reports/ProfitAndLoss",
+            json={"error": "Forbidden"},
+            status=403,
         )
 
         with self.assertRaises(UserException) as context:
@@ -178,7 +219,10 @@ class TestXeroClient(unittest.TestCase):
         """Test get_report with 404 not found error"""
         report_type = "InvalidReport"
         responses.add(
-            responses.GET, f"{XeroClient.BASE_URL}/Reports/{report_type}", json={"error": "Not Found"}, status=404
+            responses.GET,
+            f"{XeroClient.BASE_URL}/Reports/{report_type}",
+            json={"error": "Not Found"},
+            status=404,
         )
 
         with self.assertRaises(UserException) as context:
@@ -191,7 +235,10 @@ class TestXeroClient(unittest.TestCase):
     def test_get_report_other_error(self):
         """Test get_report with other HTTP error"""
         responses.add(
-            responses.GET, f"{XeroClient.BASE_URL}/Reports/ProfitAndLoss", json={"error": "Bad Request"}, status=400
+            responses.GET,
+            f"{XeroClient.BASE_URL}/Reports/ProfitAndLoss",
+            json={"error": "Bad Request"},
+            status=400,
         )
 
         with self.assertRaises(UserException) as context:
@@ -206,7 +253,12 @@ class TestXeroClient(unittest.TestCase):
         report_type = "TrialBalance"
         mock_response = {"Reports": [{"ReportID": report_type, "Rows": []}]}
 
-        responses.add(responses.GET, f"{XeroClient.BASE_URL}/Reports/{report_type}", json=mock_response, status=200)
+        responses.add(
+            responses.GET,
+            f"{XeroClient.BASE_URL}/Reports/{report_type}",
+            json=mock_response,
+            status=200,
+        )
 
         result = self.client.get_report(report_type, self.tenant_id, {})
         self.assertIsNotNone(result)
@@ -227,7 +279,12 @@ class TestXeroClient(unittest.TestCase):
         tenant_id = "specific-tenant-123"
 
         mock_response = {"Reports": []}
-        responses.add(responses.GET, f"{XeroClient.BASE_URL}/Reports/{report_type}", json=mock_response, status=200)
+        responses.add(
+            responses.GET,
+            f"{XeroClient.BASE_URL}/Reports/{report_type}",
+            json=mock_response,
+            status=200,
+        )
 
         self.client.get_report(report_type, tenant_id, {})
 
@@ -243,8 +300,18 @@ class TestXeroClient(unittest.TestCase):
         tenant_2 = "tenant-002"
 
         mock_response = {"Reports": []}
-        responses.add(responses.GET, f"{XeroClient.BASE_URL}/Reports/{report_type}", json=mock_response, status=200)
-        responses.add(responses.GET, f"{XeroClient.BASE_URL}/Reports/{report_type}", json=mock_response, status=200)
+        responses.add(
+            responses.GET,
+            f"{XeroClient.BASE_URL}/Reports/{report_type}",
+            json=mock_response,
+            status=200,
+        )
+        responses.add(
+            responses.GET,
+            f"{XeroClient.BASE_URL}/Reports/{report_type}",
+            json=mock_response,
+            status=200,
+        )
 
         self.client.get_report(report_type, tenant_1, {})
         self.client.get_report(report_type, tenant_2, {})

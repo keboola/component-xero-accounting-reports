@@ -37,7 +37,12 @@ class TestComponent(unittest.TestCase):
             "expires_in": 1800,
             "token_type": "Bearer",
         }
-        responses.add(responses.POST, "https://identity.xero.com/connect/token", json=token_response, status=200)
+        responses.add(
+            responses.POST,
+            "https://identity.xero.com/connect/token",
+            json=token_response,
+            status=200,
+        )
 
     def _mock_tenants_endpoint(self, tenant_id: str = "ba45b4b5-ee66-4a7f-83ec-4b463794dcce"):
         """Mock the Xero tenants endpoint"""
@@ -52,7 +57,12 @@ class TestComponent(unittest.TestCase):
             }
         ]
 
-        responses.add(responses.GET, "https://api.xero.com/connections", json=tenants_response, status=200)
+        responses.add(
+            responses.GET,
+            "https://api.xero.com/connections",
+            json=tenants_response,
+            status=200,
+        )
 
     def _mock_xero_report_api(self, test_dir_name: str, report_name: str, tenant_id: str):
         """Generic method to mock Xero API endpoints for any report"""
@@ -130,7 +140,11 @@ class TestComponent(unittest.TestCase):
     @responses.activate
     def test_executive_summary(self):
         """Test ExecutiveSummary report extraction"""
-        self._run_report_test("04_ExecutiveSummary", "ExecutiveSummary", "ba45b4b5-ee66-4a7f-83ec-4b463794dcce")
+        self._run_report_test(
+            "04_ExecutiveSummary",
+            "ExecutiveSummary",
+            "ba45b4b5-ee66-4a7f-83ec-4b463794dcce",
+        )
 
     @freeze_time("2025-11-24")
     @responses.activate
@@ -149,7 +163,9 @@ class TestComponent(unittest.TestCase):
     def test_aged_receivables_by_contact(self):
         """Test AgedReceivablesByContact report extraction"""
         self._run_report_test(
-            "07_AgedReceivablesByContact", "AgedReceivablesByContact", "ba45b4b5-ee66-4a7f-83ec-4b463794dcce"
+            "07_AgedReceivablesByContact",
+            "AgedReceivablesByContact",
+            "ba45b4b5-ee66-4a7f-83ec-4b463794dcce",
         )
 
     @freeze_time("2025-11-24")
@@ -157,7 +173,9 @@ class TestComponent(unittest.TestCase):
     def test_aged_payables_by_contact(self):
         """Test AgedPayablesByContact report extraction"""
         self._run_report_test(
-            "08_AgedPayablesByContact", "AgedPayablesByContact", "ba45b4b5-ee66-4a7f-83ec-4b463794dcce"
+            "08_AgedPayablesByContact",
+            "AgedPayablesByContact",
+            "ba45b4b5-ee66-4a7f-83ec-4b463794dcce",
         )
 
 

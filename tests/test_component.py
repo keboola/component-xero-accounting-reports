@@ -117,7 +117,11 @@ class TestComponent(unittest.TestCase):
                     component = Component()
 
                     with freeze_time("2024-02-01"):
-                        params = {"fromDate": "7 days ago", "toDate": "today", "otherParam": "value"}
+                        params = {
+                            "fromDate": "7 days ago",
+                            "toDate": "today",
+                            "otherParam": "value",
+                        }
 
                         parsed = component._parse_date_parameters(params)
 
@@ -191,8 +195,14 @@ class TestComponent(unittest.TestCase):
                     component = Component()
 
                     rows = [
-                        {"RowType": "Header", "Cells": [{"Value": "Account"}, {"Value": "Amount"}]},
-                        {"RowType": "Row", "Cells": [{"Value": "Revenue"}, {"Value": "10000"}]},
+                        {
+                            "RowType": "Header",
+                            "Cells": [{"Value": "Account"}, {"Value": "Amount"}],
+                        },
+                        {
+                            "RowType": "Row",
+                            "Cells": [{"Value": "Revenue"}, {"Value": "10000"}],
+                        },
                     ]
 
                     result = component._flatten_report_rows_long_format(rows, "ProfitAndLoss", "tenant-123")
@@ -220,11 +230,19 @@ class TestComponent(unittest.TestCase):
                     component = Component()
 
                     rows = [
-                        {"RowType": "Header", "Cells": [{"Value": "Account"}, {"Value": "Amount"}]},
+                        {
+                            "RowType": "Header",
+                            "Cells": [{"Value": "Account"}, {"Value": "Amount"}],
+                        },
                         {
                             "RowType": "Section",
                             "Title": "Assets",
-                            "Rows": [{"RowType": "Row", "Cells": [{"Value": "Cash"}, {"Value": "5000"}]}],
+                            "Rows": [
+                                {
+                                    "RowType": "Row",
+                                    "Cells": [{"Value": "Cash"}, {"Value": "5000"}],
+                                }
+                            ],
                         },
                     ]
 
@@ -245,8 +263,14 @@ class TestComponent(unittest.TestCase):
                     component = Component()
 
                     rows = [
-                        {"RowType": "Header", "Cells": [{"Value": "Label"}, {"Value": "Total"}]},
-                        {"RowType": "SummaryRow", "Cells": [{"Value": "Net Profit"}, {"Value": "25000"}]},
+                        {
+                            "RowType": "Header",
+                            "Cells": [{"Value": "Label"}, {"Value": "Total"}],
+                        },
+                        {
+                            "RowType": "SummaryRow",
+                            "Cells": [{"Value": "Net Profit"}, {"Value": "25000"}],
+                        },
                     ]
 
                     result = component._flatten_report_rows_long_format(rows, "ProfitAndLoss", "tenant-789")
@@ -272,7 +296,10 @@ class TestComponent(unittest.TestCase):
                             "Cells": [
                                 {
                                     "Value": "Bank Account",
-                                    "Attributes": [{"Id": "account", "Value": "001"}, {"Id": "type", "Value": "BANK"}],
+                                    "Attributes": [
+                                        {"Id": "account", "Value": "001"},
+                                        {"Id": "type", "Value": "BANK"},
+                                    ],
                                 }
                             ],
                         },
@@ -301,8 +328,20 @@ class TestComponent(unittest.TestCase):
                             {
                                 "ReportID": "ProfitAndLoss",
                                 "Rows": [
-                                    {"RowType": "Header", "Cells": [{"Value": "Account"}, {"Value": "Total"}]},
-                                    {"RowType": "Row", "Cells": [{"Value": "Income"}, {"Value": "50000"}]},
+                                    {
+                                        "RowType": "Header",
+                                        "Cells": [
+                                            {"Value": "Account"},
+                                            {"Value": "Total"},
+                                        ],
+                                    },
+                                    {
+                                        "RowType": "Row",
+                                        "Cells": [
+                                            {"Value": "Income"},
+                                            {"Value": "50000"},
+                                        ],
+                                    },
                                 ],
                             }
                         ]
@@ -359,7 +398,11 @@ class TestComponent(unittest.TestCase):
                     mock_table = Mock()
                     mock_table.full_path = os.path.join(self.temp_dir, "ProfitAndLoss.csv")
 
-                    with patch.object(component, "create_out_table_definition", return_value=mock_table):
+                    with patch.object(
+                        component,
+                        "create_out_table_definition",
+                        return_value=mock_table,
+                    ):
                         with patch.object(component, "write_manifest"):
                             data = [
                                 {
@@ -405,7 +448,11 @@ class TestComponent(unittest.TestCase):
                     mock_table = Mock()
                     mock_table.full_path = os.path.join(self.temp_dir, "TrialBalance.csv")
 
-                    with patch.object(component, "create_out_table_definition", return_value=mock_table):
+                    with patch.object(
+                        component,
+                        "create_out_table_definition",
+                        return_value=mock_table,
+                    ):
                         with patch.object(component, "write_manifest"):
                             data = [
                                 {
@@ -439,8 +486,16 @@ class TestComponent(unittest.TestCase):
                     # Mock XeroClient instance
                     mock_client_instance = Mock()
                     mock_client_instance.get_tenants.return_value = [
-                        {"tenantId": "tenant-1", "tenantName": "Company A", "tenantType": "ORGANISATION"},
-                        {"tenantId": "tenant-2", "tenantName": "Company B", "tenantType": "PRACTICE"},
+                        {
+                            "tenantId": "tenant-1",
+                            "tenantName": "Company A",
+                            "tenantType": "ORGANISATION",
+                        },
+                        {
+                            "tenantId": "tenant-2",
+                            "tenantName": "Company B",
+                            "tenantType": "PRACTICE",
+                        },
                     ]
                     mock_xero_client_class.return_value = mock_client_instance
 
@@ -455,7 +510,15 @@ class TestComponent(unittest.TestCase):
 
     def test_csv_fieldnames_constant(self):
         """Test that CSV_FIELDNAMES constant is correct"""
-        expected_fields = ["xero_tenant_id", "row_id", "row_type", "column_index", "column_name", "value", "others"]
+        expected_fields = [
+            "xero_tenant_id",
+            "row_id",
+            "row_type",
+            "column_index",
+            "column_name",
+            "value",
+            "others",
+        ]
         self.assertEqual(CSV_FIELDNAMES, expected_fields)
 
     def test_timeframe_map_constant(self):

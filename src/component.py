@@ -28,6 +28,22 @@ CSV_FIELDNAMES = [
     "value",
     "others",
 ]
+REPORT_PARAM_FIELDS = [
+    "reportYear",
+    "date",
+    "fromDate",
+    "toDate",
+    "contactID",
+    "periods",
+    "timeframe",
+    "trackingOptionID",
+    "trackingCategoryID",
+    "trackingOptionID2",
+    "trackingCategoryID2",
+    "standardLayout",
+    "paymentsOnly",
+    "reportID",
+]
 
 
 class Component(ComponentBase):
@@ -37,6 +53,50 @@ class Component(ComponentBase):
         self.config = Configuration(**self.configuration.parameters)
         self.new_state = {}
         self._init_client()
+
+    def run(self) -> None:
+        """Main execution method - fetch and process Xero reports."""
+        # Refresh token and save to state at the start
+        self.refresh_token_and_save_state()
+
+        # Extract non-empty report parameters from configuration
+        params = {}
+        for field in REPORT_PARAM_FIELDS:
+            value = getattr(self.config, field)
+            # Skip empty strings and None values
+            if value == "" or value is None:
+                continue
+            # Convert to string format for API calls
+            if isinstance(value, bool):
+                params[field] = "true" if value else "false"
+            elif isinstance(value, int):
+                params[field] = str(value)
+            else:
+                params[field] = value
+
+        parsed_params = self._parse_date_parameters(params)
+
+        tenant_ids = (
+            [self.config.xero_tenant_id]
+            if self.config.xero_tenant_id
+            else [tenant["tenantId"] for tenant in self.client.get_tenants()]
+        )
+        logging.info(f"Processing {len(tenant_ids)} tenant(s)")
+
+        # Get report name
+        report_name = self.config.report_type
+
+        all_data = []
+        for tenant_id in tenant_ids:
+            logging.debug(f"Fetching report for tenant: {tenant_id}")
+            report_data = self.client.get_report(report_name, tenant_id, parsed_params)
+            tenant_data = self._process_report_data(report_data, self.config.report_type, tenant_id)
+            all_data.extend(tenant_data)
+
+        if all_data:
+            self._write_data_to_csv(all_data, self.config.report_type)
+        else:
+            logging.warning("No data extracted from any tenant")
 
     def _init_client(self) -> None:
         """Initialize Xero client from state or OAuth credentials."""
@@ -131,44 +191,6 @@ class Component(ComponentBase):
         self.write_state_file(self.new_state)
         logging.info("Token refreshed and saved to state")
 
-    def run(self) -> None:
-        """Main execution method - fetch and process Xero reports."""
-        # Refresh token and save to state at the start
-        self.refresh_token_and_save_state()
-        # Convert parameters to dict for API calls
-        params = {}
-        for param in self.config.report_parameters:
-            if isinstance(param.value, bool):
-                params[param.key] = "true" if param.value else "false"
-            elif isinstance(param.value, int):
-                params[param.key] = str(param.value)
-            else:
-                params[param.key] = param.value
-
-        parsed_params = self._parse_date_parameters(params)
-
-        tenant_ids = (
-            [self.config.xero_tenant_id]
-            if self.config.xero_tenant_id
-            else [tenant["tenantId"] for tenant in self.client.get_tenants()]
-        )
-        logging.info(f"Processing {len(tenant_ids)} tenant(s)")
-
-        # Get report name
-        report_name = self.config.report_type
-
-        all_data = []
-        for tenant_id in tenant_ids:
-            logging.debug(f"Fetching report for tenant: {tenant_id}")
-            report_data = self.client.get_report(report_name, tenant_id, parsed_params)
-            tenant_data = self._process_report_data(report_data, self.config.report_type, tenant_id)
-            all_data.extend(tenant_data)
-
-        if all_data:
-            self._write_data_to_csv(all_data, self.config.report_type)
-        else:
-            logging.warning("No data extracted from any tenant")
-
     def _process_report_data(
         self, report_data: dict[str, Any], report_type: str, tenant_id: str
     ) -> list[dict[str, Any]]:
@@ -252,7 +274,10 @@ class Component(ComponentBase):
         output_file = f"{report_type}.csv"
         schema = self._build_schema(CSV_FIELDNAMES)
         table = self.create_out_table_definition(
-            output_file, incremental=self.config.incremental, schema=schema, has_header=True
+            output_file,
+            incremental=self.config.incremental,
+            schema=schema,
+            has_header=True,
         )
 
         # Serialize 'others' dict to JSON string for consistent CSV schema
@@ -316,7 +341,11 @@ class Component(ComponentBase):
                 section_rows = row.get("Rows", [])
                 long_format.extend(
                     self._flatten_report_rows_long_format(
-                        section_rows, report_type, tenant_id, header_values, row_id_counter
+                        section_rows,
+                        report_type,
+                        tenant_id,
+                        header_values,
+                        row_id_counter,
                     )
                 )
 
@@ -340,7 +369,7 @@ class Component(ComponentBase):
                         "row_id": current_row_id,
                         "row_type": row_type,
                         "column_index": idx,
-                        "column_name": header_values[idx] if idx < len(header_values) else "",
+                        "column_name": (header_values[idx] if idx < len(header_values) else ""),
                         "value": value,
                         "others": {**others, **cell_attributes},
                     }

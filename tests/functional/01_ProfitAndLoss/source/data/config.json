@@ -10,15 +10,11 @@
     }
   },
   "parameters": {
-    "debug": true,
     "report_type": "ProfitAndLoss",
-    "report_parameters": [
-      {"key": "fromDate", "value": "1 month ago"},
-      {"key": "toDate", "value": "today"},
-      {"key": "timeframe", "value": "MONTH"},
-      {"key": "periods", "value": "3"}
-    ],
-    "custom_parameters": []
+    "fromDate": "1 month ago",
+    "toDate": "today",
+    "timeframe": "MONTH",
+    "periods": 3
   },
   "action": "run",
   "authorization": {

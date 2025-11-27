@@ -30,7 +30,10 @@ class XeroClient:
         self.refresh_token = refresh_token
         self.client_id = client_id
         self.client_secret = client_secret
-        self._oauth_token_dict = oauth_token_dict or {"access_token": access_token, "refresh_token": refresh_token}
+        self._oauth_token_dict = oauth_token_dict or {
+            "access_token": access_token,
+            "refresh_token": refresh_token,
+        }
         self.base_headers = {
             "Authorization": f"Bearer {access_token}",
             "Accept": "application/json",
