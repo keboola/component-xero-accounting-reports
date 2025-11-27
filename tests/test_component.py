@@ -525,8 +525,9 @@ class TestComponent(unittest.TestCase):
                     self.assertEqual(len(result), 2)
                     self.assertIsInstance(result[0], SelectElement)
                     self.assertEqual(result[0].value, "tenant-1")
-                    self.assertIn("Company A", result[0].label)
-                    self.assertIn("ORGANISATION", result[0].label)
+                    self.assertEqual(result[0].label, "Company A")
+                    self.assertEqual(result[1].value, "tenant-2")
+                    self.assertEqual(result[1].label, "Company B")
 
     def test_csv_fieldnames_constant(self):
         """Test that CSV_FIELDNAMES constant is correct"""
