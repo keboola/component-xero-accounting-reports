@@ -443,13 +443,19 @@ class Component(ComponentBase):
         """
         try:
             logging.info("get_tenants sync action started")
-            logging.info(f"Client initialized: {self.client is not None}")
 
+            if not self.client:
+                raise UserException("Xero client not initialized. Please check OAuth credentials.")
+
+            logging.info("Fetching tenants from Xero API...")
             tenants = self.client.get_tenants()
-            logging.info(f"Found {len(tenants)} Xero tenants")
-            return [SelectElement(t["tenantId"], t["tenantName"]) for t in tenants]
+            logging.info(f"Successfully retrieved {len(tenants)} tenant(s)")
+
+            result = [SelectElement(t["tenantId"], t["tenantName"]) for t in tenants]
+            logging.info(f"Returning {len(result)} tenant options")
+            return result
         except Exception as e:
-            logging.error(f"Error in get_tenants sync action: {str(e)}", exc_info=True)
+            logging.error(f"Unexpected error in get_tenants: {str(e)}", exc_info=True)
             raise UserException(f"Failed to load tenants: {str(e)}")
 
     @sync_action("get_output_columns")
@@ -465,19 +471,21 @@ class Component(ComponentBase):
         Raises:
             UserException: If output table cannot be found or read
         """
-        # Determine output table name
-        table_name = self.config.destination.output_table_name or self.config.report_type
-
-        # Get Storage API credentials
-        storage_url = self.environment_variables.url
-        storage_token = self.environment_variables.token
-
-        # Build table ID - output tables are in out.c-<config-id>.<table-name> format
-        # The config ID is available from the environment
-        config_id = self.environment_variables.config_id
-        table_id = f"out.c-{config_id}.{table_name}"
-
         try:
+            if not self.config:
+                raise UserException("Configuration not properly initialized for this sync action")
+
+            # Determine output table name
+            table_name = self.config.destination.output_table_name or self.config.report_type
+
+            # Get Storage API credentials
+            storage_url = self.environment_variables.url
+            storage_token = self.environment_variables.token
+
+            # Build table ID - output tables are in out.c-<component-id>.<table-name> format
+            component_id = self.environment_variables.component_id
+            table_id = f"out.c-{component_id}.{table_name}"
+
             columns = get_table_columns(table_id, storage_url, storage_token)
             logging.info(f"Found {len(columns)} columns in table {table_id}")
 
@@ -489,9 +497,12 @@ class Component(ComponentBase):
                 )
                 for col in columns
             ]
+        except UserException:
+            raise
         except Exception as e:
+            logging.error(f"Error retrieving output columns: {str(e)}", exc_info=True)
             raise UserException(
-                f"Could not retrieve columns from output table '{table_id}'. "
+                f"Could not retrieve columns from output table. "
                 "Please ensure you have run the component at least once with full load. "
                 f"Error: {str(e)}"
             )
