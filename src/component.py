@@ -18,7 +18,6 @@ from xero_client import XeroClient
 KEY_STATE_OAUTH_TOKEN_DICT = "#oauth_token_dict"
 DATE_FIELDS = ["fromDate", "toDate", "date"]
 TIMEFRAME_MAP = {"MONTH": 1, "QUARTER": 3, "YEAR": 12}
-PRIMARY_KEY_COLUMNS = ["xero_tenant_id", "row_id", "column_name"]
 NOT_NULLABLE_COLUMNS = ["xero_tenant_id", "row_id", "row_type", "column_name"]
 CSV_FIELDNAMES = [
     "xero_tenant_id",
