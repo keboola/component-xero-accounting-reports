@@ -10,12 +10,17 @@
     }
   },
   "parameters": {
-    "report_type": "ExecutiveSummary",
+    "xero_tenant_ids": "",
+    "reports": [
+      {
+        "report_type": "ExecutiveSummary",
+        "date": "today"
+      }
+    ],
     "destination": {
-      "output_table_name": "ExecutiveSummary",
+
       "load_type": "full_load"
-    },
-    "date": "today"
+    }
   },
   "action": "run",
   "authorization": {

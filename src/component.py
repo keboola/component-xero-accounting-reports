@@ -62,44 +62,63 @@ class Component(ComponentBase):
         # Refresh token and save to state at the start
         self.refresh_token_and_save_state()
 
-        # Extract non-empty report parameters from configuration
-        params = {}
-        for field in REPORT_PARAM_FIELDS:
-            value = getattr(self.config, field)
-            # Skip empty strings and None values
-            if value == "" or value is None:
-                continue
-            # Convert to string format for API calls
-            if isinstance(value, bool):
-                params[field] = "true" if value else "false"
-            elif isinstance(value, int):
-                params[field] = str(value)
-            else:
-                params[field] = value
-
-        parsed_params = self._parse_date_parameters(params)
-
-        tenant_ids = (
-            [self.config.xero_tenant_id]
-            if self.config.xero_tenant_id
-            else [tenant["tenantId"] for tenant in self.client.get_tenants()]
-        )
+        # Get tenant IDs from config or fetch all
+        tenant_ids = self.config.get_tenant_ids()
+        if not tenant_ids:
+            logging.info("No tenant IDs specified, fetching all connected tenants")
+            tenant_ids = [tenant["tenantId"] for tenant in self.client.get_tenants()]
         logging.info(f"Processing {len(tenant_ids)} tenant(s)")
 
-        # Get report name
-        report_name = self.config.report_type
+        # Track errors for logging
+        errors = []
 
-        all_data = []
-        for tenant_id in tenant_ids:
-            logging.debug(f"Fetching report for tenant: {tenant_id}")
-            report_data = self.client.get_report(report_name, tenant_id, parsed_params)
-            tenant_data = self._process_report_data(report_data, self.config.report_type, tenant_id)
-            all_data.extend(tenant_data)
+        # Process each report configuration
+        for report_config in self.config.reports:
+            logging.info(f"Processing report: {report_config.report_type}")
 
-        if all_data:
-            self._write_data_to_csv(all_data, self.config.report_type)
-        else:
-            logging.warning("No data extracted from any tenant")
+            # Extract non-empty report parameters from this report configuration
+            params = {}
+            for field in REPORT_PARAM_FIELDS:
+                value = getattr(report_config, field)
+                # Skip empty strings and None values
+                if value == "" or value is None:
+                    continue
+                # Convert to string format for API calls
+                if isinstance(value, bool):
+                    params[field] = "true" if value else "false"
+                elif isinstance(value, int):
+                    params[field] = str(value)
+                else:
+                    params[field] = value
+
+            parsed_params = self._parse_date_parameters(params, report_config.report_type)
+
+            # Collect data for this report across all tenants
+            all_data = []
+            for tenant_id in tenant_ids:
+                try:
+                    logging.debug(f"Fetching {report_config.report_type} for tenant: {tenant_id}")
+                    report_data = self.client.get_report(report_config.report_type, tenant_id, parsed_params)
+                    tenant_data = self._process_report_data(report_data, report_config.report_type, tenant_id)
+                    all_data.extend(tenant_data)
+                except Exception as e:
+                    error_msg = f"Failed to fetch {report_config.report_type} for tenant {tenant_id}: {str(e)}"
+                    logging.warning(error_msg)
+                    errors.append(error_msg)
+                    continue
+
+            # Write data for this report type
+            if all_data:
+                self._write_data_to_csv(all_data, report_config.report_type)
+            else:
+                logging.warning(f"No data extracted for report {report_config.report_type}")
+
+        # Log summary of errors if any occurred
+        if errors:
+            logging.warning(
+                f"Completed with {len(errors)} error(s). Failed report/tenant combinations:\n"
+                + "\n".join(f"  - {err}" for err in errors)
+            )
 
     def _init_client(self) -> None:
         """Initialize Xero client from state or OAuth credentials."""
@@ -280,10 +299,10 @@ class Component(ComponentBase):
 
         Args:
             data: list of flattened data rows
-            report_type: Report type used for filename (fallback if no output_table_name)
+            report_type: Report type used for filename
         """
-        # Use configured output table name, or fall back to report type
-        table_name = self.config.destination.output_table_name or report_type
+        # Table name is always the report type
+        table_name = report_type
         output_file = f"{table_name}.csv"
 
         # Determine if incremental based on load_type
@@ -396,7 +415,7 @@ class Component(ComponentBase):
 
         return long_format
 
-    def _parse_date_parameters(self, params: dict[str, str]) -> dict[str, str]:
+    def _parse_date_parameters(self, params: dict[str, str], report_type: str) -> dict[str, str]:
         """Parse and normalize date parameters from configuration.
 
         Handles natural language dates (e.g., '7 days ago') and converts them
@@ -404,6 +423,7 @@ class Component(ComponentBase):
 
         Args:
             params: Raw parameter dictionary from configuration
+            report_type: Type of report being processed
 
         Returns:
             Parsed parameter dictionary with normalized values
@@ -423,7 +443,7 @@ class Component(ComponentBase):
                 except Exception as e:
                     logging.debug(f"Failed to parse date parameter {key}='{value}': {e}. Using as-is.")
                     parsed[key] = value
-            elif key == "timeframe" and self.config.report_type == "BudgetSummary":
+            elif key == "timeframe" and report_type == "BudgetSummary":
                 if value in TIMEFRAME_MAP:
                     parsed[key] = TIMEFRAME_MAP[value]
                     logging.debug(f"Converted timeframe: '{value}' -> {parsed[key]}")
@@ -434,36 +454,13 @@ class Component(ComponentBase):
 
         return parsed
 
-    @sync_action("get_tenants")
-    def get_tenants(self) -> list[SelectElement]:
-        """Sync action to fetch available Xero tenants for UI dropdown.
-
-        Returns:
-            list of SelectElement objects for tenant selection in UI
-        """
-        try:
-            logging.info("get_tenants sync action started")
-
-            if not self.client:
-                raise UserException("Xero client not initialized. Please check OAuth credentials.")
-
-            logging.info("Fetching tenants from Xero API...")
-            tenants = self.client.get_tenants()
-            logging.info(f"Successfully retrieved {len(tenants)} tenant(s)")
-
-            result = [SelectElement(t["tenantId"], t["tenantName"]) for t in tenants]
-            logging.info(f"Returning {len(result)} tenant options")
-            return result
-        except Exception as e:
-            logging.error(f"Unexpected error in get_tenants: {str(e)}", exc_info=True)
-            raise UserException(f"Failed to load tenants: {str(e)}")
-
     @sync_action("get_output_columns")
     def get_output_columns(self) -> list[SelectElement]:
         """Load columns from output table and return as select elements for UI.
 
         This sync action retrieves column information from the last generated output table.
         Users should run the component once with full load before calling this action.
+        All reports have the same schema, so we try to fetch from any configured report.
 
         Returns:
             list of SelectElement objects for column selection in UI
@@ -472,18 +469,17 @@ class Component(ComponentBase):
             UserException: If output table cannot be found or read
         """
         try:
-            if not self.config:
-                raise UserException("Configuration not properly initialized for this sync action")
-
-            # Determine output table name
-            table_name = self.config.destination.output_table_name or self.config.report_type
+            if not self.config or not self.config.reports:
+                raise UserException("Configuration not properly initialized or no reports configured")
 
             # Get Storage API credentials
             storage_url = self.environment_variables.url
             storage_token = self.environment_variables.token
-
-            # Build table ID - output tables are in out.c-<component-id>.<table-name> format
             component_id = self.environment_variables.component_id
+
+            # Try to fetch columns from the first configured report's table
+            # All reports have the same schema, so any table will work
+            table_name = self.config.reports[0].report_type
             table_id = f"out.c-{component_id}.{table_name}"
 
             columns = get_table_columns(table_id, storage_url, storage_token)
@@ -493,7 +489,8 @@ class Component(ComponentBase):
             # Optionally show data type in label
             return [
                 SelectElement(
-                    value=col["name"], label=f"{col['name']} ({col['dtype']})" if col["dtype"] else col["name"]
+                    value=col["name"],
+                    label=(f"{col['name']} ({col['dtype']})" if col["dtype"] else col["name"]),
                 )
                 for col in columns
             ]

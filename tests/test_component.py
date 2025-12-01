@@ -7,10 +7,8 @@ from unittest.mock import MagicMock, Mock, patch
 
 from freezegun import freeze_time
 from keboola.component.exceptions import UserException
-from keboola.component.sync_actions import SelectElement
 
 from component import CSV_FIELDNAMES, TIMEFRAME_MAP, Component
-from configuration import Configuration
 
 
 class TestComponent(unittest.TestCase):
@@ -24,13 +22,17 @@ class TestComponent(unittest.TestCase):
         # Mock configuration
         self.mock_config_data = {
             "parameters": {
-                "report_type": "ProfitAndLoss",
+                "xero_tenant_ids": "",
+                "reports": [
+                    {
+                        "report_type": "ProfitAndLoss",
+                        "fromDate": "2024-01-01",
+                        "toDate": "2024-01-31",
+                    }
+                ],
                 "destination": {
-                    "output_table_name": "ProfitAndLoss",
                     "load_type": "full_load",
                 },
-                "fromDate": "2024-01-01",
-                "toDate": "2024-01-31",
             },
             "authorization": {
                 "oauth_api": {
@@ -72,11 +74,33 @@ class TestComponent(unittest.TestCase):
 
     def _create_mock_params(self, report_type, **kwargs):
         """Helper to create mock parameters with destination"""
+        report_params = {"report_type": report_type}
+        # Extract report-level parameters from kwargs
+        report_keys = [
+            "reportYear",
+            "date",
+            "fromDate",
+            "toDate",
+            "contactID",
+            "periods",
+            "timeframe",
+            "trackingOptionID",
+            "trackingCategoryID",
+            "trackingOptionID2",
+            "trackingCategoryID2",
+            "standardLayout",
+            "paymentsOnly",
+            "reportID",
+        ]
+        for key in report_keys:
+            if key in kwargs:
+                report_params[key] = kwargs.pop(key)
+
         params = {
-            "report_type": report_type,
+            "xero_tenant_ids": kwargs.pop("xero_tenant_ids", ""),
+            "reports": [report_params],
             "destination": {
-                "output_table_name": report_type,
-                "load_type": "full_load",
+                "load_type": kwargs.pop("load_type", "full_load"),
             },
         }
         params.update(kwargs)
@@ -137,7 +161,7 @@ class TestComponent(unittest.TestCase):
                             "otherParam": "value",
                         }
 
-                        parsed = component._parse_date_parameters(params)
+                        parsed = component._parse_date_parameters(params, "ProfitAndLoss")
 
                         self.assertEqual(parsed["fromDate"], "2024-01-25")
                         self.assertEqual(parsed["toDate"], "2024-02-01")
@@ -155,7 +179,7 @@ class TestComponent(unittest.TestCase):
 
                     params = {"date": "2024-12-31", "fromDate": "2024-01-01"}
 
-                    parsed = component._parse_date_parameters(params)
+                    parsed = component._parse_date_parameters(params, "BalanceSheet")
 
                     self.assertEqual(parsed["date"], "2024-12-31")
                     self.assertEqual(parsed["fromDate"], "2024-01-01")
@@ -169,21 +193,17 @@ class TestComponent(unittest.TestCase):
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
-                    component.config = Configuration(
-                        report_type="BudgetSummary",
-                        destination={"output_table_name": "BudgetSummary", "load_type": "full_load"},
-                    )
 
                     params = {"timeframe": "MONTH"}
-                    parsed = component._parse_date_parameters(params)
+                    parsed = component._parse_date_parameters(params, "BudgetSummary")
                     self.assertEqual(parsed["timeframe"], 1)
 
                     params = {"timeframe": "QUARTER"}
-                    parsed = component._parse_date_parameters(params)
+                    parsed = component._parse_date_parameters(params, "BudgetSummary")
                     self.assertEqual(parsed["timeframe"], 3)
 
                     params = {"timeframe": "YEAR"}
-                    parsed = component._parse_date_parameters(params)
+                    parsed = component._parse_date_parameters(params, "BudgetSummary")
                     self.assertEqual(parsed["timeframe"], 12)
 
     def test_parse_date_parameters_non_budget_timeframe(self):
@@ -195,13 +215,9 @@ class TestComponent(unittest.TestCase):
                     mock_configuration.oauth_credentials = self._create_mock_oauth()
 
                     component = Component()
-                    component.config = Configuration(
-                        report_type="ProfitAndLoss",
-                        destination={"output_table_name": "ProfitAndLoss", "load_type": "full_load"},
-                    )
 
                     params = {"timeframe": "MONTH"}
-                    parsed = component._parse_date_parameters(params)
+                    parsed = component._parse_date_parameters(params, "ProfitAndLoss")
                     self.assertEqual(parsed["timeframe"], "MONTH")
 
     def test_flatten_report_rows_long_format_simple(self):
@@ -493,41 +509,6 @@ class TestComponent(unittest.TestCase):
                                 rows = list(reader)
                                 # Empty dict is treated as falsy, so it becomes empty string
                                 self.assertEqual(rows[0]["others"], "")
-
-    @patch("component.XeroClient")
-    def test_get_tenants_sync_action(self, mock_xero_client_class):
-        """Test get_tenants sync action"""
-        with patch("component.ComponentBase.__init__"):
-            with patch.object(Component, "configuration") as mock_configuration:
-                with patch.object(Component, "get_state_file", return_value={}):
-                    mock_configuration.parameters = self._create_mock_params("ProfitAndLoss")
-                    mock_configuration.oauth_credentials = self._create_mock_oauth()
-
-                    # Mock XeroClient instance
-                    mock_client_instance = Mock()
-                    mock_client_instance.get_tenants.return_value = [
-                        {
-                            "tenantId": "tenant-1",
-                            "tenantName": "Company A",
-                            "tenantType": "ORGANISATION",
-                        },
-                        {
-                            "tenantId": "tenant-2",
-                            "tenantName": "Company B",
-                            "tenantType": "PRACTICE",
-                        },
-                    ]
-                    mock_xero_client_class.return_value = mock_client_instance
-
-                    component = Component()
-                    result = component.get_tenants()
-
-                    self.assertEqual(len(result), 2)
-                    self.assertIsInstance(result[0], SelectElement)
-                    self.assertEqual(result[0].value, "tenant-1")
-                    self.assertEqual(result[0].label, "Company A")
-                    self.assertEqual(result[1].value, "tenant-2")
-                    self.assertEqual(result[1].label, "Company B")
 
     def test_csv_fieldnames_constant(self):
         """Test that CSV_FIELDNAMES constant is correct"""
