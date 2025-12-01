@@ -278,10 +278,14 @@
                 "propertyOrder": 20
               },
               "primary_keys": {
-                "type": "string",
+                "type": "array",
                 "title": "Primary Keys",
                 "format":"select",
-                "enum":[],
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "enum":[]
+                },
                 "options": {
                   "async": {
                     "label": "GET COLUMNS",
@@ -292,7 +296,7 @@
                     "load_type": "incremental_load"
                   }
                 },
-                "description": "Select primary key columns for incremental loads. Run the component once with full load, then use the 'Get Output Columns' sync action to see available columns. Required for incremental loads.",
+                "description": "Select primary key columns for incremental loads. Use the 'Get Columns' button to see available columns. Required for incremental loads.",
                 "propertyOrder": 30
               }
             },

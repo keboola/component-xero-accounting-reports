@@ -12,7 +12,6 @@ from keboola.utils.date import get_past_date
 from datetime import datetime, timezone
 
 from configuration import Configuration, ReportConfig
-from sapi_client import get_table_columns
 from xero_client import XeroClient
 
 # Constants
@@ -459,52 +458,32 @@ class Component(ComponentBase):
     def get_output_columns(self) -> list[SelectElement]:
         """Load columns from output table and return as select elements for UI.
 
-        This sync action retrieves column information from the last generated output table.
-        Users should run the component once with full load before calling this action.
-        All reports have the same schema, so we try to fetch from any configured report.
+        All Xero reports produce the same output schema, so we return a static list
+        of columns that will be available after the first run.
 
         Returns:
             list of SelectElement objects for column selection in UI
-
-        Raises:
-            UserException: If output table cannot be found or read
         """
-        try:
-            if not self.config or not self.config.reports:
-                raise UserException("Configuration not properly initialized or no reports configured")
+        # All Xero reports produce the same schema with these columns
+        # Return static list since schema is consistent across all reports
+        columns = [
+            {"name": "xero_tenant_id", "dtype": "STRING"},
+            {"name": "row_id", "dtype": "INTEGER"},
+            {"name": "row_type", "dtype": "STRING"},
+            {"name": "column_index", "dtype": "INTEGER"},
+            {"name": "column_name", "dtype": "STRING"},
+            {"name": "value", "dtype": "STRING"},
+            {"name": "others", "dtype": "STRING"},
+            {"name": "extracted_at", "dtype": "TIMESTAMP"},
+        ]
 
-            # Get Storage API credentials
-            storage_url = self.environment_variables.url
-            storage_token = self.environment_variables.token
-            component_id = self.environment_variables.component_id
-
-            # Try to fetch columns from the first configured report's table
-            # All reports have the same schema, so any table will work
-            first_report = self.config.reports[0]
-            table_name = first_report.destination.output_table_name or first_report.report_type
-            table_id = f"out.c-{component_id}.{table_name}"
-
-            columns = get_table_columns(table_id, storage_url, storage_token)
-            logging.info(f"Found {len(columns)} columns in table {table_id}")
-
-            # Convert to SelectElement with column name as both value and label
-            # Optionally show data type in label
-            return [
-                SelectElement(
-                    value=col["name"],
-                    label=(f"{col['name']} ({col['dtype']})" if col["dtype"] else col["name"]),
-                )
-                for col in columns
-            ]
-        except UserException:
-            raise
-        except Exception as e:
-            logging.error(f"Error retrieving output columns: {str(e)}", exc_info=True)
-            raise UserException(
-                f"Could not retrieve columns from output table. "
-                "Please ensure you have run the component at least once with full load. "
-                f"Error: {str(e)}"
+        return [
+            SelectElement(
+                value=col["name"],
+                label=f"{col['name']} ({col['dtype']})",
             )
+            for col in columns
+        ]
 
 
 if __name__ == "__main__":
