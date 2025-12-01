@@ -17,13 +17,12 @@
         "fromDate": "1 month ago",
         "toDate": "today",
         "periods": 3,
-        "timeframe": "MONTH"
+        "timeframe": "MONTH",
+        "destination": {
+          "load_type": "full_load"
+        }
       }
-    ],
-    "destination": {
-
-      "load_type": "full_load"
-    }
+    ]
   },
   "action": "run",
   "authorization": {

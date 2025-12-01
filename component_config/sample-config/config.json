@@ -6,13 +6,12 @@
         "report_type": "ProfitAndLoss",
         "fromDate": "30 days ago",
         "toDate": "today",
-        "periods": 3
+        "periods": 3,
+        "destination": {
+          "load_type": "full_load"
+        }
       }
-    ],
-    "destination": {
-
-      "load_type": "full_load"
-    }
+    ]
   },
   "authorization": {
     "oauth_api": {

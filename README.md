@@ -4,9 +4,8 @@ Keboola component for extracting reports from Xero's Accounting API.
 
 ## Features
 
-- **Row-Based Configuration**: Each configuration row extracts one report
+- **Multiple Reports**: Configure multiple reports with individual destination settings
 - **11+ Standard Reports**: Supports all Xero standard reports (Profit & Loss, Balance Sheet, etc.)
-- **Custom Reports**: Support for custom report endpoints
 - **Dynamic Date Parsing**: Use relative dates like "yesterday", "30 days ago", "start of month"
 - **OAuth 2.0 Authentication**: Secure authentication via Keboola's OAuth integration
 

@@ -14,13 +14,12 @@
     "reports": [
       {
         "report_type": "TrialBalance",
-        "date": "today"
+        "date": "today",
+        "destination": {
+          "load_type": "full_load"
+        }
       }
-    ],
-    "destination": {
-
-      "load_type": "full_load"
-    }
+    ]
   },
   "action": "run",
   "authorization": {

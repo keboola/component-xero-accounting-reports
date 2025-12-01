@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field, ValidationError, field_validator
 
 
 class Destination(BaseModel):
+    output_table_name: str = ""
     load_type: str = "full_load"
     primary_keys: list[str] = Field(default_factory=list)
 
@@ -12,6 +13,7 @@ class ReportConfig(BaseModel):
     """Configuration for a single report type."""
 
     report_type: str
+    destination: Destination = Field(default_factory=lambda: Destination())
 
     # Report parameters - all optional with empty defaults
     reportYear: str = ""
@@ -34,7 +36,6 @@ class Configuration(BaseModel):
     # Core configuration
     xero_tenant_ids: str = ""
     reports: list[ReportConfig]
-    destination: Destination
 
     @field_validator("xero_tenant_ids")
     @classmethod
@@ -53,21 +54,6 @@ class Configuration(BaseModel):
             raise ValueError(
                 f"Invalid tenant ID format: {', '.join(invalid_ids)}. "
                 "Tenant IDs must be valid UUIDs (e.g., 'abc-123-def' or 'abc123def')."
-            )
-
-        return v
-
-    @field_validator("reports")
-    @classmethod
-    def validate_unique_report_types(cls, v: list[ReportConfig]) -> list[ReportConfig]:
-        """Ensure each report type appears only once."""
-        report_types = [report.report_type for report in v]
-        duplicates = [rt for rt in set(report_types) if report_types.count(rt) > 1]
-
-        if duplicates:
-            raise ValueError(
-                f"Duplicate report types found: {', '.join(duplicates)}. "
-                "Each report type can only be configured once."
             )
 
         return v

@@ -16,13 +16,12 @@
         "report_type": "BudgetSummary",
         "date": "3 months ago",
         "periods": 3,
-        "timeframe": "MONTH"
+        "timeframe": "MONTH",
+        "destination": {
+          "load_type": "full_load"
+        }
       }
-    ],
-    "destination": {
-
-      "load_type": "full_load"
-    }
+    ]
   },
   "action": "run",
   "authorization": {

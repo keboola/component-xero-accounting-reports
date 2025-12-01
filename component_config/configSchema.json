@@ -13,9 +13,8 @@
     "reports": {
       "type": "array",
       "title": "Reports Configuration",
-      "description": "Configure which reports to extract. Each report type can only be added once.",
+      "description": "Configure which reports to extract. You can add the same report type multiple times with different parameters and table names.",
       "propertyOrder": 2,
-      "uniqueItems": true,
       "items": {
         "type": "object",
         "title": "Report",
@@ -245,55 +244,62 @@
               }
             },
             "propertyOrder": 15
+          },
+          "destination": {
+            "type": "object",
+            "title": "Destination",
+            "required": [
+              "load_type"
+            ],
+            "properties": {
+              "output_table_name": {
+                "type": "string",
+                "title": "Storage Table Name",
+                "description": "Name of the table stored in Storage. Leave empty to use the report type name (e.g., 'ProfitAndLoss', 'BalanceSheet').",
+                "default": "",
+                "propertyOrder": 10
+              },
+              "load_type": {
+                "enum": [
+                  "full_load",
+                  "incremental_load"
+                ],
+                "type": "string",
+                "title": "Load Type",
+                "format": "checkbox",
+                "default": "full_load",
+                "options": {
+                  "enum_titles": [
+                    "Full Load",
+                    "Incremental Load"
+                  ]
+                },
+                "description": "If Full load is used, the destination table will be overwritten every run. If incremental load is used, data will be upserted into the destination table. Tables with a primary key will have rows updated, tables without a primary key will have rows appended.",
+                "propertyOrder": 20
+              },
+              "primary_keys": {
+                "type": "string",
+                "title": "Primary Keys",
+                "format":"select",
+                "enum":[],
+                "options": {
+                  "async": {
+                    "label": "GET COLUMNS",
+                    "action": "get_output_columns"
+                  },
+                  "creatable":true,
+                  "dependencies": {
+                    "load_type": "incremental_load"
+                  }
+                },
+                "description": "Select primary key columns for incremental loads. Run the component once with full load, then use the 'Get Output Columns' sync action to see available columns. Required for incremental loads.",
+                "propertyOrder": 30
+              }
+            },
+            "propertyOrder": 100
           }
         }
       }
-    },
-    "destination": {
-      "type": "object",
-      "title": "Destination",
-      "required": [
-        "load_type"
-      ],
-      "properties": {
-        "load_type": {
-          "enum": [
-            "full_load",
-            "incremental_load"
-          ],
-          "type": "string",
-          "title": "Load Type",
-          "format": "checkbox",
-          "default": "full_load",
-          "options": {
-            "enum_titles": [
-              "Full Load",
-              "Incremental Load"
-            ]
-          },
-          "description": "If Full load is used, the destination table will be overwritten every run. If incremental load is used, data will be upserted into the destination table. Tables with a primary key will have rows updated, tables without a primary key will have rows appended.",
-          "propertyOrder": 10
-        },
-        "primary_keys": {
-          "type": "string",
-          "title": "Primary Keys",
-          "format":"select",
-          "enum":[],
-          "options": {
-            "async": {
-              "label": "GET COLUMNS",
-              "action": "get_output_columns"
-            },
-            "creatable":true,
-            "dependencies": {
-              "load_type": "incremental_load"
-            }
-          },
-          "description": "Select primary key columns for incremental loads. Run the component once with full load, then use the 'Get Output Columns' sync action to see available columns. Required for incremental loads.",
-          "propertyOrder": 20
-        }
-      },
-      "propertyOrder": 3
     }
   }
 }

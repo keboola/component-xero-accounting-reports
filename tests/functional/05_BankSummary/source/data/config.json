@@ -15,13 +15,12 @@
       {
         "report_type": "BankSummary",
         "fromDate": "2025-01-01",
-        "toDate": "2025-12-31"
+        "toDate": "2025-12-31",
+        "destination": {
+          "load_type": "full_load"
+        }
       }
-    ],
-    "destination": {
-
-      "load_type": "full_load"
-    }
+    ]
   },
   "action": "run",
   "authorization": {

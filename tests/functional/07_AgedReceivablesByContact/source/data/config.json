@@ -15,13 +15,12 @@
       {
         "report_type": "AgedReceivablesByContact",
         "date": "today",
-        "contactID": "7c913d33-39d5-4a1c-b8b1-e23f5fc999e0"
+        "contactID": "7c913d33-39d5-4a1c-b8b1-e23f5fc999e0",
+        "destination": {
+          "load_type": "full_load"
+        }
       }
-    ],
-    "destination": {
-
-      "load_type": "full_load"
-    }
+    ]
   },
   "action": "run",
   "authorization": {

@@ -28,11 +28,11 @@ class TestComponent(unittest.TestCase):
                         "report_type": "ProfitAndLoss",
                         "fromDate": "2024-01-01",
                         "toDate": "2024-01-31",
+                        "destination": {
+                            "load_type": "full_load",
+                        },
                     }
                 ],
-                "destination": {
-                    "load_type": "full_load",
-                },
             },
             "authorization": {
                 "oauth_api": {
@@ -96,12 +96,16 @@ class TestComponent(unittest.TestCase):
             if key in kwargs:
                 report_params[key] = kwargs.pop(key)
 
+        # Add destination to report
+        report_params["destination"] = {
+            "load_type": kwargs.pop("load_type", "full_load"),
+            "output_table_name": kwargs.pop("output_table_name", ""),
+            "primary_keys": kwargs.pop("primary_keys", []),
+        }
+
         params = {
             "xero_tenant_ids": kwargs.pop("xero_tenant_ids", ""),
             "reports": [report_params],
-            "destination": {
-                "load_type": kwargs.pop("load_type", "full_load"),
-            },
         }
         params.update(kwargs)
         return params
@@ -452,7 +456,7 @@ class TestComponent(unittest.TestCase):
                                 }
                             ]
 
-                            component._write_data_to_csv(data, "ProfitAndLoss")
+                            component._write_data_to_csv(data, component.config.reports[0])
 
                             # Verify file was created
                             self.assertTrue(os.path.exists(mock_table.full_path))
@@ -502,7 +506,7 @@ class TestComponent(unittest.TestCase):
                                 }
                             ]
 
-                            component._write_data_to_csv(data, "TrialBalance")
+                            component._write_data_to_csv(data, component.config.reports[0])
 
                             with open(mock_table.full_path, "r") as f:
                                 reader = csv.DictReader(f)

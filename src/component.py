@@ -11,7 +11,7 @@ from keboola.component.sync_actions import SelectElement
 from keboola.utils.date import get_past_date
 from datetime import datetime, timezone
 
-from configuration import Configuration
+from configuration import Configuration, ReportConfig
 from sapi_client import get_table_columns
 from xero_client import XeroClient
 
@@ -109,7 +109,7 @@ class Component(ComponentBase):
 
             # Write data for this report type
             if all_data:
-                self._write_data_to_csv(all_data, report_config.report_type)
+                self._write_data_to_csv(all_data, report_config)
             else:
                 logging.warning(f"No data extracted for report {report_config.report_type}")
 
@@ -244,11 +244,12 @@ class Component(ComponentBase):
         logging.debug(f"Processed {len(long_format_data)} rows for tenant {tenant_id}")
         return long_format_data
 
-    def _build_schema(self, fieldnames: list[str]) -> OrderedDict:
+    def _build_schema(self, fieldnames: list[str], primary_keys: list[str]) -> OrderedDict:
         """Build dynamic schema for output table with appropriate data types.
 
         Args:
             fieldnames: List of column names from the CSV
+            primary_keys: List of primary key column names
 
         Returns:
             OrderedDict mapping column names to ColumnDefinition objects
@@ -274,8 +275,8 @@ class Component(ComponentBase):
             "extracted_at": "Timestamp when the data was extracted (UTC)",
         }
 
-        # Get user-configured primary keys or use default
-        user_primary_keys = self.config.destination.primary_keys if self.config.destination.primary_keys else []
+        # Use user-configured primary keys
+        user_primary_keys = primary_keys if primary_keys else []
 
         # Build schema dynamically from fieldnames
         for column in fieldnames:
@@ -294,21 +295,21 @@ class Component(ComponentBase):
 
         return schema
 
-    def _write_data_to_csv(self, data: list[dict[str, Any]], report_type: str) -> None:
+    def _write_data_to_csv(self, data: list[dict[str, Any]], report_config: ReportConfig) -> None:
         """Write collected data to CSV output file.
 
         Args:
             data: list of flattened data rows
-            report_type: Report type used for filename
+            report_config: Report configuration including destination settings
         """
-        # Table name is always the report type
-        table_name = report_type
+        # Table name is either custom name or report type
+        table_name = report_config.destination.output_table_name or report_config.report_type
         output_file = f"{table_name}.csv"
 
         # Determine if incremental based on load_type
-        is_incremental = self.config.destination.load_type == "incremental_load"
+        is_incremental = report_config.destination.load_type == "incremental_load"
 
-        schema = self._build_schema(CSV_FIELDNAMES)
+        schema = self._build_schema(CSV_FIELDNAMES, report_config.destination.primary_keys)
         table = self.create_out_table_definition(
             output_file,
             incremental=is_incremental,
@@ -479,7 +480,8 @@ class Component(ComponentBase):
 
             # Try to fetch columns from the first configured report's table
             # All reports have the same schema, so any table will work
-            table_name = self.config.reports[0].report_type
+            first_report = self.config.reports[0]
+            table_name = first_report.destination.output_table_name or first_report.report_type
             table_id = f"out.c-{component_id}.{table_name}"
 
             columns = get_table_columns(table_id, storage_url, storage_token)
