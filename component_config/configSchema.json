@@ -1,19 +1,309 @@
 {
   "type": "object",
-  "title": "extractor configuration",
-  "required": [
-    "print_hello"
-  ],
+  "title": "Xero Reports Extractor Configuration",
+  "required": ["reports"],
   "properties": {
-    "print_hello": {
-      "type": "boolean",
-      "title": "Print Hello",
-      "propertyOrder": 1
+    "xero_tenant_ids": {
+      "type": "string",
+      "title": "Xero Tenant IDs",
+      "description": "Enter comma-separated Xero tenant IDs (e.g., 'abc-123-def, xyz-789-ghi'). Leave empty to fetch reports for ALL connected organizations. Tenant IDs must be valid UUIDs.",
+      "propertyOrder": 1,
+      "default": ""
     },
-    "debug": {
-      "type": "boolean",
-      "title": "Debug",
-      "propertyOrder": 2
+    "reports": {
+      "type": "array",
+      "title": "Reports Configuration",
+      "description": "Configure which reports to extract. You can add the same report type multiple times with different parameters and table names.",
+      "propertyOrder": 2,
+      "items": {
+        "type": "object",
+        "title": "Report",
+        "required": ["report_type"],
+        "properties": {
+          "report_type": {
+            "type": "string",
+            "title": "Report Type",
+            "description": "Select the type of Xero report to extract",
+            "enum": [
+              "TenNinetyNine",
+              "AgedPayablesByContact",
+              "AgedReceivablesByContact",
+              "BalanceSheet",
+              "BankSummary",
+              "BASReport",
+              "BudgetSummary",
+              "ExecutiveSummary",
+              "GSTReport",
+              "ProfitAndLoss",
+              "TrialBalance"
+            ],
+            "enumNames": [
+              "1099 Report (US)",
+              "Aged Payables By Contact",
+              "Aged Receivables By Contact",
+              "Balance Sheet",
+              "Bank Summary",
+              "BAS Report (Australia)",
+              "Budget Summary",
+              "Executive Summary",
+              "GST Report (New Zealand)",
+              "Profit and Loss",
+              "Trial Balance"
+            ],
+            "propertyOrder": 1
+          },
+          "report_year": {
+            "type": "string",
+            "title": "Report Year",
+            "description": "Year for 1099 report (required)",
+            "options": {
+              "dependencies": {
+                "report_type": "TenNinetyNine"
+              }
+            },
+            "propertyOrder": 2
+          },
+          "date": {
+            "type": "string",
+            "title": "Date",
+            "description": "Report date (use dynamic dates like 'yesterday', '3 months ago')",
+            "options": {
+              "dependencies": {
+                "report_type": [
+                  "AgedPayablesByContact",
+                  "AgedReceivablesByContact",
+                  "BalanceSheet",
+                  "BudgetSummary",
+                  "ExecutiveSummary",
+                  "TrialBalance"
+                ]
+              }
+            },
+            "propertyOrder": 3
+          },
+          "from_date": {
+            "type": "string",
+            "title": "From Date",
+            "description": "Start date for report period (use dynamic dates like 'yesterday', '3 months ago')",
+            "options": {
+              "dependencies": {
+                "report_type": [
+                  "AgedPayablesByContact",
+                  "AgedReceivablesByContact",
+                  "BankSummary",
+                  "ProfitAndLoss"
+                ]
+              }
+            },
+            "propertyOrder": 4
+          },
+          "to_date": {
+            "type": "string",
+            "title": "To Date",
+            "description": "End date for report period",
+            "options": {
+              "dependencies": {
+                "report_type": [
+                  "AgedPayablesByContact",
+                  "AgedReceivablesByContact",
+                  "BankSummary",
+                  "ProfitAndLoss"
+                ]
+              }
+            },
+            "propertyOrder": 5
+          },
+          "contact_id": {
+            "type": "string",
+            "title": "Contact ID",
+            "description": "Filter by specific contact",
+            "options": {
+              "dependencies": {
+                "report_type": [
+                  "AgedPayablesByContact",
+                  "AgedReceivablesByContact"
+                ]
+              }
+            },
+            "propertyOrder": 6
+          },
+          "periods": {
+            "type": "integer",
+            "title": "Periods",
+            "description": "Number of periods to compare",
+            "options": {
+              "dependencies": {
+                "report_type": [
+                  "BalanceSheet",
+                  "BudgetSummary",
+                  "ProfitAndLoss"
+                ]
+              }
+            },
+            "propertyOrder": 7
+          },
+          "timeframe": {
+            "type": "string",
+            "title": "Timeframe",
+            "description": "Timeframe unit",
+            "enum": ["MONTH", "QUARTER", "YEAR"],
+            "options": {
+              "dependencies": {
+                "report_type": [
+                  "BalanceSheet",
+                  "BudgetSummary",
+                  "ProfitAndLoss"
+                ]
+              }
+            },
+            "propertyOrder": 8
+          },
+          "tracking_option_id": {
+            "type": "string",
+            "title": "Tracking Option ID",
+            "description": "Filter by tracking option",
+            "options": {
+              "dependencies": {
+                "report_type": ["BalanceSheet", "ProfitAndLoss"]
+              }
+            },
+            "propertyOrder": 9
+          },
+          "tracking_category_id": {
+            "type": "string",
+            "title": "Tracking Category ID",
+            "description": "First tracking category",
+            "options": {
+              "dependencies": {
+                "report_type": "ProfitAndLoss"
+              }
+            },
+            "propertyOrder": 10
+          },
+          "tracking_category_id_2": {
+            "type": "string",
+            "title": "Tracking Category ID 2",
+            "description": "Second tracking category",
+            "options": {
+              "dependencies": {
+                "report_type": "ProfitAndLoss"
+              }
+            },
+            "propertyOrder": 11
+          },
+          "tracking_option_id_2": {
+            "type": "string",
+            "title": "Tracking Option ID 2",
+            "description": "Second tracking option",
+            "options": {
+              "dependencies": {
+                "report_type": "ProfitAndLoss"
+              }
+            },
+            "propertyOrder": 12
+          },
+          "standard_layout": {
+            "type": "boolean",
+            "title": "Standard Layout",
+            "description": "Use standard report layout",
+            "options": {
+              "dependencies": {
+                "report_type": [
+                  "BalanceSheet",
+                  "ProfitAndLoss"
+                ]
+              }
+            },
+            "propertyOrder": 13
+          },
+          "payments_only": {
+            "type": "boolean",
+            "title": "Payments Only",
+            "description": "Show payments only",
+            "options": {
+              "dependencies": {
+                "report_type": [
+                  "BalanceSheet",
+                  "ProfitAndLoss",
+                  "TrialBalance"
+                ]
+              }
+            },
+            "propertyOrder": 14
+          },
+          "report_id": {
+            "type": "string",
+            "title": "Report ID",
+            "description": "Report ID (required)",
+            "options": {
+              "dependencies": {
+                "report_type": [
+                  "BASReport",
+                  "GSTReport"
+                ]
+              }
+            },
+            "propertyOrder": 15
+          },
+          "destination": {
+            "type": "object",
+            "title": "Destination",
+            "required": [
+              "load_type"
+            ],
+            "properties": {
+              "output_table_name": {
+                "type": "string",
+                "title": "Storage Table Name",
+                "description": "Name of the table stored in Storage. Leave empty to use the report type name (e.g., 'ProfitAndLoss', 'BalanceSheet').",
+                "default": "",
+                "propertyOrder": 10
+              },
+              "load_type": {
+                "enum": [
+                  "full_load",
+                  "incremental_load"
+                ],
+                "type": "string",
+                "title": "Load Type",
+                "format": "checkbox",
+                "default": "full_load",
+                "options": {
+                  "enum_titles": [
+                    "Full Load",
+                    "Incremental Load"
+                  ]
+                },
+                "description": "If Full load is used, the destination table will be overwritten every run. If incremental load is used, data will be upserted into the destination table. Tables with a primary key will have rows updated, tables without a primary key will have rows appended.",
+                "propertyOrder": 20
+              },
+              "primary_keys": {
+                "type": "array",
+                "title": "Primary Keys",
+                "format":"select",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "enum":[]
+                },
+                "options": {
+                  "async": {
+                    "label": "GET COLUMNS",
+                    "action": "get_output_columns"
+                  },
+                  "creatable":true,
+                  "dependencies": {
+                    "load_type": "incremental_load"
+                  }
+                },
+                "description": "Select primary key columns for incremental loads. Use the 'Get Columns' button to see available columns. Required for incremental loads.",
+                "propertyOrder": 30
+              }
+            },
+            "propertyOrder": 100
+          }
+        }
+      }
     }
   }
 }

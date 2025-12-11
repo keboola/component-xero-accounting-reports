@@ -1,0 +1,11 @@
+xero_tenant_id,row_id,row_type,column_index,column_name,value,others,extracted_at
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,0,Bank Accounts,Business Bank Account,"{""accountID"": ""562555f2-8cde-4ce9-8203-0363922537a4""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,1,Opening Balance,0.00,,2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,2,Cash Received,19815.27,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,3,Cash Spent,18054.73,"{""account"": ""562555f2-8cde-4ce9-8203-0363922537a4""}",2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,0,Row,4,Closing Balance,1760.54,,2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,0,Bank Accounts,Total,,2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,1,Opening Balance,0.00,,2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,2,Cash Received,19815.27,,2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,3,Cash Spent,18054.73,,2025-11-24T00:00:00+00:00
+ba45b4b5-ee66-4a7f-83ec-4b463794dcce,1,SummaryRow,4,Closing Balance,1760.54,,2025-11-24T00:00:00+00:00

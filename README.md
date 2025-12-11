@@ -1,84 +1,68 @@
-xero-accounting-reports
-=============
+# Xero Accounting Reports Extractor
 
-Description
+Keboola component for extracting reports from Xero's Accounting API.
 
-**Table of Contents:**
+## Features
 
-[TOC]
+- **Multiple Reports**: Configure multiple reports with individual destination settings
+- **11+ Standard Reports**: Supports all Xero standard reports (Profit & Loss, Balance Sheet, etc.)
+- **Dynamic Date Parsing**: Use relative dates like "yesterday", "30 days ago", "start of month"
+- **OAuth 2.0 Authentication**: Secure authentication via Keboola's OAuth integration
 
-Functionality Notes
-===================
+## Supported Reports
 
-Prerequisites
-=============
+- 1099 Report (US organizations)
+- Aged Payables By Contact
+- Aged Receivables By Contact
+- Balance Sheet
+- Bank Summary
+- BAS Report (Australia organizations)
+- Budget Summary
+- Executive Summary
+- GST Report (New Zealand organizations)
+- Profit and Loss
+- Trial Balance
+- Custom Reports
 
-Ensure you have the necessary API token, register the application, etc.
+## Configuration
 
-Features
-========
+### Report Type
+Select the type of report you want to extract from the dropdown.
 
-| **Feature**             | **Description**                               |
-|-------------------------|-----------------------------------------------|
-| Generic UI Form         | Dynamic UI form for easy configuration.       |
-| Row-Based Configuration | Allows structuring the configuration in rows. |
-| OAuth                   | OAuth authentication enabled.                 |
-| Incremental Loading     | Fetch data in new increments.                 |
-| Backfill Mode           | Supports seamless backfill setup.             |
-| Date Range Filter       | Specify the date range for data retrieval.    |
+### Parameters
+Common parameters supported:
+- `fromDate` / `toDate` - Date range for the report (supports dynamic dates)
+- `date` - As-at date for snapshot reports
+- `periods` - Number of comparison periods (1-12)
+- `timeframe` - Period size (MONTH, QUARTER, YEAR)
+- `contactID` - Required for Aged Payables/Receivables reports
+- Additional report-specific parameters
 
-Supported Endpoints
-===================
+### Dynamic Dates
+Use natural language for dates:
+- `yesterday`, `today`
+- `3 days ago`, `1 week ago`, `30 days ago`
+- `start of month`, `end of month`
+- Or absolute dates: `2024-01-31`
 
-If you need additional endpoints, please submit your request to
-[ideas.keboola.com](https://ideas.keboola.com/).
 
-Configuration
-=============
+## Development
 
-Param 1
--------
-Details about parameter 1.
-
-Param 2
--------
-Details about parameter 2.
-
-Output
-======
-
-Provides a list of tables, foreign keys, and schema.
-
-Development
------------
-
-To customize the local data folder path, replace the `CUSTOM_FOLDER` placeholder with your desired path in the `docker-compose.yml` file:
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    volumes:
-      - ./:/code
-      - ./CUSTOM_FOLDER:/data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Clone this repository, initialize the workspace, and run the component using the following
-commands:
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-git clone https://github.com/keboola/component-xero-accounting-reports component-xero-accounting-reports
-cd component-xero-accounting-reports
+Build and run locally:
+```bash
 docker-compose build
 docker-compose run --rm dev
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
-Run the test suite and perform lint checks using this command:
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run tests:
+```bash
 docker-compose run --rm test
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
-Integration
-===========
+## Output
 
-For details about deployment and integration with Keboola, refer to the
-[deployment section of the developer
-documentation](https://developers.keboola.com/extend/component/deployment/).
+Each report generates a CSV file with the report data. The Xero report structure (nested Rows/Cells) is flattened into columns for easy analysis in Keboola Storage.
+
+## Integration
+
+For details about deployment and integration with Keboola, refer to the [deployment section of the developer documentation](https://developers.keboola.com/extend/component/deployment/).

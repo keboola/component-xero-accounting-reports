@@ -1,0 +1,107 @@
+{
+  "Id": "bbfae400-e931-4e92-8e93-bd21b09cc834",
+  "Status": "OK",
+  "ProviderName": "KDS - ex-reports",
+  "DateTimeUTC": "/Date(1763989264684)/",
+  "Reports": [
+    {
+      "ReportID": "BankSummary",
+      "ReportName": "Bank Summary",
+      "ReportType": "BankSummary",
+      "ReportTitles": [
+        "Bank Summary",
+        "Demo Company (Global)",
+        "From 1 January 2025 to 31 December 2025"
+      ],
+      "ReportDate": "24 November 2025",
+      "UpdatedDateUTC": "/Date(1763989264668)/",
+      "Fields": [],
+      "Rows": [
+        {
+          "RowType": "Header",
+          "Cells": [
+            {
+              "Value": "Bank Accounts"
+            },
+            {
+              "Value": "Opening Balance"
+            },
+            {
+              "Value": "Cash Received"
+            },
+            {
+              "Value": "Cash Spent"
+            },
+            {
+              "Value": "Closing Balance"
+            }
+          ]
+        },
+        {
+          "RowType": "Section",
+          "Title": "",
+          "Rows": [
+            {
+              "RowType": "Row",
+              "Cells": [
+                {
+                  "Value": "Business Bank Account",
+                  "Attributes": [
+                    {
+                      "Value": "562555f2-8cde-4ce9-8203-0363922537a4",
+                      "Id": "accountID"
+                    }
+                  ]
+                },
+                {
+                  "Value": "0.00"
+                },
+                {
+                  "Value": "19815.27",
+                  "Attributes": [
+                    {
+                      "Value": "562555f2-8cde-4ce9-8203-0363922537a4",
+                      "Id": "account"
+                    }
+                  ]
+                },
+                {
+                  "Value": "18054.73",
+                  "Attributes": [
+                    {
+                      "Value": "562555f2-8cde-4ce9-8203-0363922537a4",
+                      "Id": "account"
+                    }
+                  ]
+                },
+                {
+                  "Value": "1760.54"
+                }
+              ]
+            },
+            {
+              "RowType": "SummaryRow",
+              "Cells": [
+                {
+                  "Value": "Total"
+                },
+                {
+                  "Value": "0.00"
+                },
+                {
+                  "Value": "19815.27"
+                },
+                {
+                  "Value": "18054.73"
+                },
+                {
+                  "Value": "1760.54"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
