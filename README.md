@@ -45,6 +45,7 @@ Use natural language for dates:
 - `start of month`, `end of month`
 - Or absolute dates: `2024-01-31`
 
+
 ## Development
 
 Build and run locally:
