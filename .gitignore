@@ -12,3 +12,4 @@ venv
 /data
 # Ignore test output directories (these get regenerated during test runs)
 tests/functional/*/source/data/out/
+settings.json
