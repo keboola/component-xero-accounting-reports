@@ -4,8 +4,8 @@
     "reports": [
       {
         "report_type": "ProfitAndLoss",
-        "fromDate": "30 days ago",
-        "toDate": "today",
+        "from_date": "30 days ago",
+        "to_date": "today",
         "periods": 3,
         "destination": {
           "load_type": "full_load"

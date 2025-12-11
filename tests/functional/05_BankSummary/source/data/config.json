@@ -14,8 +14,8 @@
     "reports": [
       {
         "report_type": "BankSummary",
-        "fromDate": "2025-01-01",
-        "toDate": "2025-12-31",
+        "from_date": "2025-01-01",
+        "to_date": "2025-12-31",
         "destination": {
           "load_type": "full_load"
         }

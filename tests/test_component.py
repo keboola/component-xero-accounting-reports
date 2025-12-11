@@ -26,8 +26,8 @@ class TestComponent(unittest.TestCase):
                 "reports": [
                     {
                         "report_type": "ProfitAndLoss",
-                        "fromDate": "2024-01-01",
-                        "toDate": "2024-01-31",
+                        "from_date": "2024-01-01",
+                        "to_date": "2024-01-31",
                         "destination": {
                             "load_type": "full_load",
                         },
@@ -77,20 +77,20 @@ class TestComponent(unittest.TestCase):
         report_params = {"report_type": report_type}
         # Extract report-level parameters from kwargs
         report_keys = [
-            "reportYear",
+            "report_year",
             "date",
-            "fromDate",
-            "toDate",
-            "contactID",
+            "from_date",
+            "to_date",
+            "contact_id",
             "periods",
             "timeframe",
-            "trackingOptionID",
-            "trackingCategoryID",
-            "trackingOptionID2",
-            "trackingCategoryID2",
-            "standardLayout",
-            "paymentsOnly",
-            "reportID",
+            "tracking_option_id",
+            "tracking_category_id",
+            "tracking_option_id_2",
+            "tracking_category_id_2",
+            "standard_layout",
+            "payments_only",
+            "report_id",
         ]
         for key in report_keys:
             if key in kwargs:
@@ -181,12 +181,12 @@ class TestComponent(unittest.TestCase):
 
                     component = Component()
 
-                    params = {"date": "2024-12-31", "fromDate": "2024-01-01"}
+                    params = {"date": "2024-12-31", "from_date": "2024-01-01"}
 
                     parsed = component._parse_date_parameters(params, "BalanceSheet")
 
                     self.assertEqual(parsed["date"], "2024-12-31")
-                    self.assertEqual(parsed["fromDate"], "2024-01-01")
+                    self.assertEqual(parsed["from_date"], "2024-01-01")
 
     def test_parse_date_parameters_timeframe_conversion(self):
         """Test _parse_date_parameters converts BudgetSummary timeframe"""

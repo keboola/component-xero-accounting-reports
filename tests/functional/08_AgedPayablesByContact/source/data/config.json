@@ -15,7 +15,7 @@
       {
         "report_type": "AgedPayablesByContact",
         "date": "today",
-        "contactID": "3f58af86-b4d9-4ac9-950c-2e4cdd94d5be",
+        "contact_id": "3f58af86-b4d9-4ac9-950c-2e4cdd94d5be",
         "destination": {
           "load_type": "full_load"
         }

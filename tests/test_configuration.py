@@ -22,9 +22,9 @@ class TestConfiguration(unittest.TestCase):
         self.assertEqual(config.xero_tenant_ids, "")
         self.assertEqual(config.reports[0].destination.load_type, "full_load")
         # All optional params should have default empty values
-        self.assertEqual(config.reports[0].fromDate, "")
-        self.assertEqual(config.reports[0].toDate, "")
-        self.assertIsNone(config.reports[0].periods)
+        self.assertEqual(config.reports[0].from_date, "")
+        self.assertEqual(config.reports[0].to_date, "")
+        self.assertEqual(config.reports[0].periods, 0)
 
     def test_configuration_with_string_parameters(self):
         """Test configuration with string report parameters"""
@@ -32,15 +32,15 @@ class TestConfiguration(unittest.TestCase):
             reports=[
                 {
                     "report_type": "ProfitAndLoss",
-                    "fromDate": "2024-01-01",
-                    "toDate": "2024-01-31",
+                    "from_date": "2024-01-01",
+                    "to_date": "2024-01-31",
                     "destination": {"load_type": "full_load"},
                 }
             ],
         )
         self.assertEqual(config.reports[0].report_type, "ProfitAndLoss")
-        self.assertEqual(config.reports[0].fromDate, "2024-01-01")
-        self.assertEqual(config.reports[0].toDate, "2024-01-31")
+        self.assertEqual(config.reports[0].from_date, "2024-01-01")
+        self.assertEqual(config.reports[0].to_date, "2024-01-31")
 
     def test_configuration_with_tenant_ids(self):
         """Test configuration with xero_tenant_ids"""
@@ -106,16 +106,16 @@ class TestConfiguration(unittest.TestCase):
             reports=[
                 {
                     "report_type": "ProfitAndLoss",
-                    "standardLayout": True,
-                    "paymentsOnly": False,
+                    "standard_layout": True,
+                    "payments_only": False,
                     "destination": {"load_type": "full_load"},
                 }
             ],
         )
-        self.assertTrue(config.reports[0].standardLayout)
-        self.assertFalse(config.reports[0].paymentsOnly)
-        self.assertIsInstance(config.reports[0].standardLayout, bool)
-        self.assertIsInstance(config.reports[0].paymentsOnly, bool)
+        self.assertTrue(config.reports[0].standard_layout)
+        self.assertFalse(config.reports[0].payments_only)
+        self.assertIsInstance(config.reports[0].standard_layout, bool)
+        self.assertIsInstance(config.reports[0].payments_only, bool)
 
     def test_configuration_with_integer_parameters(self):
         """Test configuration with integer parameter values"""
@@ -139,14 +139,14 @@ class TestConfiguration(unittest.TestCase):
                     "report_type": "BudgetSummary",
                     "date": "2024-01-01",
                     "periods": 12,
-                    "standardLayout": True,
+                    "standard_layout": True,
                     "destination": {"load_type": "full_load"},
                 }
             ],
         )
         self.assertIsInstance(config.reports[0].date, str)
         self.assertIsInstance(config.reports[0].periods, int)
-        self.assertIsInstance(config.reports[0].standardLayout, bool)
+        self.assertIsInstance(config.reports[0].standard_layout, bool)
 
     def test_configuration_filters_empty_strings(self):
         """Test that empty string parameters are stored"""
@@ -155,15 +155,15 @@ class TestConfiguration(unittest.TestCase):
                 {
                     "report_type": "AgedReceivablesByContact",
                     "date": "2024-01-01",
-                    "fromDate": "",
-                    "toDate": "",
+                    "from_date": "",
+                    "to_date": "",
                     "destination": {"load_type": "full_load"},
                 }
             ],
         )
         self.assertEqual(config.reports[0].date, "2024-01-01")
-        self.assertEqual(config.reports[0].fromDate, "")
-        self.assertEqual(config.reports[0].toDate, "")
+        self.assertEqual(config.reports[0].from_date, "")
+        self.assertEqual(config.reports[0].to_date, "")
 
     def test_configuration_filters_none_values(self):
         """Test that None parameter values use defaults"""
@@ -171,14 +171,14 @@ class TestConfiguration(unittest.TestCase):
             reports=[
                 {
                     "report_type": "BankSummary",
-                    "fromDate": "2024-01-01",
+                    "from_date": "2024-01-01",
                     "destination": {"load_type": "full_load"},
                 }
             ],
         )
-        self.assertEqual(config.reports[0].fromDate, "2024-01-01")
+        self.assertEqual(config.reports[0].from_date, "2024-01-01")
         # toDate defaults to empty string when not provided
-        self.assertEqual(config.reports[0].toDate, "")
+        self.assertEqual(config.reports[0].to_date, "")
 
     def test_configuration_all_fields(self):
         """Test configuration with all fields populated"""
@@ -203,7 +203,7 @@ class TestConfiguration(unittest.TestCase):
             reports=[
                 {
                     "report_type": "ProfitAndLoss",
-                    "fromDate": "2024-01-01",
+                    "from_date": "2024-01-01",
                     "destination": {"load_type": "full_load"},
                 },
                 {
@@ -228,8 +228,8 @@ class TestConfiguration(unittest.TestCase):
             reports=[
                 {
                     "report_type": "ProfitAndLoss",
-                    "fromDate": "2024-01-01",
-                    "toDate": "2024-03-31",
+                    "from_date": "2024-01-01",
+                    "to_date": "2024-03-31",
                     "destination": {
                         "load_type": "full_load",
                         "output_table_name": "ProfitAndLoss_Q1",
@@ -241,8 +241,8 @@ class TestConfiguration(unittest.TestCase):
                 },
                 {
                     "report_type": "ProfitAndLoss",
-                    "fromDate": "2024-04-01",
-                    "toDate": "2024-06-30",
+                    "from_date": "2024-04-01",
+                    "to_date": "2024-06-30",
                     "destination": {
                         "load_type": "full_load",
                         "output_table_name": "ProfitAndLoss_Q2",
@@ -293,7 +293,7 @@ class TestConfiguration(unittest.TestCase):
             reports=[
                 {
                     "report_type": "ProfitAndLoss",
-                    "fromDate": "2024-01-01",
+                    "from_date": "2024-01-01",
                     "destination": {"load_type": "incremental_load"},
                 }
             ],
@@ -301,7 +301,7 @@ class TestConfiguration(unittest.TestCase):
         self.assertEqual(config.reports[0].report_type, "ProfitAndLoss")
         self.assertEqual(config.reports[0].destination.load_type, "incremental_load")
         self.assertEqual(config.xero_tenant_ids, "12345678-1234-1234-1234-123456789012")
-        self.assertEqual(config.reports[0].fromDate, "2024-01-01")
+        self.assertEqual(config.reports[0].from_date, "2024-01-01")
 
     def test_configuration_report_with_required_parameter(self):
         """Test report types with required parameters"""
@@ -310,12 +310,12 @@ class TestConfiguration(unittest.TestCase):
             reports=[
                 {
                     "report_type": "TenNinetyNine",
-                    "reportYear": "2024",
+                    "report_year": "2024",
                     "destination": {"load_type": "full_load"},
                 }
             ],
         )
-        self.assertEqual(config.reports[0].reportYear, "2024")
+        self.assertEqual(config.reports[0].report_year, "2024")
 
     def test_configuration_profit_and_loss_with_all_parameters(self):
         """Test ProfitAndLoss with comprehensive parameters"""
@@ -323,27 +323,27 @@ class TestConfiguration(unittest.TestCase):
             reports=[
                 {
                     "report_type": "ProfitAndLoss",
-                    "fromDate": "2024-01-01",
-                    "toDate": "2024-12-31",
+                    "from_date": "2024-01-01",
+                    "to_date": "2024-12-31",
                     "periods": 12,
                     "timeframe": "MONTH",
-                    "trackingCategoryID": "cat-1",
-                    "trackingOptionID": "opt-1",
-                    "standardLayout": True,
-                    "paymentsOnly": False,
+                    "tracking_category_id": "cat-1",
+                    "tracking_option_id": "opt-1",
+                    "standard_layout": True,
+                    "payments_only": False,
                     "destination": {"load_type": "full_load"},
                 }
             ],
         )
         report = config.reports[0]
-        self.assertEqual(report.fromDate, "2024-01-01")
-        self.assertEqual(report.toDate, "2024-12-31")
+        self.assertEqual(report.from_date, "2024-01-01")
+        self.assertEqual(report.to_date, "2024-12-31")
         self.assertEqual(report.periods, 12)
         self.assertEqual(report.timeframe, "MONTH")
-        self.assertEqual(report.trackingCategoryID, "cat-1")
-        self.assertEqual(report.trackingOptionID, "opt-1")
-        self.assertTrue(report.standardLayout)
-        self.assertFalse(report.paymentsOnly)
+        self.assertEqual(report.tracking_category_id, "cat-1")
+        self.assertEqual(report.tracking_option_id, "opt-1")
+        self.assertTrue(report.standard_layout)
+        self.assertFalse(report.payments_only)
 
     def test_configuration_destination_load_type(self):
         """Test configuration destination load type"""

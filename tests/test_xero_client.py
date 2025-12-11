@@ -102,7 +102,7 @@ class TestXeroClient(unittest.TestCase):
     def test_get_report_success(self):
         """Test successful report retrieval"""
         report_type = "ProfitAndLoss"
-        parameters = {"fromDate": "2024-01-01", "toDate": "2024-01-31"}
+        parameters = {"from_date": "2024-01-01", "to_date": "2024-01-31"}
 
         mock_response = {
             "Reports": [
@@ -140,6 +140,7 @@ class TestXeroClient(unittest.TestCase):
     def test_get_report_with_parameters(self):
         """Test get_report includes query parameters"""
         report_type = "BalanceSheet"
+        # XeroClient expects camelCase parameters (as converted by component._extract_report_params)
         parameters = {
             "date": "2024-12-31",
             "trackingOptionID": "123",
