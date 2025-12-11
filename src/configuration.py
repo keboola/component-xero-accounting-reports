@@ -13,7 +13,7 @@ class ReportConfig(BaseModel):
     """Configuration for a single report type."""
 
     report_type: str
-    destination: Destination = Field(default_factory=lambda: Destination())
+    destination: Destination = Field(default_factory=Destination)
 
     # Report parameters - all optional with empty defaults
     reportYear: str = ""
@@ -21,14 +21,14 @@ class ReportConfig(BaseModel):
     fromDate: str = ""
     toDate: str = ""
     contactID: str = ""
-    periods: int | None = None
+    periods: int = 0
     timeframe: str = ""
     trackingOptionID: str = ""
     trackingCategoryID: str = ""
     trackingOptionID2: str = ""
     trackingCategoryID2: str = ""
-    standardLayout: bool | None = None
-    paymentsOnly: bool | None = None
+    standardLayout: bool = False
+    paymentsOnly: bool = False
     reportID: str = ""
 
 
