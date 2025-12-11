@@ -45,9 +45,6 @@ Use natural language for dates:
 - `start of month`, `end of month`
 - Or absolute dates: `2024-01-31`
 
-### Custom Parameters
-Add any additional parameters not listed in the standard parameters table.
-
 ## Development
 
 Build and run locally:

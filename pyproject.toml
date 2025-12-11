@@ -2,9 +2,8 @@
 name = "xero-accounting-reports"
 dynamic = ["version"]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = "~=3.13.0"
 dependencies = [
-    "flake8>=7.2.0",
     "freezegun>=1.5.1",
     "keboola-component>=1.6.10",
     "keboola-http-client>=1.0.1",
@@ -16,23 +15,8 @@ dependencies = [
     "pytest"
 ]
 
-[tool.black]
-line-length = 120
-exclude = '''
-/(
-    \.git
-  | \.venv
-  | venv
-  | env
-  | build
-  | dist
-  | data
-)/
-'''
-
 [dependency-groups]
 dev = [
-    "black>=25.9.0",
     "flake8>=7.3.0",
     "ruff>=0.13.3",
 ]
