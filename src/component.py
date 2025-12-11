@@ -2,6 +2,7 @@ import csv
 import json
 import logging
 from collections import OrderedDict
+from dataclasses import dataclass
 from typing import Any
 
 from keboola.component.base import ComponentBase, sync_action
@@ -18,33 +19,62 @@ from xero_client import XeroClient
 KEY_STATE_OAUTH_TOKEN_DICT = "#oauth_token_dict"
 DATE_FIELDS = ["fromDate", "toDate", "date"]
 TIMEFRAME_MAP = {"MONTH": 1, "QUARTER": 3, "YEAR": 12}
-NOT_NULLABLE_COLUMNS = ["xero_tenant_id", "row_id", "row_type", "column_name"]
-CSV_FIELDNAMES = [
-    "xero_tenant_id",
-    "row_id",
-    "row_type",
-    "column_index",
-    "column_name",
-    "value",
-    "others",
-    "extracted_at",
+
+# Mapping from Python snake_case field names to Xero API camelCase parameter names
+FIELD_NAME_TO_API_PARAM = {
+    "report_year": "reportYear",
+    "from_date": "fromDate",
+    "to_date": "toDate",
+    "contact_id": "contactID",
+    "tracking_option_id": "trackingOptionID",
+    "tracking_category_id": "trackingCategoryID",
+    "tracking_option_id_2": "trackingOptionID2",
+    "tracking_category_id_2": "trackingCategoryID2",
+    "standard_layout": "standardLayout",
+    "payments_only": "paymentsOnly",
+    "report_id": "reportID",
+    # Fields that are already in the correct format
+    "date": "date",
+    "periods": "periods",
+    "timeframe": "timeframe",
+}
+
+
+@dataclass
+class ColumnMetadata:
+    """Metadata for output table columns."""
+
+    name: str
+    dtype: str
+    nullable: bool
+    description: str
+
+
+# Output table column definitions - single source of truth
+COLUMNS = [
+    ColumnMetadata(name="xero_tenant_id", dtype="STRING", nullable=False, description="Xero tenant identifier"),
+    ColumnMetadata(
+        name="row_id", dtype="INTEGER", nullable=False, description="Unique row identifier within the report"
+    ),
+    ColumnMetadata(name="row_type", dtype="STRING", nullable=False, description="Type of row (Row, SummaryRow, etc.)"),
+    ColumnMetadata(name="column_index", dtype="INTEGER", nullable=True, description="Zero-based column index"),
+    ColumnMetadata(
+        name="column_name", dtype="STRING", nullable=False, description="Name of the column from report header"
+    ),
+    ColumnMetadata(name="value", dtype="STRING", nullable=True, description="Cell value from the report"),
+    ColumnMetadata(
+        name="others",
+        dtype="STRING",
+        nullable=True,
+        description="JSON string containing additional row and cell attributes",
+    ),
+    ColumnMetadata(
+        name="extracted_at", dtype="TIMESTAMP", nullable=True, description="Timestamp when the data was extracted (UTC)"
+    ),
 ]
-REPORT_PARAM_FIELDS = [
-    "reportYear",
-    "date",
-    "fromDate",
-    "toDate",
-    "contactID",
-    "periods",
-    "timeframe",
-    "trackingOptionID",
-    "trackingCategoryID",
-    "trackingOptionID2",
-    "trackingCategoryID2",
-    "standardLayout",
-    "paymentsOnly",
-    "reportID",
-]
+
+# CSV fieldnames derived from COLUMNS
+CSV_FIELDNAMES = [col.name for col in COLUMNS]
 
 
 class Component(ComponentBase):
@@ -53,7 +83,7 @@ class Component(ComponentBase):
         super().__init__()
         self.config = Configuration(**self.configuration.parameters)
         self.new_state = {}
-        self._init_client()
+        self.client = self._init_client()
 
     def run(self) -> None:
         """Main execution method - fetch and process Xero reports."""
@@ -74,24 +104,15 @@ class Component(ComponentBase):
         for report_config in self.config.reports:
             logging.info(f"Processing report: {report_config.report_type}")
 
-            # Extract non-empty report parameters from this report configuration
-            params = {}
-            for field in REPORT_PARAM_FIELDS:
-                value = getattr(report_config, field)
-                # Skip empty strings and None values
-                if value == "" or value is None:
-                    continue
-                # Convert to string format for API calls
-                if isinstance(value, bool):
-                    params[field] = "true" if value else "false"
-                elif isinstance(value, int):
-                    params[field] = str(value)
-                else:
-                    params[field] = value
-
+            # Extract and parse report parameters
+            params = self._extract_report_params(report_config)
             parsed_params = self._parse_date_parameters(params, report_config.report_type)
 
             # Collect data for this report across all tenants
+            # Note: Data is accumulated in memory before writing. This is acceptable because
+            # Xero report data is typically small (< 10MB even for large organizations), and
+            # this approach simplifies the code. If OOM becomes an issue in practice, this
+            # could be refactored to write incrementally to the CSV file.
             all_data = []
             for tenant_id in tenant_ids:
                 try:
@@ -118,18 +139,22 @@ class Component(ComponentBase):
                 + "\n".join(f"  - {err}" for err in errors)
             )
 
-    def _init_client(self) -> None:
-        """Initialize Xero client from state or OAuth credentials."""
+    def _init_client(self) -> XeroClient:
+        """Initialize Xero client from state or OAuth credentials.
+
+        Returns:
+            Initialized XeroClient instance
+        """
         logging.debug("Initializing Xero client")
         state = self.get_state_file()
         state_authorization_params = state.get(KEY_STATE_OAUTH_TOKEN_DICT)
 
         if self._state_contains_authorization_parameters(state_authorization_params):
             logging.debug("Initializing client from state")
-            self._init_client_from_state(state_authorization_params)
+            return self._init_client_from_state(state_authorization_params)
         else:
             logging.debug("Initializing client from OAuth credentials")
-            self._init_client_from_config()
+            return self._init_client_from_config()
 
     def _state_contains_authorization_parameters(self, state_authorization_params: Any) -> bool:
         """Check if state contains valid OAuth authorization parameters."""
@@ -150,8 +175,12 @@ class Component(ComponentBase):
         else:
             raise UserException("Invalid state format, please contact support")
 
-    def _init_client_from_state(self, state_authorization_params: Any) -> None:
-        """Initialize client using OAuth credentials from state."""
+    def _init_client_from_state(self, state_authorization_params: Any) -> XeroClient:
+        """Initialize client using OAuth credentials from state.
+
+        Returns:
+            Initialized XeroClient instance
+        """
         oauth_data = self._load_state_oauth(state_authorization_params)
 
         # Get client credentials from config for token refresh
@@ -166,7 +195,7 @@ class Component(ComponentBase):
             client_secret = None
             logging.warning("Could not retrieve client_id/client_secret for token refresh")
 
-        self.client = XeroClient(
+        return XeroClient(
             access_token=oauth_data["access_token"],
             refresh_token=oauth_data.get("refresh_token"),
             client_id=client_id,
@@ -174,8 +203,12 @@ class Component(ComponentBase):
             oauth_token_dict=oauth_data,
         )
 
-    def _init_client_from_config(self) -> None:
-        """Initialize client using OAuth credentials from configuration."""
+    def _init_client_from_config(self) -> XeroClient:
+        """Initialize client using OAuth credentials from configuration.
+
+        Returns:
+            Initialized XeroClient instance
+        """
         try:
             oauth_creds = self.configuration.oauth_credentials
             access_token = oauth_creds.data.get("access_token")
@@ -195,7 +228,7 @@ class Component(ComponentBase):
                 "token_type": oauth_creds.data.get("token_type", "Bearer"),
             }
 
-            self.client = XeroClient(
+            return XeroClient(
                 access_token=access_token,
                 refresh_token=refresh_token,
                 client_id=client_id,
@@ -212,6 +245,50 @@ class Component(ComponentBase):
         self.new_state[KEY_STATE_OAUTH_TOKEN_DICT] = json.dumps(self.client.get_oauth_token_dict())
         self.write_state_file(self.new_state)
         logging.info("Token refreshed and saved to state")
+
+    def _extract_report_params(self, report_config: ReportConfig) -> dict[str, str]:
+        """Extract non-empty report parameters from configuration.
+
+        Iterates through all ReportConfig fields, excluding report_type and destination,
+        to automatically extract parameters without maintaining a separate constant.
+        Converts snake_case field names to camelCase for Xero API compatibility.
+
+        Args:
+            report_config: Report configuration containing parameter values
+
+        Returns:
+            Dictionary of parameter names (in camelCase) to string values for API calls
+        """
+        params = {}
+        # Fields to exclude from parameter extraction
+        excluded_fields = {"report_type", "destination"}
+
+        for field_name in report_config.__class__.model_fields:
+            if field_name in excluded_fields:
+                continue
+
+            value = getattr(report_config, field_name)
+            # Skip empty strings and None values
+            if value == "" or value is None:
+                continue
+            # Skip default integer/bool values (0 or False)
+            if isinstance(value, int) and value == 0:
+                continue
+            if isinstance(value, bool) and value is False:
+                continue
+
+            # Convert snake_case field name to camelCase API parameter name
+            api_param_name = FIELD_NAME_TO_API_PARAM.get(field_name, field_name)
+
+            # Convert to string format for API calls
+            if isinstance(value, bool):
+                params[api_param_name] = "true" if value else "false"
+            elif isinstance(value, int):
+                params[api_param_name] = str(value)
+            else:
+                params[api_param_name] = value
+
+        return params
 
     def _process_report_data(
         self, report_data: dict[str, Any], report_type: str, tenant_id: str
@@ -254,37 +331,36 @@ class Component(ComponentBase):
         """
         schema = OrderedDict()
 
-        # Define data type mappings based on column characteristics
-        column_type_map = {
-            "row_id": SupportedDataTypes.INTEGER,
-            "column_index": SupportedDataTypes.INTEGER,
-            "extracted_at": SupportedDataTypes.TIMESTAMP,
-        }
+        # Create lookup dict from COLUMNS for efficient access
+        columns_by_name = {col.name: col for col in COLUMNS}
 
-        # Column descriptions
-        column_descriptions = {
-            "xero_tenant_id": "Xero tenant identifier",
-            "row_id": "Unique row identifier within the report",
-            "row_type": "Type of row (Row, SummaryRow, etc.)",
-            "column_index": "Zero-based column index",
-            "column_name": "Name of the column from report header",
-            "value": "Cell value from the report",
-            "others": "JSON string containing additional row and cell attributes",
-            "extracted_at": "Timestamp when the data was extracted (UTC)",
+        # Map string dtype to SupportedDataTypes enum
+        dtype_map = {
+            "STRING": SupportedDataTypes.STRING,
+            "INTEGER": SupportedDataTypes.INTEGER,
+            "TIMESTAMP": SupportedDataTypes.TIMESTAMP,
         }
 
         # Use user-configured primary keys
         user_primary_keys = primary_keys if primary_keys else []
 
         # Build schema dynamically from fieldnames
-        for column in fieldnames:
-            dtype = column_type_map.get(column, SupportedDataTypes.STRING)
-            description = column_descriptions.get(column)
-            # Use user-configured PKs if provided, otherwise no PKs for full load
-            is_primary_key = column in user_primary_keys
-            nullable = column not in NOT_NULLABLE_COLUMNS
+        for column_name in fieldnames:
+            col_metadata = columns_by_name.get(column_name)
+            if col_metadata:
+                dtype = dtype_map.get(col_metadata.dtype, SupportedDataTypes.STRING)
+                description = col_metadata.description
+                nullable = col_metadata.nullable
+            else:
+                # Fallback for unknown columns
+                dtype = SupportedDataTypes.STRING
+                description = None
+                nullable = True
 
-            schema[column] = ColumnDefinition(
+            # Use user-configured PKs if provided, otherwise no PKs for full load
+            is_primary_key = column_name in user_primary_keys
+
+            schema[column_name] = ColumnDefinition(
                 data_types=BaseType(dtype=dtype),
                 nullable=nullable,
                 primary_key=is_primary_key,
@@ -463,25 +539,12 @@ class Component(ComponentBase):
         Returns:
             list of SelectElement objects for column selection in UI
         """
-        # All Xero reports produce the same schema with these columns
-        # Return static list since schema is consistent across all reports
-        columns = [
-            {"name": "xero_tenant_id", "dtype": "STRING"},
-            {"name": "row_id", "dtype": "INTEGER"},
-            {"name": "row_type", "dtype": "STRING"},
-            {"name": "column_index", "dtype": "INTEGER"},
-            {"name": "column_name", "dtype": "STRING"},
-            {"name": "value", "dtype": "STRING"},
-            {"name": "others", "dtype": "STRING"},
-            {"name": "extracted_at", "dtype": "TIMESTAMP"},
-        ]
-
         return [
             SelectElement(
-                value=col["name"],
-                label=f"{col['name']} ({col['dtype']})",
+                value=col.name,
+                label=f"{col.name} ({col.dtype.lower()})",
             )
-            for col in columns
+            for col in COLUMNS
         ]
 
 

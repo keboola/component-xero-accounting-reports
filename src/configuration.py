@@ -16,20 +16,21 @@ class ReportConfig(BaseModel):
     destination: Destination = Field(default_factory=Destination)
 
     # Report parameters - all optional with empty defaults
-    reportYear: str = ""
+    # Using consistent snake_case naming convention
+    report_year: str = ""
     date: str = ""
-    fromDate: str = ""
-    toDate: str = ""
-    contactID: str = ""
+    from_date: str = ""
+    to_date: str = ""
+    contact_id: str = ""
     periods: int = 0
     timeframe: str = ""
-    trackingOptionID: str = ""
-    trackingCategoryID: str = ""
-    trackingOptionID2: str = ""
-    trackingCategoryID2: str = ""
-    standardLayout: bool = False
-    paymentsOnly: bool = False
-    reportID: str = ""
+    tracking_option_id: str = ""
+    tracking_category_id: str = ""
+    tracking_option_id_2: str = ""
+    tracking_category_id_2: str = ""
+    standard_layout: bool = False
+    payments_only: bool = False
+    report_id: str = ""
 
 
 class Configuration(BaseModel):

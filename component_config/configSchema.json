@@ -52,7 +52,7 @@
             ],
             "propertyOrder": 1
           },
-          "reportYear": {
+          "report_year": {
             "type": "string",
             "title": "Report Year",
             "description": "Year for 1099 report (required)",
@@ -81,7 +81,7 @@
             },
             "propertyOrder": 3
           },
-          "fromDate": {
+          "from_date": {
             "type": "string",
             "title": "From Date",
             "description": "Start date for report period (use dynamic dates like 'yesterday', '3 months ago')",
@@ -97,7 +97,7 @@
             },
             "propertyOrder": 4
           },
-          "toDate": {
+          "to_date": {
             "type": "string",
             "title": "To Date",
             "description": "End date for report period",
@@ -113,7 +113,7 @@
             },
             "propertyOrder": 5
           },
-          "contactID": {
+          "contact_id": {
             "type": "string",
             "title": "Contact ID",
             "description": "Filter by specific contact",
@@ -158,7 +158,7 @@
             },
             "propertyOrder": 8
           },
-          "trackingOptionID": {
+          "tracking_option_id": {
             "type": "string",
             "title": "Tracking Option ID",
             "description": "Filter by tracking option",
@@ -169,7 +169,7 @@
             },
             "propertyOrder": 9
           },
-          "trackingCategoryID": {
+          "tracking_category_id": {
             "type": "string",
             "title": "Tracking Category ID",
             "description": "First tracking category",
@@ -180,7 +180,7 @@
             },
             "propertyOrder": 10
           },
-          "trackingCategoryID2": {
+          "tracking_category_id_2": {
             "type": "string",
             "title": "Tracking Category ID 2",
             "description": "Second tracking category",
@@ -191,7 +191,7 @@
             },
             "propertyOrder": 11
           },
-          "trackingOptionID2": {
+          "tracking_option_id_2": {
             "type": "string",
             "title": "Tracking Option ID 2",
             "description": "Second tracking option",
@@ -202,7 +202,7 @@
             },
             "propertyOrder": 12
           },
-          "standardLayout": {
+          "standard_layout": {
             "type": "boolean",
             "title": "Standard Layout",
             "description": "Use standard report layout",
@@ -216,7 +216,7 @@
             },
             "propertyOrder": 13
           },
-          "paymentsOnly": {
+          "payments_only": {
             "type": "boolean",
             "title": "Payments Only",
             "description": "Show payments only",
@@ -231,7 +231,7 @@
             },
             "propertyOrder": 14
           },
-          "reportID": {
+          "report_id": {
             "type": "string",
             "title": "Report ID",
             "description": "Report ID (required)",
