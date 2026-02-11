@@ -52,6 +52,17 @@ wheels = [
 ]
 
 [[package]]
+name = "datadirtest"
+version = "1.9.0"
+source = { git = "https://github.com/keboola/datadirtest.git?rev=feature%2Fvcr-testing#b80e34d8602d15d2585a5c4edc19054b3e689364" }
+
+[package.optional-dependencies]
+vcr = [
+    { name = "freezegun" },
+    { name = "vcrpy" },
+]
+
+[[package]]
 name = "dateparser"
 version = "1.2.1"
 source = { registry = "https://pypi.org/simple" }
@@ -168,15 +179,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/e7/ff/0ffefdcac38932a54d2b5eed4e0ba8a408f215002cd178ad1df0f2806ff8/mccabe-0.7.0.tar.gz", hash = "sha256:348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325", size = 9658, upload-time = "2022-01-24T01:14:51.113Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/27/1a/1f68f9ba0c207934b35b86a8ca3aad8395a3d6dd7921c0686e23853ff5a9/mccabe-0.7.0-py2.py3-none-any.whl", hash = "sha256:6c2d30ab6be0e4a46919781807b4f0d834ebdd6c6e3dca0bda5a15f863427b6e", size = 7350, upload-time = "2022-01-24T01:14:49.62Z" },
-]
-
-[[package]]
-name = "mock"
-version = "5.2.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/07/8c/14c2ae915e5f9dca5a22edd68b35be94400719ccfa068a03e0fb63d0f6f6/mock-5.2.0.tar.gz", hash = "sha256:4e460e818629b4b173f32d08bf30d3af8123afbb8e04bb5707a1fd4799e503f0", size = 92796, upload-time = "2025-03-03T12:31:42.911Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/bd/d9/617e6af809bf3a1d468e0d58c3997b1dc219a9a9202e650d30c2fc85d481/mock-5.2.0-py3-none-any.whl", hash = "sha256:7ba87f72ca0e915175596069dbbcc7c75af7b5e9b9bc107ad6349ede0819982f", size = 31617, upload-time = "2025-03-03T12:31:41.518Z" },
 ]
 
 [[package]]
@@ -470,6 +472,19 @@ wheels = [
 ]
 
 [[package]]
+name = "vcrpy"
+version = "8.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pyyaml" },
+    { name = "wrapt" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b3/07/bcfd5ebd7cb308026ab78a353e091bd699593358be49197d39d004e5ad83/vcrpy-8.1.1.tar.gz", hash = "sha256:58e3053e33b423f3594031cb758c3f4d1df931307f1e67928e30cf352df7709f", size = 85770, upload-time = "2026-01-04T19:22:03.886Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3a/d7/f79b05a5d728f8786876a7d75dfb0c5cae27e428081b2d60152fb52f155f/vcrpy-8.1.1-py3-none-any.whl", hash = "sha256:2d16f31ad56493efb6165182dd99767207031b0da3f68b18f975545ede8ac4b9", size = 42445, upload-time = "2026-01-04T19:22:02.532Z" },
+]
+
+[[package]]
 name = "wrapt"
 version = "1.17.2"
 source = { registry = "https://pypi.org/simple" }
@@ -504,15 +519,13 @@ wheels = [
 name = "xero-accounting-reports"
 source = { virtual = "." }
 dependencies = [
-    { name = "freezegun" },
+    { name = "datadirtest", extra = ["vcr"] },
     { name = "keboola-component" },
     { name = "keboola-http-client" },
     { name = "keboola-utils" },
-    { name = "mock" },
     { name = "pydantic" },
     { name = "pytest" },
     { name = "responses" },
-    { name = "ruff" },
 ]
 
 [package.dev-dependencies]
@@ -523,15 +536,13 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "freezegun", specifier = ">=1.5.1" },
+    { name = "datadirtest", extras = ["vcr"], git = "https://github.com/keboola/datadirtest.git?rev=feature%2Fvcr-testing" },
     { name = "keboola-component", specifier = ">=1.6.10" },
     { name = "keboola-http-client", specifier = ">=1.0.1" },
     { name = "keboola-utils", specifier = ">=1.1.0" },
-    { name = "mock", specifier = ">=5.2.0" },
     { name = "pydantic", specifier = ">=2.11.3" },
     { name = "pytest" },
     { name = "responses", specifier = ">=0.25.0" },
-    { name = "ruff", specifier = ">=0.11.5" },
 ]
 
 [package.metadata.requires-dev]
