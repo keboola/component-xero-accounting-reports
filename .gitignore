@@ -13,3 +13,8 @@ venv
 # Ignore test output directories (these get regenerated during test runs)
 tests/functional/*/source/data/out/
 settings.json
+
+# VCR secrets - never commit real credentials
+secrets.json
+configs.json
+tests/functional/*/source/data/config.secrets.json

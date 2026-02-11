@@ -4,14 +4,13 @@ dynamic = ["version"]
 readme = "README.md"
 requires-python = "~=3.13.0"
 dependencies = [
-    "freezegun>=1.5.1",
+    "datadirtest[vcr] @ git+https://github.com/keboola/datadirtest.git@feature/vcr-testing",
     "keboola-component>=1.6.10",
     "keboola-http-client>=1.0.1",
     "keboola-utils>=1.1.0",
-    "mock>=5.2.0",
     "pydantic>=2.11.3",
+    "pytest",
     "responses>=0.25.0",
-    "pytest"
 ]
 
 [dependency-groups]
