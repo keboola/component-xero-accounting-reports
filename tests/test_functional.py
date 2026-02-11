@@ -1,17 +1,21 @@
-import unittest
 from pathlib import Path
 
-from datadirtest.vcr import VCRDataDirTester
+import pytest
+from datadirtest.vcr import get_test_cases, VCRTestDataDir
+
+FUNCTIONAL_DIR = str(Path(__file__).parent / "functional")
+COMPONENT_SCRIPT = str(Path(__file__).parent.parent / "src" / "component.py")
 
 
-class TestComponent(unittest.TestCase):
-    def test_functional(self):
-        functional_tests = VCRDataDirTester(
-            data_dir=str(Path(__file__).parent / "functional"),
-            component_script=str(Path(__file__).parent.parent / "src" / "component.py"),
-        )
-        functional_tests.run()
-
-
-if __name__ == "__main__":
-    unittest.main()
+@pytest.mark.parametrize("test_name", get_test_cases(FUNCTIONAL_DIR))
+def test_functional(test_name):
+    test = VCRTestDataDir(
+        data_dir=str(FUNCTIONAL_DIR / test_name),
+        component_script=COMPONENT_SCRIPT,
+        vcr_mode="replay",
+    )
+    test.setUp()
+    try:
+        test.compare_source_and_expected()
+    finally:
+        test.tearDown()
