@@ -1,0 +1,28 @@
+{
+  "files": {},
+  "hash_algorithm": "sha256",
+  "tables": {
+    "TrialBalance.csv": {
+      "columns": [
+        "xero_tenant_id",
+        "row_id",
+        "row_type",
+        "column_index",
+        "column_name",
+        "value",
+        "others",
+        "extracted_at"
+      ],
+      "hash": "sha256:4f542947b712fdbd8097ee96933daf2b3a7a43ad8df3de32688f29b2703f2463",
+      "row_count": 6,
+      "size_bytes": 551
+    },
+    "TrialBalance.csv.manifest": {
+      "columns": null,
+      "hash": "sha256:06b924f8524094ae594170eab400dc0d602790ffd26843fa4c85a176d5f0d5e4",
+      "row_count": null,
+      "size_bytes": 1736
+    }
+  },
+  "version": "1.0"
+}

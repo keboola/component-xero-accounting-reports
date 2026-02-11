@@ -78,7 +78,6 @@ CSV_FIELDNAMES = [col.name for col in COLUMNS]
 
 
 class Component(ComponentBase):
-
     def __init__(self):
         super().__init__()
         self.config = Configuration(**self.configuration.parameters)

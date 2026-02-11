@@ -1,0 +1,4 @@
+xero_tenant_id,row_id,row_type,column_index,column_name,value,others,extracted_at
+e7e14df4-baf9-49ea-8964-9bf4abd97599,0,Row,0,,Net Assets,,2025-01-01T12:00:00+00:00
+e7e14df4-baf9-49ea-8964-9bf4abd97599,0,Row,1,31 Jan 2025,0.00,,2025-01-01T12:00:00+00:00
+e7e14df4-baf9-49ea-8964-9bf4abd97599,0,Row,2,31 Jan 2024,0.00,,2025-01-01T12:00:00+00:00

@@ -1,0 +1,109 @@
+{
+  "_metadata": {
+    "datadirtest_version": "1.9.0",
+    "freeze_time": "2025-01-01T12:00:00",
+    "recorded_at": "2026-02-11T13:46:00.217414+00:00"
+  },
+  "interactions": [
+    {
+      "request": {
+        "body": "grant_type=refresh_token&refresh_token=REDACTED&client_id=REDACTED&client_secret=REDACTED",
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Content-Length": [
+            "188"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ]
+        },
+        "method": "POST",
+        "uri": "https://identity.xero.com/connect/token"
+      },
+      "response": {
+        "body": {
+          "string": "{\"id_token\": \"REDACTED\", \"access_token\": \"REDACTED\", \"expires_in\": 1800, \"token_type\": \"Bearer\", \"refresh_token\": \"REDACTED\", \"scope\": \"email profile openid accounting.contacts.read accounting.settings.read accounting.reports.read accounting.attachments.read payroll.settings.read payroll.employees.read payroll.payruns.read payroll.payslip.read payroll.timesheets.read projects.read files.read accounting.journals.read assets.read accounting.transactions.read accounting.budgets.read accounting.reports.tenninetynine.read offline_access\"}"
+        },
+        "headers": {
+          "Content-Length": [
+            "3534"
+          ],
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ]
+        },
+        "status": {
+          "code": 200,
+          "message": "OK"
+        }
+      }
+    },
+    {
+      "request": {
+        "body": null,
+        "headers": {
+          "Accept": [
+            "application/json"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "method": "GET",
+        "uri": "https://api.xero.com/connections"
+      },
+      "response": {
+        "body": {
+          "string": "[{\"id\": \"4152198e-3094-4850-9d5d-ed887884f4a7\", \"authEventId\": \"f5ff6ffe-c93b-406d-9a54-a56eed08e739\", \"tenantId\": \"e7e14df4-baf9-49ea-8964-9bf4abd97599\", \"tenantType\": \"ORGANISATION\", \"tenantName\": \"Dev\", \"createdDateUtc\": \"2026-02-11T12:09:59.4459400\", \"updatedDateUtc\": \"2026-02-11T12:09:59.4485720\"}]"
+        },
+        "headers": {
+          "Content-Length": [
+            "291"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": {
+          "code": 200,
+          "message": "OK"
+        }
+      }
+    },
+    {
+      "request": {
+        "body": null,
+        "headers": {
+          "Accept": [
+            "application/json"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "method": "GET",
+        "uri": "https://api.xero.com/api.xro/2.0/Reports/ExecutiveSummary?date=2025-01-01"
+      },
+      "response": {
+        "body": {
+          "string": "{\"Id\": \"998ca7d7-8fad-43b8-bd96-4095617e0676\", \"Status\": \"OK\", \"ProviderName\": \"KDS - ex-reports\", \"DateTimeUTC\": \"/Date(1770817559582)/\", \"Reports\": [{\"ReportID\": \"ExecutiveSummary\", \"ReportName\": \"Executive Summary\", \"ReportType\": \"ExecutiveSummary\", \"ReportTitles\": [\"Executive Summary\", \"Dev\", \"For the month of January 2025\"], \"ReportDate\": \"11 February 2026\", \"UpdatedDateUTC\": \"/Date(1770817559582)/\", \"Fields\": [], \"Rows\": [{\"RowType\": \"Header\", \"Cells\": [{\"Value\": \"\"}, {\"Value\": \"Jan 2025\"}, {\"Value\": \"Dec 2024\"}, {\"Value\": \"Variance\"}]}, {\"RowType\": \"Section\", \"Title\": \"Cash\", \"Rows\": [{\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Cash received\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Cash spent\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Cash surplus (deficit)\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Closing bank balance\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}]}, {\"RowType\": \"Section\", \"Title\": \"Profitability\", \"Rows\": [{\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Income\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Direct costs\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Gross profit (loss)\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Other Income\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Expenses\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Profit (loss)\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}]}, {\"RowType\": \"Section\", \"Title\": \"Balance Sheet\", \"Rows\": [{\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Debtors\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Creditors\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Net assets\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}]}, {\"RowType\": \"Section\", \"Title\": \"Income\", \"Rows\": [{\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Number of invoices issued\"}, {\"Value\": \"0\"}, {\"Value\": \"0\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Average value of invoices\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}]}, {\"RowType\": \"Section\", \"Title\": \"Performance\", \"Rows\": [{\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Gross profit margin\"}, {\"Value\": \"\"}, {\"Value\": \"\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Net profit margin\"}, {\"Value\": \"\"}, {\"Value\": \"\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Return on investment (p.a.)\"}, {\"Value\": \"\"}, {\"Value\": \"\"}, {\"Value\": \"0.0%\"}]}]}, {\"RowType\": \"Section\", \"Title\": \"Position\", \"Rows\": [{\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Average debtors days\"}, {\"Value\": \"0\"}, {\"Value\": \"0\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Average creditors days\"}, {\"Value\": \"0\"}, {\"Value\": \"0\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Short term cash forecast\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.00\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Current assets to liabilities\"}, {\"Value\": \"\"}, {\"Value\": \"\"}, {\"Value\": \"0.0%\"}]}, {\"RowType\": \"Row\", \"Cells\": [{\"Value\": \"Term assets to liabilities\"}, {\"Value\": \"\"}, {\"Value\": \"\"}, {\"Value\": \"0.0%\"}]}]}]}]}"
+        },
+        "headers": {
+          "Content-Length": [
+            "11143"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ]
+        },
+        "status": {
+          "code": 200,
+          "message": "OK"
+        }
+      }
+    }
+  ],
+  "version": 1
+}

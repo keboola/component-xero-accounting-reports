@@ -1,0 +1,86 @@
+{
+  "incremental": false,
+  "write_always": false,
+  "delimiter": ",",
+  "enclosure": "\"",
+  "manifest_type": "out",
+  "has_header": true,
+  "schema": [
+    {
+      "name": "xero_tenant_id",
+      "data_type": {
+        "base": {
+          "type": "STRING"
+        }
+      },
+      "description": "Xero tenant identifier"
+    },
+    {
+      "name": "row_id",
+      "data_type": {
+        "base": {
+          "type": "INTEGER"
+        }
+      },
+      "description": "Unique row identifier within the report"
+    },
+    {
+      "name": "row_type",
+      "data_type": {
+        "base": {
+          "type": "STRING"
+        }
+      },
+      "description": "Type of row (Row, SummaryRow, etc.)"
+    },
+    {
+      "name": "column_index",
+      "data_type": {
+        "base": {
+          "type": "INTEGER"
+        }
+      },
+      "nullable": true,
+      "description": "Zero-based column index"
+    },
+    {
+      "name": "column_name",
+      "data_type": {
+        "base": {
+          "type": "STRING"
+        }
+      },
+      "description": "Name of the column from report header"
+    },
+    {
+      "name": "value",
+      "data_type": {
+        "base": {
+          "type": "STRING"
+        }
+      },
+      "nullable": true,
+      "description": "Cell value from the report"
+    },
+    {
+      "name": "others",
+      "data_type": {
+        "base": {
+          "type": "STRING"
+        }
+      },
+      "nullable": true,
+      "description": "JSON string containing additional row and cell attributes"
+    },
+    {
+      "name": "extracted_at",
+      "data_type": {
+        "base": {
+          "type": "TIMESTAMP"
+        }
+      },
+      "nullable": true,
+      "description": "Timestamp when the data was extracted (UTC)"
+    }
+  ]
+}

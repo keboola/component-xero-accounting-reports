@@ -1,0 +1,28 @@
+{
+  "files": {},
+  "hash_algorithm": "sha256",
+  "tables": {
+    "BalanceSheet.csv": {
+      "columns": [
+        "xero_tenant_id",
+        "row_id",
+        "row_type",
+        "column_index",
+        "column_name",
+        "value",
+        "others",
+        "extracted_at"
+      ],
+      "hash": "sha256:a08e920f95ef672a1cfa925f74842f458985c564aa42f622cad0e0950838924f",
+      "row_count": 4,
+      "size_bytes": 348
+    },
+    "BalanceSheet.csv.manifest": {
+      "columns": null,
+      "hash": "sha256:06b924f8524094ae594170eab400dc0d602790ffd26843fa4c85a176d5f0d5e4",
+      "row_count": null,
+      "size_bytes": 1736
+    }
+  },
+  "version": "1.0"
+}

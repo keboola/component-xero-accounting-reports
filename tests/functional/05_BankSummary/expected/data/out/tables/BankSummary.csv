@@ -1,0 +1,6 @@
+xero_tenant_id,row_id,row_type,column_index,column_name,value,others,extracted_at
+e7e14df4-baf9-49ea-8964-9bf4abd97599,0,SummaryRow,0,Bank Accounts,Total,,2025-01-01T12:00:00+00:00
+e7e14df4-baf9-49ea-8964-9bf4abd97599,0,SummaryRow,1,Opening Balance,,,2025-01-01T12:00:00+00:00
+e7e14df4-baf9-49ea-8964-9bf4abd97599,0,SummaryRow,2,Cash Received,,,2025-01-01T12:00:00+00:00
+e7e14df4-baf9-49ea-8964-9bf4abd97599,0,SummaryRow,3,Cash Spent,,,2025-01-01T12:00:00+00:00
+e7e14df4-baf9-49ea-8964-9bf4abd97599,0,SummaryRow,4,Closing Balance,,,2025-01-01T12:00:00+00:00

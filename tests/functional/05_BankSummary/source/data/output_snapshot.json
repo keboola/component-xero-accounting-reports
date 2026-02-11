@@ -1,0 +1,28 @@
+{
+  "files": {},
+  "hash_algorithm": "sha256",
+  "tables": {
+    "BankSummary.csv": {
+      "columns": [
+        "xero_tenant_id",
+        "row_id",
+        "row_type",
+        "column_index",
+        "column_name",
+        "value",
+        "others",
+        "extracted_at"
+      ],
+      "hash": "sha256:341ef0491a4fa9c1565dd0060d070cf9be37ed94b9f9d31babfaaf878b845b7e",
+      "row_count": 6,
+      "size_bytes": 564
+    },
+    "BankSummary.csv.manifest": {
+      "columns": null,
+      "hash": "sha256:06b924f8524094ae594170eab400dc0d602790ffd26843fa4c85a176d5f0d5e4",
+      "row_count": null,
+      "size_bytes": 1736
+    }
+  },
+  "version": "1.0"
+}

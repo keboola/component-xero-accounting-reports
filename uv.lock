@@ -54,7 +54,7 @@ wheels = [
 [[package]]
 name = "datadirtest"
 version = "1.9.0"
-source = { git = "https://github.com/keboola/datadirtest.git?rev=feature%2Fvcr-testing#b80e34d8602d15d2585a5c4edc19054b3e689364" }
+source = { git = "https://github.com/keboola/datadirtest.git?rev=feature%2Fvcr-testing#9fe485058d71cfb4229bb2f990f0755aa37d404f" }
 
 [package.optional-dependencies]
 vcr = [
